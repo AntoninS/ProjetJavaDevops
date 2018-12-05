@@ -1,9 +1,9 @@
-package server;
+package Model.Server;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import common.Message;
+import Model.common.Message;
 
 public class Server {
 	
@@ -19,18 +19,18 @@ public class Server {
 		threadConnection.start();
 	}
 	
-	//annonce l'arrivée d'un nouveau client et l'ajoute à la liste des clients
+	//annonce l'arrivï¿½e d'un nouveau Controller.client et l'ajoute ï¿½ la liste des clients
 	public void addClient(ConnectedClient newClient)
 	{
 		for(ConnectedClient client : this.clients)
 		{
-			Message m = new Message("Server","Le client "+ newClient.getId() + " viens de se connecter!");
+			Message m = new Message("Server","Le Controller.client "+ newClient.getId() + " viens de se connecter!");
 			client.sendMessage(m);
 		}
 		this.clients.add(newClient);
 	}
 	
-	//Envoie un message aux clients sauf a celui dont l'id est spécifié
+	//Envoie un message aux clients sauf a celui dont l'id est spï¿½cifiï¿½
 	public void broadcastMessage(Message mess, int id)
 	{
 		for(ConnectedClient client : this.clients)
@@ -48,7 +48,7 @@ public class Server {
 		this.clients.remove(discClient);
 		for(ConnectedClient client : clients)
 		{
-			client.sendMessage(new Message("server","Le client " + discClient.getId() + " nous a quitté!"));
+			client.sendMessage(new Message("Controller/server","Le Controller.client " + discClient.getId() + " nous a quittï¿½!"));
 		}
 	}
 	

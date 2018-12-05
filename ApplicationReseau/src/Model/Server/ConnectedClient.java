@@ -1,11 +1,12 @@
-package server;
+package Model.Server;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import common.Message;
+import Model.Server.Server;
+import Model.common.Message;
 
 public class ConnectedClient implements Runnable{
 	
@@ -34,7 +35,7 @@ public class ConnectedClient implements Runnable{
 		
 	}
 
-	//réceptionne les messages du client
+	//rï¿½ceptionne les messages du Controller.client
 	@Override
 	public void run() 
 	{
@@ -66,7 +67,7 @@ public class ConnectedClient implements Runnable{
 		}
 	}
 	
-	//envoie le message au client en utlisant out
+	//envoie le message au Controller.client en utlisant out
 	public void sendMessage(Message m)
 	{
 		try {

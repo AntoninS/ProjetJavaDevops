@@ -1,4 +1,4 @@
-package client;
+package Model.Client;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -6,7 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import common.Message;
+import Model.common.Message;
 
 public class Client {
 	

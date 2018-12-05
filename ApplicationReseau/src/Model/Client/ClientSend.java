@@ -1,11 +1,11 @@
-package client;
+package Model.Client;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
 
-import common.Message;
+import Model.common.Message;
 
 public class ClientSend implements Runnable{
 
@@ -27,7 +27,7 @@ public class ClientSend implements Runnable{
 		{
 			System.out.print("Votre message >> ");
 			String m = sc.nextLine();
-			Message mess = new Message("client",m);
+			Message mess = new Message("Controller/client",m);
 			try {
 				this.out.writeObject(mess);
 				this.out.flush();

@@ -1,4 +1,4 @@
-package server;
+package Model.Server;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -23,18 +23,18 @@ public class Connection implements Runnable{
 	@Override
 	public void run() {
 		
-		//Attend les nouvelles connection et récupèe un socket quand un client se connecte
+		//Attend les nouvelles connection et rï¿½cupï¿½e un socket quand un Controller.client se connecte
 		while(true)
 		{
 			System.out.println("Attente de nouvelle co");
 			try {
-				//la méthode accepte est bloquante et va donc arreter l'exécution de l'application
+				//la mï¿½thode accepte est bloquante et va donc arreter l'exï¿½cution de l'application
 				Socket sockNewClient = this.serverSocket.accept();
-				//On créer un nouvel objet ConnectedClient
+				//On crï¿½er un nouvel objet ConnectedClient
 				ConnectedClient newClient = new ConnectedClient(this.server, sockNewClient);
-				//Et on ajoute au serveur ce nouveau client connecté
+				//Et on ajoute au serveur ce nouveau Controller.client connectï¿½
 				this.server.addClient(newClient);
-				//Et nous lançons un thread à partir de l'objet ConnectedClient créé
+				//Et nous lanï¿½ons un thread ï¿½ partir de l'objet ConnectedClient crï¿½ï¿½
 				Thread threadNewClient = new Thread(newClient);
 				threadNewClient.start();
 			} catch (IOException e) {

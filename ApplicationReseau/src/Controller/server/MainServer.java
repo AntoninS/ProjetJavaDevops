@@ -1,11 +1,13 @@
-package server;
+package Controller.server;
+
+import Model.Server.Server;
 
 import java.io.IOException;
 
 public class MainServer {
 
 	/**
-	 * creates a new server
+	 * creates a new Controller.server
 	 *@param args 
 	 */
 	public static void main(String[] args) throws IOException 
@@ -26,8 +28,8 @@ public class MainServer {
 	}
 
 	private static void printUsage() {
-		System.out.println("java server.Server <port>");
-		System.out.println("\t<port>: server's port");
+		System.out.println("java Model.Server.Server <port>");
+		System.out.println("\t<port>: Controller.server's port");
 	}
 
 }
