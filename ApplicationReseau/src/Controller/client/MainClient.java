@@ -1,4 +1,6 @@
-package client;
+package Controller.client;
+
+import Model.Client.Client;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
@@ -22,9 +24,9 @@ public class MainClient {
 	
 	private static void printUsage()
 	{
-		System.out.println("java client.Client<address> <port>");
-		System.out.println("\t<address>: server's ip address");
-		System.out.println("\t<port>: server's port");
+		System.out.println("java Model.Client.Client<address> <port>");
+		System.out.println("\t<address>: Controller.server's ip address");
+		System.out.println("\t<port>: Controller.server's port");
 	}
 
 }

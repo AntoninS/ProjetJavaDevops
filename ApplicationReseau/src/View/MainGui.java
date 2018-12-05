@@ -1,5 +1,6 @@
-package gui;
+package View;
 
+import View.gui.ClientPanel;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -15,7 +16,7 @@ public class MainGui extends Application{
 	@Override
 	public void start(Stage stage) throws Exception {
 		
-		ClientPanel clientPanel = new ClientPanel();  
+		ClientPanel clientPanel = new ClientPanel();
 		
 		Group root = new Group();
 		

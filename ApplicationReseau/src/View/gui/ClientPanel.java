@@ -1,4 +1,4 @@
-package gui;
+package View.gui;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,7 +13,7 @@ public class ClientPanel extends Parent{
 	//saisie de texte
 	TextArea textToSend;
 	
-	//affichage message reçu
+	//affichage message reï¿½u
 	ScrollPane scrollReceivedText;
 	TextFlow receivedText;
 	

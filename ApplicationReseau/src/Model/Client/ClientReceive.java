@@ -1,11 +1,11 @@
-package client;
+package Model.Client;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import common.Message;
+import Model.Client.Client;
+import Model.common.Message;
 
 public class ClientReceive implements Runnable{
 	
@@ -39,7 +39,7 @@ public class ClientReceive implements Runnable{
 				mess = (Message) in.readObject();
 				if(mess !=null)
 				{
-					System.out.println("\nMessage reçu : " + mess);
+					System.out.println("\nMessage reï¿½u : " + mess);
 					this.client.messageReceived(mess);
 				}
 				else
