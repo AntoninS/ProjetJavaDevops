@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="panelPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#setOnMouseDrag" onMousePressed="#moveOnDrag" prefHeight="476.0" prefWidth="844.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.gui.SampleController">
+   <children>
+      <ImageView fitHeight="476.0" fitWidth="961.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/accueil.jpg" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="162.0" layoutY="19.0" opacity="0.95" prefHeight="438.0" prefWidth="520.0" style="-fx-background-color: #1d1f23;">
+         <children>
+            <JFXTextField fx:id="loginText" focusColor="#faa613" layoutX="146.0" layoutY="120.0" prefHeight="39.0" prefWidth="228.0" promptText="Nom ou adresse mail" unFocusColor="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXTextField>
+            <JFXPasswordField fx:id="passwordText" focusColor="#faa613" layoutX="146.0" layoutY="200.0" prefHeight="25.0" prefWidth="228.0" promptText="Mot de passe" unFocusColor="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXPasswordField>
+            <JFXButton fx:id="boutonSeConnecter" layoutX="115.0" layoutY="293.0" prefHeight="39.0" prefWidth="290.0" style="-fx-background-color: #FAA613;" text="Se connecter">
+               <font>
+                  <Font size="18.0" />
+               </font></JFXButton>
+            <Label fx:id="boutonConnexion" layoutX="80.0" layoutY="24.0" onMouseClicked="#clickConnexion" prefHeight="47.0" prefWidth="120.0" text="Connexion" textAlignment="CENTER" textFill="#a4a0a0" underline="true">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Label fx:id="boutonCreerCompte" layoutX="255.0" layoutY="30.0" onMouseClicked="#clickCreerCompte" prefHeight="36.0" prefWidth="185.0" text="Créer un compte" textFill="#a4a0a0">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Hyperlink fx:id="lienMdpOublie" layoutX="359.0" layoutY="396.0" prefHeight="28.0" prefWidth="147.0" text="Mot de passe oublié ?" textFill="#797777" underline="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Hyperlink>
+            <Label layoutX="492.0" layoutY="40.0" prefWidth="0.0" text="Label" />
+         </children></AnchorPane>
+      <ImageView fx:id="boutonFermer" fitHeight="18.0" fitWidth="18.0" layoutX="5.0" layoutY="6.0" onMouseClicked="#closeOnClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/fermer.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="17.0" fitWidth="18.0" layoutX="23.0" layoutY="7.0" onMouseClicked="#reduireEcran" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/reduire.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
