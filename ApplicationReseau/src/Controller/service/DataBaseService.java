@@ -1,14 +1,12 @@
 package Controller.service;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.*;
+import java.util.Properties;
 
 public class DataBaseService {
-
-    private static final String DATABASE = "jdbc:oracle:thin:@134.214.112.67:1521:orcl";
-
-    private static final String USER_DB = "p1501019";
-
-    private static final String PWD_DB = "374438";
 
     private static DataBaseService dataBaseServiceInstance = null;
 
@@ -23,8 +21,24 @@ public class DataBaseService {
         return dataBaseServiceInstance;
     }
 
-    public Connection getDataBaseConnexion() throws SQLException {
-        Connection con = DriverManager.getConnection(DATABASE, USER_DB, PWD_DB);
+    public Connection getDataBaseConnexion() throws SQLException, ClassNotFoundException {
+        Class.forName("oracle.jdbc.driver.OracleDriver");
+
+        Properties prop = new Properties();
+        try (
+            FileInputStream input = new FileInputStream("config.properties")) {
+            prop.load(input);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String url = prop.getProperty("url");
+        String user = prop.getProperty("user");
+        String password = prop.getProperty("password");
+        Connection con = DriverManager.getConnection(url, user, password);
+
         return con;
     }
 }

@@ -2,10 +2,7 @@ package Controller.service;
 
 import Model.common.User;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class UserService {
 
@@ -24,13 +21,17 @@ public class UserService {
         return userServiceInstance;
     }
 
-    // TODO : Refactor pour utiliser PS
     public User getUser(String pseudo) {
         User user = new User();
         try {
             Connection con = dbs.getDataBaseConnexion();
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT ID, PSEUDO, PASSWORD FROM PJ_USER WHERE PSEUDO = 'Antonin'");
+            Statement cs = null;
+            ResultSet rs = null;
+
+            String request = String.format("SELECT ID, PSEUDO, PASSWORD FROM PJ_USER WHERE PSEUDO = '%s'", pseudo);
+            cs = con.createStatement();
+            rs = cs.executeQuery(request);
+
             if(rs.next()) {
                 user.setId(rs.getInt("ID"));
                 user.setPseudo(rs.getString("PSEUDO"));
@@ -38,6 +39,8 @@ public class UserService {
             }
             con.close();
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return user;
