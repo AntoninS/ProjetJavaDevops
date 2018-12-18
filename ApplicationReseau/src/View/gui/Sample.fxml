@@ -15,7 +15,7 @@
    <children>
       <ImageView fitHeight="476.0" fitWidth="961.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../images/accueil.jpg" />
+            <Image url="@../../images/accueil.jpg" />
          </image>
       </ImageView>
       <AnchorPane layoutX="162.0" layoutY="19.0" opacity="0.95" prefHeight="438.0" prefWidth="520.0" style="-fx-background-color: #1d1f23;">
@@ -54,12 +54,12 @@
          </children></AnchorPane>
       <ImageView fx:id="boutonFermer" fitHeight="18.0" fitWidth="18.0" layoutX="5.0" layoutY="6.0" onMouseClicked="#closeOnClick" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../images/fermer.png" />
+            <Image url="@../../images/fermer.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="17.0" fitWidth="18.0" layoutX="23.0" layoutY="7.0" onMouseClicked="#reduireEcran" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../images/reduire.png" />
+            <Image url="@../../images/reduire.png" />
          </image>
       </ImageView>
    </children>
