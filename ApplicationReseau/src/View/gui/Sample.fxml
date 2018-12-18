@@ -8,9 +8,10 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="panelPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#setOnMouseDrag" onMousePressed="#moveOnDrag" prefHeight="476.0" prefWidth="844.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.gui.SampleController">
+<AnchorPane fx:id="panelPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#setOnMouseDrag" onMousePressed="#moveOnDrag" prefHeight="476.0" prefWidth="844.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.GUI.SampleController">
    <children>
       <ImageView fitHeight="476.0" fitWidth="961.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -29,7 +30,7 @@
                   <Font size="18.0" />
                </font>
             </JFXPasswordField>
-            <JFXButton fx:id="boutonSeConnecter" layoutX="115.0" layoutY="293.0" prefHeight="39.0" prefWidth="290.0" style="-fx-background-color: #FAA613;" text="Se connecter">
+            <JFXButton fx:id="boutonSeConnecter" layoutX="115.0" layoutY="293.0" onMouseClicked="#verificationConnexion" prefHeight="39.0" prefWidth="290.0" style="-fx-background-color: #FAA613;" text="Se connecter">
                <font>
                   <Font size="18.0" />
                </font></JFXButton>
@@ -49,6 +50,7 @@
                </font>
             </Hyperlink>
             <Label layoutX="492.0" layoutY="40.0" prefWidth="0.0" text="Label" />
+            <StackPane fx:id="paneMsgBox" disable="true" layoutX="80.0" layoutY="155.0" prefHeight="91.0" prefWidth="213.0" />
          </children></AnchorPane>
       <ImageView fx:id="boutonFermer" fitHeight="18.0" fitWidth="18.0" layoutX="5.0" layoutY="6.0" onMouseClicked="#closeOnClick" pickOnBounds="true" preserveRatio="true">
          <image>
