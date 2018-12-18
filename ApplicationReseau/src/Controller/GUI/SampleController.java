@@ -1,22 +1,30 @@
-package View.gui;
+package Controller.GUI;
 
-import java.util.ResourceBundle;
-
-import javax.print.DocFlavor.URL;
+import java.io.IOException;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class SampleController {
 	
@@ -24,6 +32,9 @@ public class SampleController {
 	private AnchorPane panelPrincipal;
 	private double posX;
 	private double posY;
+	
+	@FXML
+	private StackPane paneMsgBox;
 	
 	@FXML
 	private Label boutonConnexion;
@@ -64,14 +75,6 @@ public class SampleController {
 		}
 	}
 	
-	//Ferme l'application sur un clique gauche
-	@FXML
-	private void closeOnClick(MouseEvent event)
-	{
-		if(event.getButton() == MouseButton.PRIMARY)
-			System.exit(0);
-	}
-	
 	//Si l'utilisateur clique sur Créer un compte
 	@FXML
 	private void clickCreerCompte(MouseEvent event)
@@ -96,6 +99,63 @@ public class SampleController {
 		this.lienMdpOublie.setVisible(true);
 	}
 	
+	@FXML
+	private void verificationConnexion(MouseEvent event) throws IOException
+	{
+		//TODO Gérer connexion BDD
+		if(event.getButton() == MouseButton.PRIMARY)
+		{
+			if(this.loginText.getText().isEmpty() && this.passwordText.getText().isEmpty())
+			{
+				this.paneMsgBox.setDisable(false);
+				JFXDialogLayout content = new JFXDialogLayout();
+				content.setHeading(new Text("Erreur de connexion"));
+				content.setBody(new Text("Veuillez renseigner un nom d'utilisateur et un mot de passe!"));
+				
+				JFXDialog msgBox = new JFXDialog(this.paneMsgBox, content, JFXDialog.DialogTransition.CENTER);
+				
+				JFXButton button = new JFXButton("D'accord");
+				button.setOnAction(new EventHandler<ActionEvent>() {
+					
+					@Override
+					public void handle(ActionEvent event) {
+						msgBox.close();
+						paneMsgBox.setDisable(true);
+					}
+				});
+				content.setActions(button);
+				
+				msgBox.show();
+			}
+			else {
+				Parent rootAffichageEcranPrincipalParent;
+				try 
+				{
+					System.out.println("ok");	
+					rootAffichageEcranPrincipalParent = FXMLLoader.load(getClass().getResource("/View/gui/EcranPrincipal.fxml"));
+					Stage stage = new Stage();
+					stage.initStyle(StageStyle.UNDECORATED);
+					stage.setScene(new Scene(rootAffichageEcranPrincipalParent, 800,600));
+					stage.show();
+					((Node)event.getSource()).getScene().getWindow().hide();
+				}catch(IOException e)
+				{
+					e.printStackTrace();
+				}
+				
+			}
+		}
+	}
+	
+	//Ferme l'application sur un clique gauche
+	@FXML
+	private void closeOnClick(MouseEvent event)
+	{
+		if(event.getButton() == MouseButton.PRIMARY)
+			System.exit(0);
+	}
+	
+	//Code pour réudire l'écran dans la barre des tâches
 	@FXML
 	private void reduireEcran(MouseEvent event)
 	{
