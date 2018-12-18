@@ -6,14 +6,14 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="622.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.GUI.EcranPrincipalController">
    <children>
-      <ImageView fx:id="boutonFermer" fitHeight="22.0" fitWidth="23.0" onMouseClicked="#closeOnClick" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="22.0" fitWidth="23.0" onMouseClicked="#closeOnClick" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../images/fermer.png" />
+            <Image url="@../../images/fermer.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="22.0" onMouseClicked="#reduireEcran" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../images/reduire.png" />
+            <Image url="@../../images/reduire.png" />
          </image>
       </ImageView>
    </children>

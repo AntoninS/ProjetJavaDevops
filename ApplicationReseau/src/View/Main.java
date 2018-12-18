@@ -14,6 +14,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		
 		try {
+			System.out.println(System.getProperties());
 			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("gui/Sample.fxml"));
 			primaryStage.initStyle(StageStyle.UNDECORATED);
 			Scene scene = new Scene(root,843,476);
