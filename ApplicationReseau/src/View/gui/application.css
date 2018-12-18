@@ -1,0 +1,7 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+.jfx-text-field, .jfx-password-field {
+    -fx-prompt-text-fill: GREY;
+    -jfx-focus-color: #faa613;
+    -jfx-unfocus-color: WHITE;
+    -fx-text-inner-color : WHITE;
+}
