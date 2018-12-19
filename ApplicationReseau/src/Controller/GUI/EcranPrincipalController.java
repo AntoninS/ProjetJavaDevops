@@ -1,13 +1,46 @@
 package Controller.GUI;
 
+import java.io.IOException;
+
+import com.jfoenix.controls.JFXButton;
+
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class EcranPrincipalController {
 	
+	
+	@FXML
+	private JFXButton btnConsulterCourse;
+	
+	
+	@FXML
+	private void consulterLaCourse(MouseEvent event)
+	{
+		if(event.getButton() == MouseButton.PRIMARY)
+		{
+			Parent rootAffichageCourse;
+			try
+			{
+				System.out.println("ok");	
+				//rootAffichageCourse = FXMLLoader.load(getClass().getResource("/View/gui/EcranPrincipal.fxml"));
+				Stage stage = new Stage();
+				stage.initStyle(StageStyle.UNDECORATED);
+				//stage.setScene(new Scene(rootAffichageCourse, 940,622));
+				stage.show();
+			}catch(IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
+	}
 	
 	
 	//Ferme l'application sur un clique gauche

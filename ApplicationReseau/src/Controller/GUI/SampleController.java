@@ -135,7 +135,7 @@ public class SampleController {
 					rootAffichageEcranPrincipalParent = FXMLLoader.load(getClass().getResource("/View/gui/EcranPrincipal.fxml"));
 					Stage stage = new Stage();
 					stage.initStyle(StageStyle.UNDECORATED);
-					stage.setScene(new Scene(rootAffichageEcranPrincipalParent, 800,600));
+					stage.setScene(new Scene(rootAffichageEcranPrincipalParent, 940,622));
 					stage.show();
 					((Node)event.getSource()).getScene().getWindow().hide();
 				}catch(IOException e)
