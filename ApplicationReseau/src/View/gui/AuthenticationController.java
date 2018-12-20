@@ -1,4 +1,4 @@
-package Controller.GUI;
+package View.gui;
 
 import java.io.IOException;
 
@@ -26,7 +26,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class SampleController {
+public class AuthenticationController {
 	
 	@FXML
 	private AnchorPane panelPrincipal;
@@ -132,7 +132,7 @@ public class SampleController {
 				try 
 				{
 					System.out.println("ok");	
-					rootAffichageEcranPrincipalParent = FXMLLoader.load(getClass().getResource("/View/gui/EcranPrincipal.fxml"));
+					rootAffichageEcranPrincipalParent = FXMLLoader.load(getClass().getResource("EcranPrincipal.fxml"));
 					Stage stage = new Stage();
 					stage.initStyle(StageStyle.UNDECORATED);
 					stage.setScene(new Scene(rootAffichageEcranPrincipalParent, 940,622));
