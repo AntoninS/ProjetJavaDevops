@@ -2,6 +2,9 @@ package View.gui;
 
 import java.io.IOException;
 
+import Controller.service.UserService;
+import Model.common.User;
+import Util.MD5Util;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
@@ -105,7 +108,10 @@ public class AuthenticationController {
 		//TODO Gérer connexion BDD
 		if(event.getButton() == MouseButton.PRIMARY)
 		{
-			if(this.loginText.getText().isEmpty() && this.passwordText.getText().isEmpty())
+			String loginForm = this.loginText.getText().trim();
+			String passwordForm = this.passwordText.getText().trim();
+
+			if(loginForm.isEmpty() || passwordForm.isEmpty())
 			{
 				this.paneMsgBox.setDisable(false);
 				JFXDialogLayout content = new JFXDialogLayout();
@@ -128,21 +134,40 @@ public class AuthenticationController {
 				msgBox.show();
 			}
 			else {
-				Parent rootAffichageEcranPrincipalParent;
-				try 
-				{
-					System.out.println("ok");	
-					rootAffichageEcranPrincipalParent = FXMLLoader.load(getClass().getResource("EcranPrincipal.fxml"));
-					Stage stage = new Stage();
-					stage.initStyle(StageStyle.UNDECORATED);
-					stage.setScene(new Scene(rootAffichageEcranPrincipalParent, 940,622));
-					stage.show();
-					((Node)event.getSource()).getScene().getWindow().hide();
-				}catch(IOException e)
-				{
-					e.printStackTrace();
+				if (UserService.getInstance().isPasswordCorrect(loginForm, passwordForm)) {
+					Parent rootAffichageEcranPrincipalParent;
+					try {
+						System.out.println("ok");
+						rootAffichageEcranPrincipalParent = FXMLLoader.load(getClass().getResource("EcranPrincipal.fxml"));
+						Stage stage = new Stage();
+						stage.initStyle(StageStyle.UNDECORATED);
+						stage.setScene(new Scene(rootAffichageEcranPrincipalParent, 940,622));
+						stage.show();
+						((Node)event.getSource()).getScene().getWindow().hide();
+					} catch(IOException e) {
+						e.printStackTrace();
+					}
+				} else {
+					this.paneMsgBox.setDisable(false);
+					JFXDialogLayout content = new JFXDialogLayout();
+					content.setHeading(new Text("Erreur de connexion"));
+					content.setBody(new Text("Pseudo ou Mot de passe incorrect"));
+
+					JFXDialog msgBox = new JFXDialog(this.paneMsgBox, content, JFXDialog.DialogTransition.CENTER);
+
+					JFXButton button = new JFXButton("D'accord");
+					button.setOnAction(new EventHandler<ActionEvent>() {
+
+						@Override
+						public void handle(ActionEvent event) {
+							msgBox.close();
+							paneMsgBox.setDisable(true);
+						}
+					});
+					content.setActions(button);
+
+					msgBox.show();
 				}
-				
 			}
 		}
 	}
