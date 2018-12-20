@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="622.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.GUI.EcranPrincipalController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="622.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.gui.EcranPrincipalController">
    <children>
-      <ImageView fx:id="boutonFermer" fitHeight="22.0" fitWidth="23.0" onMouseClicked="#closeOnClick" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="16.0" fitWidth="22.0" onMouseClicked="#closeOnClick" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../images/fermer.png" />
+            <Image url="@../../images/fermer.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="22.0" onMouseClicked="#reduireEcran" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="16.0" onMouseClicked="#reduireEcran" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../images/reduire.png" />
+            <Image url="@../../images/reduire.png" />
          </image>
       </ImageView>
+      <JFXButton fx:id="btnConsulterCourse" layoutX="742.0" layoutY="92.0" onMouseClicked="#consulterLaCourse" style="-fx-background-color: #4456;" text="Consulter la course">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>
