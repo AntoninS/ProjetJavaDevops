@@ -8,13 +8,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.fxml.FXMLLoader;
 
 
-public class Main extends Application {
+public class Authentication extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
 		
 		try {
-			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("gui/Sample.fxml"));
+			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("gui/Authentication.fxml"));
 			primaryStage.initStyle(StageStyle.UNDECORATED);
 			Scene scene = new Scene(root,843,476);
 			scene.getStylesheets().add(getClass().getResource("gui/application.css").toExternalForm());

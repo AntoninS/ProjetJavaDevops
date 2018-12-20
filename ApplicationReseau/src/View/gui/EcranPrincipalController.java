@@ -1,4 +1,4 @@
-package Controller.GUI;
+package View.gui;
 
 import java.io.IOException;
 
@@ -16,29 +16,21 @@ import javafx.stage.StageStyle;
 
 public class EcranPrincipalController {
 	
-	
 	@FXML
 	private JFXButton btnConsulterCourse;
-	
 	
 	@FXML
 	private void consulterLaCourse(MouseEvent event)
 	{
 		if(event.getButton() == MouseButton.PRIMARY)
 		{
-			Parent rootAffichageCourse;
-			try
-			{
-				System.out.println("ok");	
-				//rootAffichageCourse = FXMLLoader.load(getClass().getResource("/View/gui/EcranPrincipal.fxml"));
-				Stage stage = new Stage();
-				stage.initStyle(StageStyle.UNDECORATED);
-				//stage.setScene(new Scene(rootAffichageCourse, 940,622));
-				stage.show();
-			}catch(IOException e)
-			{
-				e.printStackTrace();
-			}
+			//Parent rootAffichageCourse;
+			System.out.println("ok");	
+			//rootAffichageCourse = FXMLLoader.load(getClass().getResource("/View/gui/EcranPrincipal.fxml"));
+			//Stage stage = new Stage();
+			//stage.initStyle(StageStyle.UNDECORATED);
+			//stage.setScene(new Scene(rootAffichageCourse, 940,622));
+			//stage.show();
 		}
 	}
 	
