@@ -8,7 +8,6 @@ import java.net.UnknownHostException;
 public class MainClient {
 
 	public static void main(String[] args) throws UnknownHostException, IOException {
-		// TODO Auto-generated method stub
 		
 		if(args.length != 2) {
 			printUsage();

@@ -2,9 +2,8 @@ package View.gui;
 
 import java.io.IOException;
 
+import Controller.server.MainServer;
 import Controller.service.UserService;
-import Model.common.User;
-import Util.MD5Util;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
@@ -57,7 +56,7 @@ public class AuthenticationController {
 	@FXML
 	private Hyperlink lienMdpOublie;
 
-	//Méthode lié à l'écran
+	//Mï¿½thode liï¿½ ï¿½ l'ï¿½cran
 	@FXML
 	private void moveOnDrag(MouseEvent event)
 	{
@@ -78,7 +77,7 @@ public class AuthenticationController {
 		}
 	}
 	
-	//Si l'utilisateur clique sur Créer un compte
+	//Si l'utilisateur clique sur Crï¿½er un compte
 	@FXML
 	private void clickCreerCompte(MouseEvent event)
 	{
@@ -103,10 +102,10 @@ public class AuthenticationController {
 	}
 	
 	@FXML
-	private void verificationConnexion(MouseEvent event) throws IOException
+	private void verificationConnexion(MouseEvent mouseEvent) throws IOException
 	{
-		//TODO Gérer connexion BDD
-		if(event.getButton() == MouseButton.PRIMARY)
+		//TODO Gï¿½rer connexion BDD
+		if(mouseEvent.getButton() == MouseButton.PRIMARY)
 		{
 			String loginForm = this.loginText.getText().trim();
 			String passwordForm = this.passwordText.getText().trim();
@@ -138,12 +137,20 @@ public class AuthenticationController {
 					Parent rootAffichageEcranPrincipalParent;
 					try {
 						System.out.println("ok");
-						rootAffichageEcranPrincipalParent = FXMLLoader.load(getClass().getResource("EcranPrincipal.fxml"));
+						
+						FXMLLoader loader = new FXMLLoader();
+						loader.setLocation(getClass().getResource("EcranPrincipal.fxml"));
+						rootAffichageEcranPrincipalParent = loader.load();
+						
+						EcranPrincipalController controlleur = loader.getController();
+						MainServer server = new MainServer(1050);
+						
 						Stage stage = new Stage();
 						stage.initStyle(StageStyle.UNDECORATED);
 						stage.setScene(new Scene(rootAffichageEcranPrincipalParent, 940,622));
 						stage.show();
-						((Node)event.getSource()).getScene().getWindow().hide();
+						((Node)mouseEvent.getSource()).getScene().getWindow().hide();
+						
 					} catch(IOException e) {
 						e.printStackTrace();
 					}
@@ -180,7 +187,7 @@ public class AuthenticationController {
 			System.exit(0);
 	}
 	
-	//Code pour réudire l'écran dans la barre des tâches
+	//Code pour rï¿½udire l'ï¿½cran dans la barre des tï¿½ches
 	@FXML
 	private void reduireEcran(MouseEvent event)
 	{
