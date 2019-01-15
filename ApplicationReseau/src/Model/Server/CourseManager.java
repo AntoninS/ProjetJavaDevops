@@ -1,19 +1,22 @@
 package Model.Server;
 
 import Model.common.Message;
+import Model.common.course.ThreadCourse;
 
 public class CourseManager {
+
+    private ThreadCourse course;
+    private Server server;
 
     public CourseManager() {
 
     }
 
     public void startCourse(Server server) {
-        sendPositions(server);
+        this.server = server;
+        course = new ThreadCourse("FCKebab", server);
+        Thread courseThread = new Thread(course);
+        courseThread.start();
     }
 
-    public void sendPositions(Server server) {
-        Message mess = new Message("Controller/client", "WOUHOUUUUU");
-        server.broadcastMessage(mess, -1);
-    }
 }

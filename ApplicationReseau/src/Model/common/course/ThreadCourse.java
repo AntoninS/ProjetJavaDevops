@@ -1,7 +1,9 @@
 package Model.common.course;
 
+import Model.Server.Server;
 import Model.common.Cheval;
 import Model.common.ListCheval;
+import Model.common.Message;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ public class ThreadCourse implements Runnable
     private Double avancementDernierCheval = 0.0;
     private boolean courseEstFini;
     private static Random randomGenerator;
+    private Server server;
 
     @Override
     public void run() {
@@ -28,7 +31,11 @@ public class ThreadCourse implements Runnable
             for (Cheval chevalParcourue: uneCourseGeneral.getListChevalCourse()) {
                 chevalParcourue.modifierForme();
 
-                System.out.println("Niveau avancement :" + avancementDernierCheval + " Cheval numero " + chevalParcourue.getNumero() + " Son etatDansLaCourse " + chevalParcourue.getAvancementCourse());
+                //System.out.println("Niveau avancement :" + avancementDernierCheval + " Cheval numero " + chevalParcourue.getNumero() + " Son etatDansLaCourse " + chevalParcourue.getAvancementCourse());
+
+                String position = "Niveau avancement :" + avancementDernierCheval + " Cheval numero " + chevalParcourue.getNumero() + " Son etatDansLaCourse " + chevalParcourue.getAvancementCourse();
+                Message mess = new Message("Controller/client", position);
+                this.server.broadcastMessage(mess, -1);
             }
             try {
                 Thread.sleep(1000);
@@ -40,8 +47,9 @@ public class ThreadCourse implements Runnable
         while(!courseFini());
     }
 
-    public ThreadCourse(String pNomCourse)
+    public ThreadCourse(String pNomCourse, Server pServer)
     {
+        this.server = pServer;
         uneCourseGeneral = new CourseGeneral();
         uneCourseGeneral.setNomCourse(pNomCourse);
         GestionnaireCourses.ajouterCourse(uneCourseGeneral);
