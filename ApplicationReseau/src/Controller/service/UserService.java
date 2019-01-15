@@ -1,8 +1,12 @@
 package Controller.service;
 
 import Model.common.User;
+import Util.MD5Util;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class UserService {
 
@@ -44,6 +48,15 @@ public class UserService {
             e.printStackTrace();
         }
         return user;
+    }
+
+    public boolean isPasswordCorrect(String pseudo, String password) {
+        boolean isPasswordCorrect = false;
+        User userFromDb = getUser(pseudo);
+        if ((userFromDb.getPassword() != null) && !userFromDb.getPassword().trim().isEmpty()) {
+            isPasswordCorrect = MD5Util.getMD5(password.trim()).equals(userFromDb.getPassword().trim());
+        }
+        return isPasswordCorrect;
     }
 
 
