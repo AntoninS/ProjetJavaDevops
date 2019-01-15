@@ -23,5 +23,10 @@
             <Font size="15.0" />
          </font>
       </JFXButton>
+      <JFXButton fx:id="btnLancerCourse" layoutX="742.0" layoutY="130.0" onMouseClicked="#lancerLaCourse" style="-fx-background-color: #4456;" text="Lancer la course">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>
