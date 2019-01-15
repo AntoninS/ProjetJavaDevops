@@ -3,6 +3,7 @@ package Model.Server;
 import java.util.ArrayList;
 import java.util.List;
 
+import Model.Client.ClientSend;
 import Model.common.Message;
 
 public class Server {

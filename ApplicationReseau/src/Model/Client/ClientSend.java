@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 import Model.common.Message;
 
-public class ClientSend implements Runnable{
+public class  ClientSend implements Runnable {
 
 	private Socket socket;
 	private ObjectOutputStream out;
