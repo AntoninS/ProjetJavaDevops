@@ -26,6 +26,22 @@ public class MainServer {
 			e.printStackTrace();
 		}
 	}
+	
+	public MainServer(int port)
+	{
+		try
+		{
+			if (port <=1024) {
+				printUsage();
+			} else {
+				Server server = new Server(port);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 
 	private static void printUsage() {
 		System.out.println("java Model.Server.Server <port>");
