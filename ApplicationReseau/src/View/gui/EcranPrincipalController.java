@@ -132,11 +132,10 @@ public class EcranPrincipalController {
 	@FXML
 	private void lancerLaCourse(MouseEvent event)
 	{
-		course = new ThreadCourse( "FCKebab");
-		Thread courseThread= new Thread(course);
-		courseThread.start();
+		//course = new ThreadCourse( "FCKebab");
+		//Thread courseThread= new Thread(course);
+		//courseThread.start();
 	}
-
 
 	//Ferme l'application sur un clique gauche
 	@FXML
