@@ -1,8 +1,18 @@
 package View.gui;
 
+import java.io.IOException;
+
+import Controller.client.MainClient;
+import Controller.server.MainServer;
 import Controller.service.UserService;
 import Model.Client.Client;
-import com.jfoenix.controls.*;
+
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -132,18 +142,17 @@ public class AuthenticationController {
 					Parent rootAffichageEcranPrincipalParent;
 					try {
 						System.out.println("ok");
-
+						
 						String address = "127.0.0.1";
 						Integer port = new Integer(1420);
 						Client c = new Client(port, address);
-
-
+						
 						FXMLLoader loader = new FXMLLoader();
 						loader.setLocation(getClass().getResource("EcranPrincipal.fxml"));
 						rootAffichageEcranPrincipalParent = loader.load();
 						
 						EcranPrincipalController controlleur = loader.getController();
-
+						
 						Stage stage = new Stage();
 						stage.initStyle(StageStyle.UNDECORATED);
 						stage.setScene(new Scene(rootAffichageEcranPrincipalParent, 940,622));
