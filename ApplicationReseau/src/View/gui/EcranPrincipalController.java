@@ -60,14 +60,13 @@ public class EcranPrincipalController {
 				rootAffichageCourse = FXMLLoader.load(getClass().getResource("/View/gui/AffichageCourse.fxml"));
 				Stage stage = new Stage();
 				stage.initStyle(StageStyle.UNDECORATED);
-				stage.setScene(new Scene(rootAffichageCourse, 700,450));
+				stage.setScene(new Scene(rootAffichageCourse, 800,450));
 				stage.show();
 				stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 					public void handle(WindowEvent we) {
 						CourseController.setAffichageActif(false);
 					}
 				});
-				//	stage.close();
 
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -88,12 +87,10 @@ public class EcranPrincipalController {
 		
 		if(event.getCode() == KeyCode.BACK_SPACE && this.msgField.getLayoutY() != 557)
 		{
-			
 			this.msgField.setLayoutY(this.msgField.getLayoutY()+10);
 			this.msgField.setPrefHeight(this.msgField.getPrefHeight()-10);
 		}
-		
-		
+			
 	}
 	
 	@FXML
@@ -127,8 +124,6 @@ public class EcranPrincipalController {
 		}
 	}
 	
-	
-
 	@FXML
 	private void lancerLaCourse(MouseEvent event)
 	{
@@ -145,7 +140,6 @@ public class EcranPrincipalController {
 			System.exit(0);
 	}
 
-
 	//R�duit l'�cran dans la barre des t�ches
 	@FXML
 	private void reduireEcran(MouseEvent event)
@@ -153,7 +147,6 @@ public class EcranPrincipalController {
 		if(event.getButton() == MouseButton.PRIMARY)
 			((Stage)((ImageView)event.getSource()).getScene().getWindow()).setIconified(true);
 	}
-
 
 	public static ThreadCourse  getCourse() {
 		return course;
