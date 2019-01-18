@@ -2,13 +2,12 @@ package Model.common.course;
 
 import Model.Server.Server;
 import Model.common.Cheval;
-import Model.common.ListCheval;
 import Model.common.Message;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 public class ThreadCourse implements Runnable
@@ -18,6 +17,7 @@ public class ThreadCourse implements Runnable
 
     private Double avancementDernierCheval = 0.0;
     private boolean courseEstFini;
+    JSONObject jsonConcatenationCourse;
     private static Random randomGenerator;
     private Server server;
 
@@ -28,20 +28,35 @@ public class ThreadCourse implements Runnable
         do
         {
             getAvancementDernierCheval();
-            for (Cheval chevalParcourue: uneCourseGeneral.getListChevalCourse()) {
-                chevalParcourue.modifierForme();
+            int etapeAjoutJson = 0;
 
-                //System.out.println("Niveau avancement :" + avancementDernierCheval + " Cheval numero " + chevalParcourue.getNumero() + " Son etatDansLaCourse " + chevalParcourue.getAvancementCourse());
-
-                String position = "Niveau avancement :" + avancementDernierCheval + " Cheval numero " + chevalParcourue.getNumero() + " Son etatDansLaCourse " + chevalParcourue.getAvancementCourse();
-                Message mess = new Message("Controller/client", position);
-                this.server.broadcastMessage(mess, -1);
+            try {
+                concatenationJsonObject(etapeAjoutJson,null,null);
+                System.out.print(etapeAjoutJson);
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
+
+            for (Cheval chevalParcourue: uneCourseGeneral.getListChevalCourse()) {
+                etapeAjoutJson++;
+
+                chevalParcourue.modifierForme();
+                try {
+                    concatenationJsonObject(etapeAjoutJson, chevalParcourue.getNumero(), chevalParcourue.getAvancementCourse());
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+           }
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            Message mess = new Message("Controller/client", jsonConcatenationCourse.toString());
+            this.server.broadcastMessage(mess, -1);
+
         }
 
         while(!courseFini());
@@ -52,7 +67,6 @@ public class ThreadCourse implements Runnable
         this.server = pServer;
         uneCourseGeneral = new CourseGeneral();
         uneCourseGeneral.setNomCourse(pNomCourse);
-        GestionnaireCourses.ajouterCourse(uneCourseGeneral);
     }
 
     public CourseGeneral getCourse()
@@ -82,5 +96,43 @@ public class ThreadCourse implements Runnable
             GestionnaireCourses.courseFini(uneCourseGeneral);
         }
         return courseEstFini;
+    }
+
+    private void concatenationJsonObject(int pEtape, Integer pNumero, Double pEtatDansLaCourse) throws JSONException {
+        switch(pEtape)
+        {
+            case 0:
+                jsonConcatenationCourse = new JSONObject();
+                jsonConcatenationCourse.put("balise", "course");
+                jsonConcatenationCourse.put("nomCourse", "uneCourse");
+                break;
+            case 1:
+                jsonConcatenationCourse.put(Integer.toString(pEtape), pEtatDansLaCourse);
+                jsonConcatenationCourse.put(Integer.toString(pEtape + 10), pNumero);
+                break;
+            case 2:
+                jsonConcatenationCourse.put(Integer.toString(pEtape), pEtatDansLaCourse);
+                jsonConcatenationCourse.put(Integer.toString(pEtape + 10), pNumero);
+                break;
+            case 3:
+                jsonConcatenationCourse.put(Integer.toString(pEtape), pEtatDansLaCourse);
+                jsonConcatenationCourse.put(Integer.toString(pEtape + 10), pNumero);
+                break;
+            case 4:
+                jsonConcatenationCourse.put(Integer.toString(pEtape), pEtatDansLaCourse);
+                jsonConcatenationCourse.put(Integer.toString(pEtape + 10), pNumero);
+                break;
+            case 5:
+                jsonConcatenationCourse.put(Integer.toString(pEtape), pEtatDansLaCourse);
+                jsonConcatenationCourse.put(Integer.toString(pEtape + 10), pNumero);
+                break;
+            case 6:
+                jsonConcatenationCourse.put(Integer.toString(pEtape), pEtatDansLaCourse);
+                jsonConcatenationCourse.put(Integer.toString(pEtape+ 10), pNumero);
+                break;
+            case 7 :
+
+                break;
+        }
     }
 }

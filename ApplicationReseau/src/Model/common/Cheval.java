@@ -3,8 +3,6 @@ package Model.common;
 import Model.common.course.GestionnaireCourses;
 import javafx.scene.image.ImageView;
 
-import java.util.Random;
-
 public class Cheval {
     private String nom;
     private int forme;
@@ -23,6 +21,12 @@ public class Cheval {
     }
 
     public Cheval() {
+    }
+
+    public Cheval(Double pAvancementCourse, int pNumero)
+    {
+        this.numero = pNumero;
+        this.avancementCourse = pAvancementCourse;
     }
 
     /**

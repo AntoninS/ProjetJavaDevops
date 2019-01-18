@@ -1,6 +1,8 @@
 package Model.common.course;
 
 import Model.common.Cheval;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +50,22 @@ public class GestionnaireCourses
         }
     }
 
+    public static void creerCourse(JSONObject courseJsonObject) throws JSONException {
+
+        String balise = courseJsonObject.getString("nomCourse");
+        if(balise.equals())
+        {
+
+        }
+        List<Cheval> listeCh = new ArrayList<>();
+        for(int i = 1; i < 7 ; i++)
+        {
+            Cheval ch = new Cheval(courseJsonObject.getDouble(Integer.toString(i)),courseJsonObject.getInt(Integer.toString(i+10)));
+            listeCh.add(ch);
+        }
+
+    }
+
     public static void afficherCourseFini()
     {
         if(listeDesCoursesFini == null)
@@ -85,5 +103,9 @@ public class GestionnaireCourses
     public void attribuerChevalImageView()
     {
 
+    }
+
+    public static List<Course> getListeDesCoursesEnCours() {
+        return listeDesCoursesEnCours;
     }
 }

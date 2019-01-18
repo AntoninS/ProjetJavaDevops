@@ -8,13 +8,15 @@ import java.net.UnknownHostException;
 public class MainClient {
 
 	public static void main(String[] args) throws UnknownHostException, IOException {
-		
+
 		if(args.length != 2) {
 			printUsage();
 
 			String address = "127.0.0.1";
 			Integer port = new Integer(1420);
 			Client c = new Client(port, address);
+
+
 		}
 		else
 		{

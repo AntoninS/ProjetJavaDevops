@@ -1,11 +1,11 @@
 package Model.Client;
 
+import Model.common.GestionnaireMessages;
+import Model.common.Message;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
-
-import Model.Client.Client;
-import Model.common.Message;
 
 public class ClientReceive implements Runnable{
 	
@@ -39,7 +39,8 @@ public class ClientReceive implements Runnable{
 				mess = (Message) in.readObject();
 				if(mess !=null)
 				{
-					System.out.println("\nMessage re�u : " + mess);
+					GestionnaireMessages gm = new GestionnaireMessages();
+					gm.gestionMessage(mess);
 					this.client.messageReceived(mess);
 				}
 				else

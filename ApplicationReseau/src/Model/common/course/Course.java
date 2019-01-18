@@ -66,4 +66,9 @@ public abstract class Course
     }
 
     public void setNomCourse (String pNomCourse) {this.nomCourse = pNomCourse;}
+
+    public void setListChevalCourse (List<Cheval> listeC)
+    {
+        this.listChevalCourse = listeC;
+    }
 }
