@@ -12,14 +12,4 @@ public class CourseGeneral extends Course
     {
 
     }
-
-    @Override
-    protected void lancerCourse()
-    {
-        //Recuperation de la liste de chevaux
-
-        //Faire une boucle pour le lancement de la course
-
-        //Affichage de la progression des chevaux
-    }
 }

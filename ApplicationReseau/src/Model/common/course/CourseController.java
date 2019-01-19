@@ -2,29 +2,24 @@ package Model.common.course;
 
 import View.gui.EcranPrincipalController;
 import Model.common.Cheval;
-import Model.common.ListCheval;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CourseController
-{
+public class CourseController {
 
     private ImageView img;
 
-    private int stepsdada ;
+    private int stepsdada;
 
     private List<ImageView> test;
 
@@ -46,60 +41,46 @@ public class CourseController
     private ImageView chevalLigne6;
 
 
-
     @FXML
     public void initialize() {
-        System.out.println("AfficahgeInc");
         affichageActif = true;
-        listeChevalCourse = EcranPrincipalController.getCourse().getCourse().getListChevalCourse();
         stepsdada = 0;
+        listeChevalCourse = GestionnaireCourses.getListeDesCoursesEnCours().get(0).getListChevalCourse();
         lancerThreadDeplacement();
-        GestionnaireCourses.afficherCourseFini();
-
     }
 
-    private void lancerThreadDeplacement()
-    {
-       Task<Void> task = new Task<Void>() {
+    private void lancerThreadDeplacement() {
+        Task<Void> task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
                 test();
-
                 attribuerChevalImage(listeChevalCourse, test);
 
                 for (int i = 0; i < 100; i++) {
 
                     Platform.runLater(new Runnable() {
-                        public void run()
-                        {
-                            for (Cheval ch : listeChevalCourse)
-                            {
-                                System.out.println("Cheval numero "  + ch.getNumero() + "Avancement " + ch.getAvancementCourse());
-                                if(stepsdada < 6 && !EcranPrincipalController.getCourse().courseFini() && ch.getAvancementCourse() <= GestionnaireCourses.DISTANCE_POURCENTAGE)
-                                {
+                        public void run() {
+                            listeChevalCourse = GestionnaireCourses.getListeDesCoursesEnCours().get(0).getListChevalCourse();
+                            for (Cheval ch : listeChevalCourse) {
+                                System.out.println("Cheval numero " + ch.getNumero() + "Avancement " + ch.getAvancementCourse());
+                                if (stepsdada < 6 && !GestionnaireCourses.getListeDesCoursesEnCours().get(0).getEstTerminee() && ch.getAvancementCourse() <= GestionnaireCourses.DISTANCE_POURCENTAGE) {
                                     lancerTranslation(ch);
-                                }
-                                else if(ch.getAvancementCourse() > GestionnaireCourses.DISTANCE_POURCENTAGE && stepsdada < 6)
-                                {
+                                } else if (ch.getAvancementCourse() > GestionnaireCourses.DISTANCE_POURCENTAGE && stepsdada < 6) {
                                     ch.getImageCheval().setLayoutX(550.0);
-                                    System.out.println("Position " + ch.getPosition());
-
                                 }
                                 stepsdada++;
+                                System.out.println("Position " + ch.getPosition());
                             }
                         }
                     });
-                    if(EcranPrincipalController.getCourse().courseFini() || !affichageActif)
-                    {
+                    if (GestionnaireCourses.getListeDesCoursesEnCours().get(0).getEstTerminee() || !affichageActif) {
                         System.out.println("La course d'affichage est fini");
                         break;
                     }
-                    try {
-                        Thread.sleep(1000);
-                        System.out.println("AfficahgeInc");
-                    } catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    }
+
+                    Thread.sleep(1000);
+                    System.out.println("AfficahgeInc");
+
 
                 }
                 return null;
@@ -108,8 +89,7 @@ public class CourseController
         new Thread(task).start();
     }
 
-    private void test()
-    {
+    private void test() {
         test = new ArrayList<>();
         test.add(chevalLigne1);
         test.add(chevalLigne2);
@@ -120,27 +100,25 @@ public class CourseController
     }
 
 
-    private void attribuerChevalImage(List<Cheval> listeDeCheval, List<ImageView> listeImageCheval)
-    {
-        for (int pos = 0; pos < 6; pos++ )
-        {
+    private void attribuerChevalImage(List<Cheval> listeDeCheval, List<ImageView> listeImageCheval) {
+        for (int pos = 0; pos < 6; pos++) {
             listeDeCheval.get(pos).setImageCheva(listeImageCheval.get(pos));
         }
     }
 
-    public void lancerTranslation(Cheval cheval)
-    {
-        img = cheval.getImageCheval();
-        img.setLayoutX(GestionnaireCourses.calculAffichagePosition(cheval.getAvancementCourse()));
+    public void lancerTranslation(Cheval cheval) {
+        if (cheval != null) {
+            img = cheval.getImageCheval();
+            img.setLayoutX(GestionnaireCourses.calculAffichagePosition(cheval.getAvancementCourse()));
 
-        if(img != null)
-        {
-            Timeline timeline = new Timeline();
-            KeyValue kv = new KeyValue(img.translateXProperty(), 550.0 - (GestionnaireCourses.calculAffichagePosition(cheval.getAvancementCourse())) , Interpolator.EASE_IN);
-            KeyFrame kf = new KeyFrame(Duration.seconds(GestionnaireCourses.calculVitesseCheval(cheval.getAvancementCourse(),cheval.getVitesse())), kv);
-            timeline.getKeyFrames().add(kf);
+            if (img != null) {
+                Timeline timeline = new Timeline();
+                KeyValue kv = new KeyValue(img.translateXProperty(), 550.0 - (GestionnaireCourses.calculAffichagePosition(cheval.getAvancementCourse())), Interpolator.EASE_IN);
+                KeyFrame kf = new KeyFrame(Duration.seconds(GestionnaireCourses.calculVitesseCheval(cheval.getAvancementCourse(), cheval.getVitesse())), kv);
+                timeline.getKeyFrames().add(kf);
 
-            timeline.play();
+                timeline.play();
+            }
         }
     }
 

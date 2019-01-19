@@ -5,47 +5,25 @@ import Model.common.ListCheval;
 
 import java.util.List;
 
-public abstract class Course
-{
-    protected List<Cheval> listChevalCourse;
-    protected int numeroCourse;
-    protected String nomCourse;
-    protected String typeCourse;
-    protected Double niveauAvancementCourse;
+public abstract class Course {
+    private List<Cheval> listChevalCourse;
+    private int numeroCourse;
+    private String nomCourse;
+    private Boolean estTerminee;
 
-    public Course()
-    {
+    private String typeCourse;
+    private Double niveauAvancementCourse;
+
+
+    public Course() {
         listChevalCourse = ListCheval.getChevaux();
     }
 
-    protected void afficherCourseResultat()
-    {
 
-    }
-
-
-    protected void lancerCourse()
-    {
-
-    }
-
-    protected void arreterCourse()
-    {
-
-    }
-
-    protected void affecterCourse()
-    {
-
-    }
-
-    public Double getChevalLent()
-    {
+    public Double getChevalLent() {
         Double vitesse = 100000.0;
-        for (Cheval cheval : listChevalCourse)
-        {
-            if (vitesse > cheval.getVitesse())
-            {
+        for (Cheval cheval : listChevalCourse) {
+            if (vitesse > cheval.getVitesse()) {
                 vitesse = cheval.getVitesse();
             }
         }
@@ -56,8 +34,7 @@ public abstract class Course
         return this.listChevalCourse;
     }
 
-    public String getNomCourse()
-    {
+    public String getNomCourse() {
         return this.nomCourse;
     }
 
@@ -65,10 +42,19 @@ public abstract class Course
         return numeroCourse;
     }
 
-    public void setNomCourse (String pNomCourse) {this.nomCourse = pNomCourse;}
+    public void setNomCourse(String pNomCourse) {
+        this.nomCourse = pNomCourse;
+    }
 
-    public void setListChevalCourse (List<Cheval> listeC)
-    {
+    public void setListChevalCourse(List<Cheval> listeC) {
         this.listChevalCourse = listeC;
+    }
+
+    public Boolean getEstTerminee() {
+        return estTerminee;
+    }
+
+    public void setEstTerminee(Boolean pEnCours) {
+        this.estTerminee = pEnCours;
     }
 }

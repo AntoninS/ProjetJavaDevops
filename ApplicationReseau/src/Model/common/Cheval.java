@@ -23,10 +23,11 @@ public class Cheval {
     public Cheval() {
     }
 
-    public Cheval(Double pAvancementCourse, int pNumero)
+    public Cheval(Double pAvancementCourse, int pNumero, Double pVitesse)
     {
         this.numero = pNumero;
         this.avancementCourse = pAvancementCourse;
+        this.vitesse = pVitesse;
     }
 
     /**
