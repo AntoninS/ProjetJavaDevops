@@ -15,7 +15,7 @@ import java.net.UnknownHostException;
 public class MainClient extends Application{
 
 	public static void main(String[] args) throws UnknownHostException, IOException {
-		
+
 		if(args.length != 2) {
 			printUsage();
 			//String address = "127.0.0.1";

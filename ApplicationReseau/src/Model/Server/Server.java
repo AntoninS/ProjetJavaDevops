@@ -7,19 +7,19 @@ import Model.Client.ClientSend;
 import Model.common.Message;
 
 public class Server {
-	
+
 	private List<ConnectedClient> clients;
 	private int port;
-	
+
 	public Server(int port)
 	{
 		this.clients = new ArrayList<ConnectedClient>();
 		this.port = port;
-		
+
 		Thread threadConnection = new Thread(new Connection(this));
 		threadConnection.start();
 	}
-	
+
 	//annonce l'arriv�e d'un nouveau Controller.client et l'ajoute � la liste des clients
 	public void addClient(ConnectedClient newClient)
 	{
@@ -30,7 +30,7 @@ public class Server {
 		}
 		this.clients.add(newClient);
 	}
-	
+
 	//Envoie un message aux clients sauf a celui dont l'id est sp�cifi�
 	public void broadcastMessage(Message mess, int id)
 	{
@@ -42,7 +42,7 @@ public class Server {
 			}
 		}
 	}
-	
+
 	public void disconnectedClient(ConnectedClient discClient)
 	{
 		ConnectedClient.decreaseId();
@@ -52,7 +52,7 @@ public class Server {
 			client.sendMessage(new Message("Controller/server","Le Controller.client " + discClient.getId() + " nous a quitt�!"));
 		}
 	}
-	
+
 	public int getPort()
 	{
 		return this.port;
