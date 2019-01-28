@@ -39,7 +39,7 @@ public class ClientReceive implements Runnable{
 				mess = (Message) in.readObject();
 				if(mess !=null)
 				{
-					System.out.println("\nMessage reï¿½u : " + mess);
+					System.out.println("\nMessage reçu : " + mess);
 					this.client.messageReceived(mess);
 				}
 				else
