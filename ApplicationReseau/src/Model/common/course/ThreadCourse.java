@@ -75,7 +75,7 @@ public class ThreadCourse implements Runnable {
 
     public boolean courseFini() {
         uneCourseGeneral.setEstTerminee(false);
-        if (avancementDernierCheval >= GestionnaireCourses.DISTANCE_POURCENTAGE) {
+        if (avancementDernierCheval >= UtilCourse.DISTANCE_POURCENTAGE) {
 
             uneCourseGeneral.setEstTerminee(true);
         }

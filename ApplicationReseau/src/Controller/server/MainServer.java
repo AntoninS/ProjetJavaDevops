@@ -9,7 +9,6 @@ import java.util.Scanner;
 public class MainServer {
 
 	private static String START_COURSE_MSG = "start";
-	private static String PREPARE_COURSE_MSG = "prepare";
 
 	/**
 	 * creates a new Controller.server

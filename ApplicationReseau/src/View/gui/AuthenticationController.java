@@ -148,7 +148,7 @@ public class AuthenticationController {
 
 						GestionnaireCourses gc = new GestionnaireCourses();
 						gm.setGc(gc);
-						controlleur.getGestionnaireCourse(gm);
+						controlleur.setGestionnaireMessage(gm);
 
 
 						Stage stage = new Stage();

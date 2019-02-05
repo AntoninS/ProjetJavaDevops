@@ -1,6 +1,7 @@
 package Model.common;
 
 import Model.common.course.GestionnaireCourses;
+import Model.common.course.UtilCourse;
 import javafx.scene.image.ImageView;
 
 public class Cheval {
@@ -40,10 +41,10 @@ public class Cheval {
 
     public void modifierAvancement()
     {
-        if(getAvancementCourse() < GestionnaireCourses.DISTANCE_POURCENTAGE){
+        if(getAvancementCourse() < UtilCourse.DISTANCE_POURCENTAGE){
             setAvancementCourse(getAvancementCourse() + getVitesse());
         }
-        if( getAvancementCourse() >= GestionnaireCourses.DISTANCE_POURCENTAGE )
+        if( getAvancementCourse() >= UtilCourse.DISTANCE_POURCENTAGE )
         {
             setAvancementCourse(10001.0);
         }

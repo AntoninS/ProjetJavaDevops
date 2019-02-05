@@ -9,7 +9,7 @@ public abstract class Course {
     private List<Cheval> listChevalCourse;
     private int numeroCourse;
     private String nomCourse;
-    private Boolean estTerminee;
+    private Boolean estTerminee = false;
     private Integer tempsLancement;
 
     private String typeCourse;

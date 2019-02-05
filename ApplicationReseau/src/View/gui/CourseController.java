@@ -1,6 +1,8 @@
-package Model.common.course;
+package View.gui;
 
 import Model.common.Cheval;
+import Model.common.course.GestionnaireCourses;
+import Model.common.course.UtilCourse;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -26,6 +28,8 @@ public class CourseController {
 
     private static boolean affichageActif = false;
 
+    private EcranPrincipalController ecranController;
+
     @FXML
     private ImageView chevalLigne1;
     @FXML
@@ -44,19 +48,6 @@ public class CourseController {
     public void initialize() {
         affichageActif = true;
         stepsdada = 0;
-        listeChevalCourse = GestionnaireCourses.getListeDesCoursesEnCours().get(0).getListChevalCourse();
-
-        while(GestionnaireCourses.getListeDesCoursesEnCours().get(0).getTempsLancement() != 0)
-        {
-            System.out.println();
-
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
 
         lancerThreadDeplacement();
     }
@@ -65,6 +56,8 @@ public class CourseController {
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
+                listeChevalCourse = ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).getListChevalCourse();
+
                 test();
                 attribuerChevalImage(listeChevalCourse, test);
 
@@ -72,20 +65,34 @@ public class CourseController {
 
                     Platform.runLater(new Runnable() {
                         public void run() {
-                            listeChevalCourse = GestionnaireCourses.getListeDesCoursesEnCours().get(0).getListChevalCourse();
+                            /*
+                            while(ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).getTempsLancement() != 0)
+                            {
+                                System.out.println("test");
+
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                            */
+                            listeChevalCourse = ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).getListChevalCourse();
+
                             for (Cheval ch : listeChevalCourse) {
                                 System.out.println("Cheval numero " + ch.getNumero() + "Avancement " + ch.getAvancementCourse());
-                                if (stepsdada < 6 && !GestionnaireCourses.getListeDesCoursesEnCours().get(0).getEstTerminee() && ch.getAvancementCourse() <= GestionnaireCourses.DISTANCE_POURCENTAGE) {
+                                if (stepsdada < 6 /*&& !ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).getEstTerminee() && ch.getAvancementCourse() <= UtilCourse.DISTANCE_POURCENTAGE*/) {
                                     lancerTranslation(ch);
-                                } else if (ch.getAvancementCourse() > GestionnaireCourses.DISTANCE_POURCENTAGE && stepsdada < 6) {
-                                    ch.getImageCheval().setLayoutX(550.0);
-                                }
+                                } /*else if (ch.getAvancementCourse() > UtilCourse.DISTANCE_POURCENTAGE && stepsdada < UtilCourse.nombreChevauxCourse) {
+                                    ch.getImageCheval().setLayoutX(UtilCourse.LONGUEUR_DIFF_PLUS_PIXEL);
+                                }*/
                                 stepsdada++;
                                 System.out.println("Position " + ch.getPosition());
                             }
                         }
                     });
-                    if (GestionnaireCourses.getListeDesCoursesEnCours().get(0).getEstTerminee() || !affichageActif) {
+                    if (ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).getEstTerminee() || !affichageActif) {
                         System.out.println("La course d'affichage est fini");
                         break;
                     }
@@ -113,7 +120,7 @@ public class CourseController {
 
 
     private void attribuerChevalImage(List<Cheval> listeDeCheval, List<ImageView> listeImageCheval) {
-        for (int pos = 0; pos < 6; pos++) {
+        for (int pos = 0; pos < UtilCourse.nombreChevauxCourse; pos++) {
             listeDeCheval.get(pos).setImageCheva(listeImageCheval.get(pos));
         }
     }
@@ -121,12 +128,12 @@ public class CourseController {
     public void lancerTranslation(Cheval cheval) {
         if (cheval != null) {
             img = cheval.getImageCheval();
-            img.setLayoutX(GestionnaireCourses.calculAffichagePosition(cheval.getAvancementCourse()));
+            img.setLayoutX(UtilCourse.calculAffichagePosition(cheval.getAvancementCourse()));
 
             if (img != null) {
                 Timeline timeline = new Timeline();
-                KeyValue kv = new KeyValue(img.translateXProperty(), 550.0 - (GestionnaireCourses.calculAffichagePosition(cheval.getAvancementCourse())), Interpolator.EASE_IN);
-                KeyFrame kf = new KeyFrame(Duration.seconds(GestionnaireCourses.calculVitesseCheval(cheval.getAvancementCourse(), cheval.getVitesse())), kv);
+                KeyValue kv = new KeyValue(img.translateXProperty(), UtilCourse.LONGUEUR_DIFF_PLUS_PIXEL - (UtilCourse.calculAffichagePosition(cheval.getAvancementCourse())), Interpolator.EASE_IN);
+                KeyFrame kf = new KeyFrame(Duration.seconds(UtilCourse.calculVitesseCheval(cheval.getAvancementCourse(), cheval.getVitesse())), kv);
                 timeline.getKeyFrames().add(kf);
 
                 timeline.play();
@@ -136,5 +143,10 @@ public class CourseController {
 
     public static void setAffichageActif(boolean pAffichageActif) {
         affichageActif = pAffichageActif;
+    }
+
+    public void setEcranController (EcranPrincipalController ec)
+    {
+       this.ecranController = ec;
     }
 }

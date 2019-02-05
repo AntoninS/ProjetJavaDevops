@@ -3,7 +3,6 @@ package View.gui;
 import Model.Server.Server;
 import Model.common.Cheval;
 import Model.common.GestionnaireMessages;
-import Model.common.course.CourseController;
 import Model.common.course.GestionnaireCourses;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
@@ -58,7 +57,6 @@ public class EcranPrincipalController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-	//	 = new GestionnaireCourses(this);
 	}
 
 	@FXML
@@ -70,8 +68,16 @@ public class EcranPrincipalController implements Initializable {
 			try
 			{
 				System.out.println("ok");
-				rootAffichageCourse = FXMLLoader.load(getClass().getResource("/View/gui/AffichageCourse.fxml"));
+				//rootAffichageCourse = FXMLLoader.load(getClass().getResource("/View/gui/AffichageCourse.fxml"));
 				Stage stage = new Stage();
+
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(getClass().getResource("AffichageCourse.fxml"));
+				rootAffichageCourse = loader.load();
+
+				CourseController controllerCourse = loader.getController();
+				controllerCourse.setEcranController(this);
+
 				stage.initStyle(StageStyle.UNDECORATED);
 				stage.setScene(new Scene(rootAffichageCourse, 800,450));
 				stage.show();
@@ -159,22 +165,29 @@ public class EcranPrincipalController implements Initializable {
 		ObservableList<String> listeChevaux = FXCollections.<String>observableArrayList();
 
 
-		for (Cheval cheval  : GestionnaireCourses.getListeDesCoursesEnCours().get(0).getListChevalCourse())
+		for (Cheval cheval  : gestionnaireMessages.getGc().getListeDesCoursesEnCours().get(0).getListChevalCourse())
 		{
-			String stringListView = cheval.getNumero() + " " + cheval.getNom() + " " + cheval.getVitesse();
+			String stringListView = cheval.getNom();
 			listeChevaux.add(stringListView);
 		//	fxListeCheval.getItems().add(stringListView);
 		}
 		//fxListeCheval.getItems().add("Test");
-		ObservableList<String> seasonList = FXCollections.<String>observableArrayList("Spring", "Summer", "Fall", "Winter");
-		fxListeCheval.setItems(listeChevaux);
-		ObservableList<String> vdsvsd = FXCollections.<String>observableArrayList("Spring", "Summer", "Fall", "Winter");
+		ObservableList<String> seasonList = FXCollections.observableArrayList("Spring", "Summer", "Fall", "Winter");
+		fxListeCheval.setItems(seasonList);
+		fxListeCheval.setMinHeight(100.0);
+		ObservableList<String> vdsvsd = FXCollections.observableArrayList("Spring", "Summer", "Fall", "Winter");
 
 	}
 
-	public void getGestionnaireCourse(GestionnaireMessages gm)
+	public void setGestionnaireMessage(GestionnaireMessages gm)
 	{
 		gestionnaireMessages = gm;
 		gestionnaireMessages.getGc().setEcranController(this);
+
+	}
+
+	public GestionnaireMessages getGestionnaireMessaire()
+	{
+		return gestionnaireMessages;
 	}
 }

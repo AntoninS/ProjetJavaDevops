@@ -16,7 +16,7 @@ public class GestionnaireMessages {
 
         if(balise.equals("course"))
         {
-            gc.creerCourse(jresponse);
+            gc.gererCourse(jresponse);
         }
     }
 
