@@ -8,54 +8,53 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 
 public class ThreadCourse implements Runnable {
 
     private CourseGeneral uneCourseGeneral;
-
+    private int tempsAvantLancement;
     private Double avancementDernierCheval = 0.0;
     JSONObject jsonConcatenationCourse;
-    private Random randomGenerator;
     private Server server;
 
     @Override
     public void run() {
-        try {
-            randomGenerator = new Random();
 
-            do {
-                getAvancementDernierCheval();
-                int etapeAjoutJson = 0;
+        tempsAvantLancement = uneCourseGeneral.TEMPS_DES_PARIS;
 
-                concatenationJsonObject(etapeAjoutJson, null, null, null);
-                System.out.print(etapeAjoutJson);
+        do {
+            try {
 
-                for (Cheval chevalParcourue : uneCourseGeneral.getListChevalCourse()) {
-                    etapeAjoutJson++;
-                    chevalParcourue.modifierForme();
-                    concatenationJsonObject(etapeAjoutJson, chevalParcourue.getNumero(), chevalParcourue.getAvancementCourse(), chevalParcourue.getVitesse());
+                if (tempsAvantLancement != 0) {
+
+                    concatenationJsonObject();
+                    tempsAvantLancement--;
+                    System.out.println(tempsAvantLancement);
+                } else {
+                    getAvancementDernierCheval();
+                    uneCourseGeneral.modifierAvancementTousLesChevaux();
+                    concatenationJsonObject();
+                    System.out.println(tempsAvantLancement);
                 }
-
                 Thread.sleep(1000);
 
-                Message mess = new Message("Controller/client", jsonConcatenationCourse.toString());
-                this.server.broadcastMessage(mess, -1);
-
+            } catch (InterruptedException | JSONException e) {
+                e.printStackTrace();
             }
-            while (!uneCourseGeneral.getEstTerminee());
 
+            Message mess = new Message("Controller/client", jsonConcatenationCourse.toString());
+            this.server.broadcastMessage(mess, -1);
 
-        } catch (JSONException | InterruptedException e) {
-            e.printStackTrace();
         }
+        while (!uneCourseGeneral.getEstTerminee());
+
     }
 
     public ThreadCourse(String pNomCourse, Server pServer) {
         this.server = pServer;
         uneCourseGeneral = new CourseGeneral();
         uneCourseGeneral.setNomCourse(pNomCourse);
-        uneCourseGeneral.setEstTerminee(true);
+        uneCourseGeneral.setEstTerminee(false);
     }
 
     public CourseGeneral getCourse() {
@@ -83,48 +82,26 @@ public class ThreadCourse implements Runnable {
         return uneCourseGeneral.getEstTerminee();
     }
 
-    private void concatenationJsonObject(int pEtape, Integer pNumero, Double pEtatDansLaCourse, Double pVitesse) throws JSONException {
-        switch (pEtape) {
-            case 0:
-                jsonConcatenationCourse = new JSONObject();
-                jsonConcatenationCourse.put("balise", "course");
-                jsonConcatenationCourse.put("nomCourse", "uneCourse");
-                jsonConcatenationCourse.put("courseEtat", courseFini());
 
-                break;
-            case 1:
-                jsonConcatenationCourse.put(Integer.toString(pEtape), pEtatDansLaCourse);
-                jsonConcatenationCourse.put(Integer.toString(pEtape + 10), pNumero);
-                jsonConcatenationCourse.put(Integer.toString(pEtape + 20), pVitesse);
-                break;
-            case 2:
-                jsonConcatenationCourse.put(Integer.toString(pEtape), pEtatDansLaCourse);
-                jsonConcatenationCourse.put(Integer.toString(pEtape + 10), pNumero);
-                jsonConcatenationCourse.put(Integer.toString(pEtape + 20), pVitesse);
-                break;
-            case 3:
-                jsonConcatenationCourse.put(Integer.toString(pEtape), pEtatDansLaCourse);
-                jsonConcatenationCourse.put(Integer.toString(pEtape + 10), pNumero);
-                jsonConcatenationCourse.put(Integer.toString(pEtape + 20), pVitesse);
-                break;
-            case 4:
-                jsonConcatenationCourse.put(Integer.toString(pEtape), pEtatDansLaCourse);
-                jsonConcatenationCourse.put(Integer.toString(pEtape + 10), pNumero);
-                jsonConcatenationCourse.put(Integer.toString(pEtape + 20), pVitesse);
-                break;
-            case 5:
-                jsonConcatenationCourse.put(Integer.toString(pEtape), pEtatDansLaCourse);
-                jsonConcatenationCourse.put(Integer.toString(pEtape + 10), pNumero);
-                jsonConcatenationCourse.put(Integer.toString(pEtape + 20), pVitesse);
-                break;
-            case 6:
-                jsonConcatenationCourse.put(Integer.toString(pEtape), pEtatDansLaCourse);
-                jsonConcatenationCourse.put(Integer.toString(pEtape + 10), pNumero);
-                jsonConcatenationCourse.put(Integer.toString(pEtape + 20), pVitesse);
-                break;
-            case 7:
+    private void concatenationJsonObject() throws JSONException {
 
-                break;
+
+        int etapeAjoutJson = 0;
+
+        jsonConcatenationCourse = new JSONObject();
+        jsonConcatenationCourse.put("balise", "course");
+        jsonConcatenationCourse.put("nomCourse", "uneCourse");
+        jsonConcatenationCourse.put("tempsLancement", tempsAvantLancement);
+        jsonConcatenationCourse.put("courseEtat", courseFini());
+
+
+        for (Cheval cheval : uneCourseGeneral.getListChevalCourse()) {
+            etapeAjoutJson++;
+            jsonConcatenationCourse.put(Integer.toString(etapeAjoutJson), cheval.getAvancementCourse());
+            jsonConcatenationCourse.put(Integer.toString(etapeAjoutJson + 10), cheval.getNumero());
+            jsonConcatenationCourse.put(Integer.toString(etapeAjoutJson + 20), cheval.getVitesse());
+            jsonConcatenationCourse.put(Integer.toString(etapeAjoutJson + 30), cheval.getNom());
+
         }
     }
 }

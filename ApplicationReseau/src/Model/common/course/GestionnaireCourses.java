@@ -1,6 +1,7 @@
 package Model.common.course;
 
 import Model.common.Cheval;
+import View.gui.EcranPrincipalController;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -8,8 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GestionnaireCourses {
+
     private static List<Course> listeDesCoursesEnCours = null;
+
     private static List<Course> listeDesCoursesFini = null;
+
+    private  EcranPrincipalController ecranController = null;
+
+    public void setEcranController(EcranPrincipalController ecranController) {
+        this.ecranController = ecranController;
+    }
 
     //Cette distance est un pourcentage ramené a 10000 au lieu de 100 pour eviter des problèmes au niveau de l'affichage graphique
     public final static Double DISTANCE_POURCENTAGE = 10000.0;
@@ -17,6 +26,10 @@ public class GestionnaireCourses {
     public final static Double LONGUEUR_PIXEL_COURSE = 500.0;
     //Différence entre le bord de la fenetre est le début de la course
     public final static Double LONG_DIFF_FEN_DEB_COURSE = 50.0;
+
+    public GestionnaireCourses() {
+
+    }
 
     public List<Course> getListeDesCourses() {
         return listeDesCoursesEnCours;
@@ -47,7 +60,7 @@ public class GestionnaireCourses {
     /**
      * On vient ici créer ou modifier les données de la course qu'on reçoit
      */
-    public static void creerCourse(JSONObject courseJsonObject) throws JSONException {
+    public void  creerCourse(JSONObject courseJsonObject) throws JSONException {
 
         String nomDeLaCourse = courseJsonObject.getString("nomCourse");
         boolean courseExistente = false;
@@ -55,7 +68,10 @@ public class GestionnaireCourses {
 
         List<Cheval> listeCh = new ArrayList<>();
         for (int i = 1; i < 7; i++) {
-            Cheval ch = new Cheval(courseJsonObject.getDouble(Integer.toString(i)), courseJsonObject.getInt(Integer.toString(i + 10)), courseJsonObject.getDouble(Integer.toString(i + 20)));
+            Cheval ch = new Cheval(courseJsonObject.getDouble(Integer.toString(i)), //
+                     courseJsonObject.getInt(Integer.toString(i + 10)), //
+                     courseJsonObject.getDouble(Integer.toString(i + 20)), //
+                     courseJsonObject.getString(Integer.toString(i + 30)));
             listeCh.add(ch);
         }
 
@@ -73,14 +89,17 @@ public class GestionnaireCourses {
         }
         if (courseExistente) {
             course.setListChevalCourse(listeCh);
+            course.setTempsLancement(courseJsonObject.getInt("tempsLancement"));
             if (courseJsonObject.getBoolean("courseEtat")) {
                 courseFini(course);
             }
         } else {
             course.setListChevalCourse(listeCh);
             course.setNomCourse(nomDeLaCourse);
+            course.setTempsLancement(courseJsonObject.getInt("tempsLancement"));
             course.setEstTerminee(false);
             ajouterCourse(course);
+            ecranController.ajouterCourseListView();;
         }
     }
 
@@ -111,6 +130,7 @@ public class GestionnaireCourses {
     private static Double tourBoucleNecessaireRestant(Cheval ch) {
         return (DISTANCE_POURCENTAGE - ch.getAvancementCourse()) / ch.getVitesse();
     }
+
 
     public static List<Course> getListeDesCoursesEnCours() {
         return listeDesCoursesEnCours;

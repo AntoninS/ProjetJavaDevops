@@ -23,11 +23,12 @@ public class Cheval {
     public Cheval() {
     }
 
-    public Cheval(Double pAvancementCourse, int pNumero, Double pVitesse)
+    public Cheval(Double pAvancementCourse, int pNumero, Double pVitesse, String pNom)
     {
         this.numero = pNumero;
         this.avancementCourse = pAvancementCourse;
         this.vitesse = pVitesse;
+        this.nom = pNom;
     }
 
     /**
@@ -37,7 +38,7 @@ public class Cheval {
 
     }
 
-    public void modifierForme()
+    public void modifierAvancement()
     {
         if(getAvancementCourse() < GestionnaireCourses.DISTANCE_POURCENTAGE){
             setAvancementCourse(getAvancementCourse() + getVitesse());

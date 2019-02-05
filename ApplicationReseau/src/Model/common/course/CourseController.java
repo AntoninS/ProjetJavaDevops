@@ -1,6 +1,5 @@
 package Model.common.course;
 
-import View.gui.EcranPrincipalController;
 import Model.common.Cheval;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -8,7 +7,7 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
-import javafx.fxml.*;
+import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
@@ -46,6 +45,19 @@ public class CourseController {
         affichageActif = true;
         stepsdada = 0;
         listeChevalCourse = GestionnaireCourses.getListeDesCoursesEnCours().get(0).getListChevalCourse();
+
+        while(GestionnaireCourses.getListeDesCoursesEnCours().get(0).getTempsLancement() != 0)
+        {
+            System.out.println();
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+
         lancerThreadDeplacement();
     }
 

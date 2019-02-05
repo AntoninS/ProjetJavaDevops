@@ -1,16 +1,19 @@
 package View.gui;
 
-import java.io.IOException;
-
-import Model.common.course.CourseController;
-import Model.common.course.ThreadCourse;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextArea;
-
 import Model.Server.Server;
+import Model.common.Cheval;
+import Model.common.GestionnaireMessages;
+import Model.common.course.CourseController;
+import Model.common.course.GestionnaireCourses;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXTextArea;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollBar;
@@ -24,7 +27,11 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
-public class EcranPrincipalController {
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class EcranPrincipalController implements Initializable {
 	
 	private Server server;
 	
@@ -38,15 +45,21 @@ public class EcranPrincipalController {
 	
 	@FXML
 	private JFXButton btnConsulterCourse;
+
+	@FXML
+	private JFXListView<String> fxListeCheval;
 	
 	public void getServer(Server server)
 	{
 		this.server = server;
 	}
-	
 
-	private static ThreadCourse course;
+	private GestionnaireMessages gestionnaireMessages;
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
 
+	//	 = new GestionnaireCourses(this);
+	}
 
 	@FXML
 	private void consulterLaCourse(MouseEvent event)
@@ -62,6 +75,7 @@ public class EcranPrincipalController {
 				stage.initStyle(StageStyle.UNDECORATED);
 				stage.setScene(new Scene(rootAffichageCourse, 800,450));
 				stage.show();
+
 				stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 					public void handle(WindowEvent we) {
 						CourseController.setAffichageActif(false);
@@ -123,14 +137,6 @@ public class EcranPrincipalController {
 			this.panelEcranPrincipal.getScene().getWindow().setY(event.getScreenY() - this.posY);
 		}
 	}
-	
-	@FXML
-	private void lancerLaCourse(MouseEvent event)
-	{
-		//course = new ThreadCourse( "FCKebab");
-		//Thread courseThread= new Thread(course);
-		//courseThread.start();
-	}
 
 	//Ferme l'application sur un clique gauche
 	@FXML
@@ -148,7 +154,27 @@ public class EcranPrincipalController {
 			((Stage)((ImageView)event.getSource()).getScene().getWindow()).setIconified(true);
 	}
 
-	public static ThreadCourse  getCourse() {
-		return course;
+	public void ajouterCourseListView()
+	{
+		ObservableList<String> listeChevaux = FXCollections.<String>observableArrayList();
+
+
+		for (Cheval cheval  : GestionnaireCourses.getListeDesCoursesEnCours().get(0).getListChevalCourse())
+		{
+			String stringListView = cheval.getNumero() + " " + cheval.getNom() + " " + cheval.getVitesse();
+			listeChevaux.add(stringListView);
+		//	fxListeCheval.getItems().add(stringListView);
+		}
+		//fxListeCheval.getItems().add("Test");
+		ObservableList<String> seasonList = FXCollections.<String>observableArrayList("Spring", "Summer", "Fall", "Winter");
+		fxListeCheval.setItems(listeChevaux);
+		ObservableList<String> vdsvsd = FXCollections.<String>observableArrayList("Spring", "Summer", "Fall", "Winter");
+
+	}
+
+	public void getGestionnaireCourse(GestionnaireMessages gm)
+	{
+		gestionnaireMessages = gm;
+		gestionnaireMessages.getGc().setEcranController(this);
 	}
 }
