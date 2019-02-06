@@ -138,8 +138,8 @@ public class AuthenticationController {
 						//Connexion au serveur
 						String address = "127.0.0.1";
 						Integer port = new Integer(1420);
-						Client unClient = new Client(port, address, this.loginText.getText());
 						GestionnaireMessages gm = new GestionnaireMessages();
+						Client unClient = new Client(port, address, this.loginText.getText(), gm);
 						
 						FXMLLoader loader = new FXMLLoader();
 						loader.setLocation(getClass().getResource("EcranPrincipal.fxml"));

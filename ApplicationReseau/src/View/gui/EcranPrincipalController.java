@@ -6,7 +6,6 @@ import java.io.ObjectInputStream;
 import java.net.Socket;
 
 import Model.common.Message;
-import Model.common.course.CourseController;
 import Model.common.course.ThreadCourse;
 import Model.Server.Server;
 import Model.common.Cheval;

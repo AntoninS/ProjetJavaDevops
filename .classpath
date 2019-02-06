@@ -4,5 +4,6 @@
 	<classpathentry kind="src" path="ApplicationReseau/src"/>
 	<classpathentry kind="lib" path="ApplicationReseau/lib/jfoenix-8.0.8.jar"/>
 	<classpathentry kind="lib" path="ApplicationReseau/lib/ojdbc7.jar"/>
+	<classpathentry kind="lib" path="ApplicationReseau/lib/java-json.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

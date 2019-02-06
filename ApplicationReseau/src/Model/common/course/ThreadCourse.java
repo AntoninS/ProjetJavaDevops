@@ -3,11 +3,11 @@ package Model.common.course;
 import Model.Server.Server;
 import Model.common.Cheval;
 import Model.common.Message;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Collections;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ThreadCourse implements Runnable {
 
