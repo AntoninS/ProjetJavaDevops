@@ -5,6 +5,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
 
+import com.jfoenix.controls.JFXTextArea;
+
 import Model.common.Message;
 
 public class  ClientSend implements Runnable {
@@ -18,16 +20,15 @@ public class  ClientSend implements Runnable {
 		this.out = out;
 	}
 	
-	
 	@Override
 	public void run() 
-	{	
+	{
 		Scanner sc = new Scanner(System.in);
 		while(true)
 		{
 			System.out.print("Votre message >> ");
 			String m = sc.nextLine();
-			Message mess = new Message("Controller/client",m);
+			Message mess = new Message("Controller/client", m);
 			try {
 				this.out.writeObject(mess);
 				this.out.flush();
@@ -36,5 +37,4 @@ public class  ClientSend implements Runnable {
 			}
 		}
 	}
-
 }

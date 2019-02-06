@@ -6,6 +6,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 
+import com.jfoenix.controls.JFXTextArea;
+
+import Model.Client.Client;
+import Model.common.Message;
+
 public class ClientReceive implements Runnable{
 	
 	private Client client;
@@ -52,7 +57,6 @@ public class ClientReceive implements Runnable{
 			}
 		}
 		client.disconnectedServer();
-		
 	}
 
 }

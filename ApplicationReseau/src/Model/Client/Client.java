@@ -9,6 +9,10 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import com.jfoenix.controls.JFXTextArea;
+
+import Model.common.Message;
+
 public class Client {
 	
 	private int port;
@@ -18,12 +22,14 @@ public class Client {
 	private ObjectInputStream in;
 	private Message message;
 	private GestionnaireMessages gm;
+	private Message messageReceived;
+	private String nom;
 	
-	public Client(int port, String address, GestionnaireMessages gestionnaireMessages)
+	public Client(int port, String address, String nom)
 	{
 		this.port = port;
 		this.address = address;
-		this.gm = gestionnaireMessages;
+		this.nom = nom;
 		
 		try {
 			this.socket = new Socket(address, port);
@@ -42,10 +48,44 @@ public class Client {
 			e.printStackTrace();
 		}
 		
-		Thread sendMessages = new Thread(new ClientSend(this.socket, this.out));
-		sendMessages.start();
-
-		GestionnaireMessages gm;
+		System.out.println("Bonjour " + this.nom);
+		
+//		Thread sendMessages = new Thread(new ClientSend(this.socket, this.out));
+//		sendMessages.start();
+		
+		Thread getMessages = new Thread(new ClientReceive(this, socket));
+		getMessages.start();
+	}
+	
+	public Client(int port, String address, String nom, GestionnaireMessages gestionnaireMessages)
+	{
+		this.port = port;
+		this.address = address;
+		this.gm = gestionnaireMessages;
+		this.nom = nom;
+		
+		try {
+			this.socket = new Socket(address, port);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			this.out = new ObjectOutputStream(this.socket.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("Bonjour " + this.nom);
+		
+//		Thread sendMessages = new Thread(new ClientSend(this.socket, this.out));
+//		sendMessages.start();
+		
 		Thread getMessages = new Thread(new ClientReceive(this, socket));
 		getMessages.start();
 		
@@ -68,9 +108,29 @@ public class Client {
 	
 	public Message messageReceived(Message mess)
 	{
-		this.message = mess;
+		this.messageReceived = mess;
 		
-		return this.message;
+		return this.messageReceived;
+	}
+	
+	public ObjectOutputStream getOutPutStream()
+	{
+		return this.out;
+	}
+	
+	public ObjectInputStream getInputStream()
+	{
+		return this.in;
+	}
+	
+	public Socket getSocket()
+	{
+		return this.socket;
+	}
+	
+	public String getNom()
+	{
+		return this.nom;
 	}
 
 	public GestionnaireMessages getGm() {

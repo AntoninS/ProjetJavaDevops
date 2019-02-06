@@ -1,5 +1,12 @@
 package View.gui;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.net.Socket;
+
+import Model.common.Message;
+import Model.common.course.ThreadCourse;
 import Model.Server.Server;
 import Model.common.Cheval;
 import Model.common.GestionnaireMessages;
@@ -7,6 +14,8 @@ import Model.common.course.GestionnaireCourses;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextArea;
+
+import Model.Client.Client;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -15,6 +24,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -32,7 +42,8 @@ import java.util.ResourceBundle;
 
 public class EcranPrincipalController implements Initializable {
 	
-	private Server server;
+	private static ThreadCourse course;
+	private Client client;
 	
 	@FXML
 	private AnchorPane panelEcranPrincipal;
@@ -43,14 +54,63 @@ public class EcranPrincipalController implements Initializable {
 	private JFXTextArea msgField;
 	
 	@FXML
+	private ImageView btnEnvoyer;
+	
+	@FXML
 	private JFXButton btnConsulterCourse;
 
 	@FXML
 	private JFXListView<String> fxListeCheval;
 	
-	public void getServer(Server server)
+	@FXML
+	private Label lblUtilisateur;
+	
+//	public void initiate()
+//	{
+//		Message mess; 
+//		
+//		ObjectInputStream in = this.client.getInputStream();
+//		Socket socket = this.client.getSocket();
+//		
+//		try {
+//			in = new ObjectInputStream(socket.getInputStream());
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		boolean isActive = true;
+//		while(isActive)
+//		{
+//			try
+//			{
+//				mess = (Message) in.readObject();
+//				if(mess !=null)
+//				{
+//					System.out.println("\nMessage re�u : " + mess);
+//					this.client.messageReceived(mess);
+//				}
+//				else
+//				{
+//					isActive = false;
+//				}
+//			}
+//			catch(Exception e)
+//			{
+//				e.printStackTrace();
+//			}
+//		}
+//		client.disconnectedServer();
+//	}
+	
+	public void getClient(Client client)
 	{
-		this.server = server;
+		this.client = client;
+	}
+	
+	public void setLblUtilisateur(String nomUtilisateur)
+	{
+		this.lblUtilisateur.setText("Bonjour, " + nomUtilisateur);
 	}
 
 	private GestionnaireMessages gestionnaireMessages;
@@ -158,6 +218,22 @@ public class EcranPrincipalController implements Initializable {
 	{
 		if(event.getButton() == MouseButton.PRIMARY)
 			((Stage)((ImageView)event.getSource()).getScene().getWindow()).setIconified(true);
+	}
+	
+	@FXML
+	private void envoyerMessage(MouseEvent event)
+	{
+		if(event.getButton() == MouseButton.PRIMARY)
+		{
+			Message mess = new Message(this.client.getNom(), this.msgField.getText());
+			try {
+				client.getOutPutStream().writeObject(mess);
+				this.client.getOutPutStream().flush();
+				this.msgField.setText("");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public void ajouterCourseListView()

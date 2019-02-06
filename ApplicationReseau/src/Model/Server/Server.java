@@ -19,8 +19,8 @@ public class Server {
 		Thread threadConnection = new Thread(new Connection(this));
 		threadConnection.start();
 	}
-
-	//annonce l'arriv�e d'un nouveau Controller.client et l'ajoute � la liste des clients
+	
+	//annonce l'arriv� d'un nouveau Controller.client et l'ajoute � la liste des clients
 	public void addClient(ConnectedClient newClient)
 	{
 		for(ConnectedClient client : this.clients)

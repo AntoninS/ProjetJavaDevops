@@ -135,16 +135,20 @@ public class AuthenticationController {
 					try {
 						System.out.println("ok");
 						
+						//Connexion au serveur
 						String address = "127.0.0.1";
 						Integer port = new Integer(1420);
 						GestionnaireMessages gm = new GestionnaireMessages();
-						Client c = new Client(port, address,gm);
+						Client unClient = new Client(port, address, this.loginText.getText(), gm);
 						
 						FXMLLoader loader = new FXMLLoader();
 						loader.setLocation(getClass().getResource("EcranPrincipal.fxml"));
 						rootAffichageEcranPrincipalParent = loader.load();
 						
 						EcranPrincipalController controlleur = loader.getController();
+						controlleur.getClient(unClient);
+						controlleur.setLblUtilisateur(unClient.getNom());
+						
 
 						GestionnaireCourses gc = new GestionnaireCourses();
 						gm.setGc(gc);
