@@ -52,8 +52,6 @@ public class GestionnaireCourses {
      * Recuperation des informations JSON
      */
     private List<Cheval> recuperationListCheval(JSONObject courseJsonObject) throws JSONException {
-        boolean courseExistente = false;
-
 
         List<Cheval> listeCh = new ArrayList<>();
         for (int i = 1; i < 7; i++) {
@@ -64,6 +62,14 @@ public class GestionnaireCourses {
             listeCh.add(ch);
         }
         return listeCh;
+    }
+
+    private void modificationAvancementChevaux (JSONObject courseJsonObject, List<Cheval> listCheval) throws JSONException {
+
+        for (int i = 0; i < UtilCourse.nombreChevauxCourse; i++) {
+            Double nouveauAvancement = courseJsonObject.getDouble(Integer.toString(i + 1));
+            listCheval.get(i).setAvancementCourse(nouveauAvancement);
+        }
     }
 
     private String recuperationNomCourse(JSONObject courseJsonObject) throws JSONException
@@ -89,7 +95,7 @@ public class GestionnaireCourses {
     private void majCourse(Course course, JSONObject courseJsonObject) throws JSONException
     {
 
-        course.setListChevalCourse(recuperationListCheval(courseJsonObject));
+       modificationAvancementChevaux(courseJsonObject, course.getListChevalCourse());
         course.setTempsLancement(courseJsonObject.getInt("tempsLancement"));
 
         if (courseJsonObject.getBoolean("courseEtat")) {

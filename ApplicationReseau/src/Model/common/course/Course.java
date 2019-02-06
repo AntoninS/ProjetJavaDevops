@@ -39,6 +39,11 @@ public abstract class Course {
         }
     }
 
+    public void modifierAvancementCheval(int indexCheval, Double niveauAvancementCourse)
+    {
+        listChevalCourse.get(indexCheval).setAvancementCourse(niveauAvancementCourse);
+    }
+
     public List<Cheval> getListChevalCourse() {
         return this.listChevalCourse;
     }

@@ -1,7 +1,6 @@
 package View.gui;
 
 import Model.common.Cheval;
-import Model.common.course.GestionnaireCourses;
 import Model.common.course.UtilCourse;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -20,9 +19,9 @@ public class CourseController {
 
     private ImageView img;
 
-    private int stepsdada;
+    private int chevalIndex;
 
-    private List<ImageView> test;
+    private List<ImageView> listImage;
 
     private List<Cheval> listeChevalCourse;
 
@@ -47,7 +46,7 @@ public class CourseController {
     @FXML
     public void initialize() {
         affichageActif = true;
-        stepsdada = 0;
+        chevalIndex = 0;
 
         lancerThreadDeplacement();
     }
@@ -58,37 +57,31 @@ public class CourseController {
             protected Void call() throws Exception {
                 listeChevalCourse = ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).getListChevalCourse();
 
-                test();
-                attribuerChevalImage(listeChevalCourse, test);
+                attribuerChevalImage();
+                attribuerChevalImage(listeChevalCourse, listImage);
 
                 for (int i = 0; i < 100; i++) {
 
                     Platform.runLater(new Runnable() {
                         public void run() {
-                            /*
-                            while(ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).getTempsLancement() != 0)
-                            {
-                                System.out.println("test");
 
-                                try {
-                                    Thread.sleep(1000);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-
-                            }
-                            */
                             listeChevalCourse = ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).getListChevalCourse();
 
                             for (Cheval ch : listeChevalCourse) {
                                 System.out.println("Cheval numero " + ch.getNumero() + "Avancement " + ch.getAvancementCourse());
-                                if (stepsdada < 6 /*&& !ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).getEstTerminee() && ch.getAvancementCourse() <= UtilCourse.DISTANCE_POURCENTAGE*/) {
+                                if (chevalIndex < UtilCourse.nombreChevauxCourse  && !ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).getEstTerminee() && ch.getAvancementCourse() <= UtilCourse.DISTANCE_POURCENTAGE && ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).getTempsLancement() == 0 )
+                                {
                                     lancerTranslation(ch);
-                                } /*else if (ch.getAvancementCourse() > UtilCourse.DISTANCE_POURCENTAGE && stepsdada < UtilCourse.nombreChevauxCourse) {
+                                    chevalIndex++;
+                                }
+                                else if (ch.getAvancementCourse() > UtilCourse.DISTANCE_POURCENTAGE && chevalIndex < UtilCourse.nombreChevauxCourse && ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).getTempsLancement() == 0)
+                                {
                                     ch.getImageCheval().setLayoutX(UtilCourse.LONGUEUR_DIFF_PLUS_PIXEL);
-                                }*/
-                                stepsdada++;
-                                System.out.println("Position " + ch.getPosition());
+                                }
+                                else
+                                {
+                                    System.out.println("AHAHAHA TU ATTENDS COMME LES AUTRES QUE LA COURSE SE LANCE");
+                                }
                             }
                         }
                     });
@@ -108,14 +101,14 @@ public class CourseController {
         new Thread(task).start();
     }
 
-    private void test() {
-        test = new ArrayList<>();
-        test.add(chevalLigne1);
-        test.add(chevalLigne2);
-        test.add(chevalLigne3);
-        test.add(chevalLigne4);
-        test.add(chevalLigne5);
-        test.add(chevalLigne6);
+    private void attribuerChevalImage() {
+        listImage = new ArrayList<>();
+        listImage.add(chevalLigne1);
+        listImage.add(chevalLigne2);
+        listImage.add(chevalLigne3);
+        listImage.add(chevalLigne4);
+        listImage.add(chevalLigne5);
+        listImage.add(chevalLigne6);
     }
 
 
