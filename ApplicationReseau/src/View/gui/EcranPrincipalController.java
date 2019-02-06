@@ -1,18 +1,21 @@
 package View.gui;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
 
+import Model.common.Message;
 import Model.common.course.CourseController;
 import Model.common.course.ThreadCourse;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 
-import Model.Server.Server;
+import Model.Client.Client;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -26,7 +29,8 @@ import javafx.stage.WindowEvent;
 
 public class EcranPrincipalController {
 	
-	private Server server;
+	private static ThreadCourse course;
+	private Client client;
 	
 	@FXML
 	private AnchorPane panelEcranPrincipal;
@@ -37,16 +41,23 @@ public class EcranPrincipalController {
 	private JFXTextArea msgField;
 	
 	@FXML
+	private ImageView btnEnvoyer;
+	
+	@FXML
 	private JFXButton btnConsulterCourse;
 	
-	public void getServer(Server server)
+	@FXML
+	private Label lblUtilisateur;
+	
+	public void getClient(Client client)
 	{
-		this.server = server;
+		this.client = client;
 	}
 	
-
-	private static ThreadCourse course;
-
+	public void setLblUtilisateur(String nomUtilisateur)
+	{
+		this.lblUtilisateur.setText("Bonjour, " + nomUtilisateur);
+	}
 
 	@FXML
 	private void consulterLaCourse(MouseEvent event)
@@ -140,12 +151,28 @@ public class EcranPrincipalController {
 			System.exit(0);
 	}
 
-	//Rï¿½duit l'ï¿½cran dans la barre des tï¿½ches
+	//Réduit l'écran dans la barre des tï¿½ches
 	@FXML
 	private void reduireEcran(MouseEvent event)
 	{
 		if(event.getButton() == MouseButton.PRIMARY)
 			((Stage)((ImageView)event.getSource()).getScene().getWindow()).setIconified(true);
+	}
+	
+	@FXML
+	private void envoyerMessage(MouseEvent event)
+	{
+		if(event.getButton() == MouseButton.PRIMARY)
+		{
+			Message mess = new Message(this.client.getNom(), this.msgField.getText());
+			try {
+				client.getOutPutStream().writeObject(mess);
+				this.client.getOutPutStream().flush();
+				this.msgField.setText("");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public static ThreadCourse  getCourse() {

@@ -35,7 +35,7 @@ public class ConnectedClient implements Runnable{
 		
 	}
 
-	//rï¿½ceptionne les messages du Controller.client
+	//réceptionne les messages du Controller.client
 	@Override
 	public void run() 
 	{

@@ -6,6 +6,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import com.jfoenix.controls.JFXTextArea;
+
 import Model.common.Message;
 
 public class Client {
@@ -15,12 +17,14 @@ public class Client {
 	private Socket socket;
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
-	private Message message;
+	private Message messageReceived;
+	private String nom;
 	
-	public Client(int port, String address)
+	public Client(int port, String address, String nom)
 	{
 		this.port = port;
 		this.address = address;
+		this.nom = nom;
 		
 		try {
 			this.socket = new Socket(address, port);
@@ -39,11 +43,13 @@ public class Client {
 			e.printStackTrace();
 		}
 		
-		Thread sendMessages = new Thread(new ClientSend(this.socket, this.out));
-		sendMessages.start();
+		System.out.println("Bonjour " + this.nom);
 		
-		Thread getMessages = new Thread(new ClientReceive(this, socket));
-		getMessages.start();
+//		Thread sendMessages = new Thread(new ClientSend(this.socket, this.out));
+//		sendMessages.start();
+		
+//		Thread getMessages = new Thread(new ClientReceive(this, socket));
+//		getMessages.start();
 		
 	}
 	
@@ -64,9 +70,29 @@ public class Client {
 	
 	public Message messageReceived(Message mess)
 	{
-		this.message = mess;
+		this.messageReceived = mess;
 		
-		return this.message;
+		return this.messageReceived;
+	}
+	
+	public ObjectOutputStream getOutPutStream()
+	{
+		return this.out;
+	}
+	
+	public ObjectInputStream getInputStream()
+	{
+		return this.in;
+	}
+	
+	public Socket getSocket()
+	{
+		return this.socket;
+	}
+	
+	public String getNom()
+	{
+		return this.nom;
 	}
 
 }

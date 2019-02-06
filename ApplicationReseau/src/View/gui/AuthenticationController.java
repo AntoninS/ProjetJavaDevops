@@ -141,15 +141,18 @@ public class AuthenticationController {
 					try {
 						System.out.println("ok");
 						
+						//Connexion au serveur
 						String address = "127.0.0.1";
 						Integer port = new Integer(1420);
-						Client c = new Client(port, address);
+						Client unClient = new Client(port, address, this.loginText.getText());
 						
 						FXMLLoader loader = new FXMLLoader();
 						loader.setLocation(getClass().getResource("EcranPrincipal.fxml"));
 						rootAffichageEcranPrincipalParent = loader.load();
 						
 						EcranPrincipalController controlleur = loader.getController();
+						controlleur.getClient(unClient);
+						controlleur.setLblUtilisateur(unClient.getNom());
 						
 						Stage stage = new Stage();
 						stage.initStyle(StageStyle.UNDECORATED);

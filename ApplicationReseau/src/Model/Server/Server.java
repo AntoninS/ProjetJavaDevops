@@ -20,7 +20,7 @@ public class Server {
 		threadConnection.start();
 	}
 	
-	//annonce l'arrivï¿½e d'un nouveau Controller.client et l'ajoute ï¿½ la liste des clients
+	//annonce l'arrivé d'un nouveau Controller.client et l'ajoute à la liste des clients
 	public void addClient(ConnectedClient newClient)
 	{
 		for(ConnectedClient client : this.clients)
@@ -31,7 +31,7 @@ public class Server {
 		this.clients.add(newClient);
 	}
 	
-	//Envoie un message aux clients sauf a celui dont l'id est spï¿½cifiï¿½
+	//Envoie un message aux clients sauf a celui dont l'id est spécifié
 	public void broadcastMessage(Message mess, int id)
 	{
 		for(ConnectedClient client : this.clients)
