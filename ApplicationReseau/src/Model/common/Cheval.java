@@ -1,9 +1,8 @@
 package Model.common;
 
 import Model.common.course.GestionnaireCourses;
+import Model.common.course.UtilCourse;
 import javafx.scene.image.ImageView;
-
-import java.util.Random;
 
 public class Cheval {
     private String nom;
@@ -25,6 +24,14 @@ public class Cheval {
     public Cheval() {
     }
 
+    public Cheval(Double pAvancementCourse, int pNumero, Double pVitesse, String pNom)
+    {
+        this.numero = pNumero;
+        this.avancementCourse = pAvancementCourse;
+        this.vitesse = pVitesse;
+        this.nom = pNom;
+    }
+
     /**
      * Cette méthode permet de redéfinir la forme du cheval pour la course suivante en fonction de son classement
      */
@@ -32,12 +39,12 @@ public class Cheval {
 
     }
 
-    public void modifierForme()
+    public void modifierAvancement()
     {
-        if(getAvancementCourse() < GestionnaireCourses.DISTANCE_POURCENTAGE){
+        if(getAvancementCourse() < UtilCourse.DISTANCE_POURCENTAGE){
             setAvancementCourse(getAvancementCourse() + getVitesse());
         }
-        if( getAvancementCourse() >= GestionnaireCourses.DISTANCE_POURCENTAGE )
+        if( getAvancementCourse() >= UtilCourse.DISTANCE_POURCENTAGE )
         {
             setAvancementCourse(10001.0);
         }

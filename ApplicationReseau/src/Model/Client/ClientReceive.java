@@ -1,5 +1,7 @@
 package Model.Client;
 
+import Model.common.Message;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
@@ -41,7 +43,7 @@ public class ClientReceive implements Runnable{
 				mess = (Message) in.readObject();
 				if(mess !=null)
 				{
-					System.out.println("\nMessage reçu : " + mess);
+					client.getGm().gestionMessage(mess);
 					this.client.messageReceived(mess);
 				}
 				else

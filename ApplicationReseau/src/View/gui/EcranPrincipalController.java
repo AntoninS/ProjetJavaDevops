@@ -8,13 +8,21 @@ import java.net.Socket;
 import Model.common.Message;
 import Model.common.course.CourseController;
 import Model.common.course.ThreadCourse;
+import Model.Server.Server;
+import Model.common.Cheval;
+import Model.common.GestionnaireMessages;
+import Model.common.course.GestionnaireCourses;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextArea;
 
 import Model.Client.Client;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -29,7 +37,11 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
-public class EcranPrincipalController {
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class EcranPrincipalController implements Initializable {
 	
 	private static ThreadCourse course;
 	private Client client;
@@ -47,6 +59,9 @@ public class EcranPrincipalController {
 	
 	@FXML
 	private JFXButton btnConsulterCourse;
+
+	@FXML
+	private JFXListView<String> fxListeCheval;
 	
 	@FXML
 	private Label lblUtilisateur;
@@ -73,7 +88,7 @@ public class EcranPrincipalController {
 //				mess = (Message) in.readObject();
 //				if(mess !=null)
 //				{
-//					System.out.println("\nMessage reçu : " + mess);
+//					System.out.println("\nMessage reï¿½u : " + mess);
 //					this.client.messageReceived(mess);
 //				}
 //				else
@@ -99,6 +114,12 @@ public class EcranPrincipalController {
 		this.lblUtilisateur.setText("Bonjour, " + nomUtilisateur);
 	}
 
+	private GestionnaireMessages gestionnaireMessages;
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+
+	}
+
 	@FXML
 	private void consulterLaCourse(MouseEvent event)
 	{
@@ -108,11 +129,20 @@ public class EcranPrincipalController {
 			try
 			{
 				System.out.println("ok");
-				rootAffichageCourse = FXMLLoader.load(getClass().getResource("/View/gui/AffichageCourse.fxml"));
+				//rootAffichageCourse = FXMLLoader.load(getClass().getResource("/View/gui/AffichageCourse.fxml"));
 				Stage stage = new Stage();
+
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(getClass().getResource("AffichageCourse.fxml"));
+				rootAffichageCourse = loader.load();
+
+				CourseController controllerCourse = loader.getController();
+				controllerCourse.setEcranController(this);
+
 				stage.initStyle(StageStyle.UNDECORATED);
 				stage.setScene(new Scene(rootAffichageCourse, 800,450));
 				stage.show();
+
 				stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 					public void handle(WindowEvent we) {
 						CourseController.setAffichageActif(false);
@@ -154,7 +184,7 @@ public class EcranPrincipalController {
 		}
 	}
 	
-	//Permet de faire bouger l'écran
+	//Permet de faire bouger l'ï¿½cran
 	@FXML
 	private void moveOnDrag(MouseEvent event)
 	{
@@ -174,14 +204,6 @@ public class EcranPrincipalController {
 			this.panelEcranPrincipal.getScene().getWindow().setY(event.getScreenY() - this.posY);
 		}
 	}
-	
-	@FXML
-	private void lancerLaCourse(MouseEvent event)
-	{
-		//course = new ThreadCourse( "FCKebab");
-		//Thread courseThread= new Thread(course);
-		//courseThread.start();
-	}
 
 	//Ferme l'application sur un clique gauche
 	@FXML
@@ -191,7 +213,7 @@ public class EcranPrincipalController {
 			System.exit(0);
 	}
 
-	//Réduit l'écran dans la barre des tï¿½ches
+	//Rï¿½duit l'ï¿½cran dans la barre des tï¿½ches
 	@FXML
 	private void reduireEcran(MouseEvent event)
 	{
@@ -215,7 +237,34 @@ public class EcranPrincipalController {
 		}
 	}
 
-	public static ThreadCourse  getCourse() {
-		return course;
+	public void ajouterCourseListView()
+	{
+		ObservableList<String> listeChevaux = FXCollections.<String>observableArrayList();
+
+
+		for (Cheval cheval  : gestionnaireMessages.getGc().getListeDesCoursesEnCours().get(0).getListChevalCourse())
+		{
+			String stringListView = cheval.getNom();
+			listeChevaux.add(stringListView);
+		//	fxListeCheval.getItems().add(stringListView);
+		}
+		//fxListeCheval.getItems().add("Test");
+		ObservableList<String> seasonList = FXCollections.observableArrayList("Spring", "Summer", "Fall", "Winter");
+		fxListeCheval.setItems(seasonList);
+		fxListeCheval.setMinHeight(100.0);
+		ObservableList<String> vdsvsd = FXCollections.observableArrayList("Spring", "Summer", "Fall", "Winter");
+
+	}
+
+	public void setGestionnaireMessage(GestionnaireMessages gm)
+	{
+		gestionnaireMessages = gm;
+		gestionnaireMessages.getGc().setEcranController(this);
+
+	}
+
+	public GestionnaireMessages getGestionnaireMessaire()
+	{
+		return gestionnaireMessages;
 	}
 }

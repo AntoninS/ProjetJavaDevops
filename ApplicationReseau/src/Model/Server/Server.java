@@ -7,20 +7,20 @@ import Model.Client.ClientSend;
 import Model.common.Message;
 
 public class Server {
-	
+
 	private List<ConnectedClient> clients;
 	private int port;
-	
+
 	public Server(int port)
 	{
 		this.clients = new ArrayList<ConnectedClient>();
 		this.port = port;
-		
+
 		Thread threadConnection = new Thread(new Connection(this));
 		threadConnection.start();
 	}
 	
-	//annonce l'arrivé d'un nouveau Controller.client et l'ajoute à la liste des clients
+	//annonce l'arrivï¿½ d'un nouveau Controller.client et l'ajoute ï¿½ la liste des clients
 	public void addClient(ConnectedClient newClient)
 	{
 		for(ConnectedClient client : this.clients)
@@ -30,8 +30,8 @@ public class Server {
 		}
 		this.clients.add(newClient);
 	}
-	
-	//Envoie un message aux clients sauf a celui dont l'id est spécifié
+
+	//Envoie un message aux clients sauf a celui dont l'id est spï¿½cifiï¿½
 	public void broadcastMessage(Message mess, int id)
 	{
 		for(ConnectedClient client : this.clients)
@@ -42,7 +42,7 @@ public class Server {
 			}
 		}
 	}
-	
+
 	public void disconnectedClient(ConnectedClient discClient)
 	{
 		ConnectedClient.decreaseId();
@@ -52,7 +52,7 @@ public class Server {
 			client.sendMessage(new Message("Controller/server","Le Controller.client " + discClient.getId() + " nous a quittï¿½!"));
 		}
 	}
-	
+
 	public int getPort()
 	{
 		return this.port;

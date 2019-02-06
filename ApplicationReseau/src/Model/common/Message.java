@@ -16,7 +16,7 @@ public class Message implements Serializable{
 	
 	public String toString()
 	{
-		String res = "Sender : " + this.sender + " / content : " + this.content;
+		String res = this.content;
 		
 		return res;
 	}

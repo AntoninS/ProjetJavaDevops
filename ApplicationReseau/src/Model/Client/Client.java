@@ -1,5 +1,8 @@
 package Model.Client;
 
+import Model.common.GestionnaireMessages;
+import Model.common.Message;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -17,13 +20,17 @@ public class Client {
 	private Socket socket;
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
+	private Message message;
+	private GestionnaireMessages gm;
 	private Message messageReceived;
 	private String nom;
 	
 	public Client(int port, String address, String nom)
+	public Client(int port, String address, GestionnaireMessages gestionnaireMessages)
 	{
 		this.port = port;
 		this.address = address;
+		this.gm = gestionnaireMessages;
 		this.nom = nom;
 		
 		try {
@@ -95,4 +102,7 @@ public class Client {
 		return this.nom;
 	}
 
+	public GestionnaireMessages getGm() {
+		return gm;
+	}
 }
