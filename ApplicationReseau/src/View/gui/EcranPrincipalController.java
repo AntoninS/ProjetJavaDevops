@@ -1,7 +1,9 @@
 package View.gui;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.net.Socket;
 
 import Model.common.Message;
 import Model.common.course.CourseController;
@@ -48,6 +50,44 @@ public class EcranPrincipalController {
 	
 	@FXML
 	private Label lblUtilisateur;
+	
+//	public void initiate()
+//	{
+//		Message mess; 
+//		
+//		ObjectInputStream in = this.client.getInputStream();
+//		Socket socket = this.client.getSocket();
+//		
+//		try {
+//			in = new ObjectInputStream(socket.getInputStream());
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		boolean isActive = true;
+//		while(isActive)
+//		{
+//			try
+//			{
+//				mess = (Message) in.readObject();
+//				if(mess !=null)
+//				{
+//					System.out.println("\nMessage reçu : " + mess);
+//					this.client.messageReceived(mess);
+//				}
+//				else
+//				{
+//					isActive = false;
+//				}
+//			}
+//			catch(Exception e)
+//			{
+//				e.printStackTrace();
+//			}
+//		}
+//		client.disconnectedServer();
+//	}
 	
 	public void getClient(Client client)
 	{
@@ -114,7 +154,7 @@ public class EcranPrincipalController {
 		}
 	}
 	
-	//Permet de faire bouger l'ï¿½cran
+	//Permet de faire bouger l'écran
 	@FXML
 	private void moveOnDrag(MouseEvent event)
 	{

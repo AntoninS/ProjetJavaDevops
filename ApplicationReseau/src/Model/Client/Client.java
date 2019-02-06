@@ -48,8 +48,8 @@ public class Client {
 //		Thread sendMessages = new Thread(new ClientSend(this.socket, this.out));
 //		sendMessages.start();
 		
-//		Thread getMessages = new Thread(new ClientReceive(this, socket));
-//		getMessages.start();
+		Thread getMessages = new Thread(new ClientReceive(this, socket));
+		getMessages.start();
 		
 	}
 	
