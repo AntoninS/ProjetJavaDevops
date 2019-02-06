@@ -2,7 +2,6 @@ package Controller.server;
 
 import Model.Server.CourseManager;
 import Model.Server.Server;
-import Model.common.Message;
 
 import java.io.IOException;
 import java.util.Scanner;

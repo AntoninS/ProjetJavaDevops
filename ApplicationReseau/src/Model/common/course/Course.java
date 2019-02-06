@@ -9,7 +9,8 @@ public abstract class Course {
     private List<Cheval> listChevalCourse;
     private int numeroCourse;
     private String nomCourse;
-    private Boolean estTerminee;
+    private Boolean estTerminee = false;
+    private Integer tempsLancement;
 
     private String typeCourse;
     private Double niveauAvancementCourse;
@@ -28,6 +29,19 @@ public abstract class Course {
             }
         }
         return vitesse;
+    }
+
+    public void modifierAvancementTousLesChevaux ()
+    {
+        for (Cheval ch: listChevalCourse)
+        {
+            ch.modifierAvancement();
+        }
+    }
+
+    public void modifierAvancementCheval(int indexCheval, Double niveauAvancementCourse)
+    {
+        listChevalCourse.get(indexCheval).setAvancementCourse(niveauAvancementCourse);
     }
 
     public List<Cheval> getListChevalCourse() {
@@ -52,6 +66,14 @@ public abstract class Course {
 
     public Boolean getEstTerminee() {
         return estTerminee;
+    }
+
+    public Integer getTempsLancement() {
+        return tempsLancement;
+    }
+
+    public void setTempsLancement(Integer tempsLancement) {
+        this.tempsLancement = tempsLancement;
     }
 
     public void setEstTerminee(Boolean pEnCours) {

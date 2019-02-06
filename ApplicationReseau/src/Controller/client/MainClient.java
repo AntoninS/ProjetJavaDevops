@@ -3,11 +3,7 @@ package Controller.client;
 import Model.Client.Client;
 import View.Authentication;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
@@ -28,7 +24,7 @@ public class MainClient extends Application{
 		{
 			String address = args[0];
 			Integer port = new Integer(args[1]);
-			Client c = new Client(port, address);
+			Client c = new Client(port, address, null);
 		}
 
 	}

@@ -1,6 +1,5 @@
 package Model.Client;
 
-import Model.common.GestionnaireMessages;
 import Model.common.Message;
 
 import java.io.IOException;
@@ -39,8 +38,7 @@ public class ClientReceive implements Runnable{
 				mess = (Message) in.readObject();
 				if(mess !=null)
 				{
-					GestionnaireMessages gm = new GestionnaireMessages();
-					gm.gestionMessage(mess);
+					client.getGm().gestionMessage(mess);
 					this.client.messageReceived(mess);
 				}
 				else

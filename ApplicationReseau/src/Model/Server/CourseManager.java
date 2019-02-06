@@ -1,6 +1,5 @@
 package Model.Server;
 
-import Model.common.Message;
 import Model.common.course.ThreadCourse;
 
 public class CourseManager {
@@ -11,6 +10,7 @@ public class CourseManager {
     public CourseManager() {
 
     }
+
 
     public void startCourse(Server server) {
         this.server = server;
