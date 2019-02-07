@@ -12,7 +12,7 @@ public class GestionnaireCourses {
 
     private List<Course> listeDesCoursesEnCours = null;
 
-    private List<Course> listeDesCoursesFini = null;
+    private boolean uneCourseEstEnCours = false;
 
     private EcranPrincipalController ecranController = null;
 
@@ -34,19 +34,6 @@ public class GestionnaireCourses {
         listeDesCoursesEnCours.add(pCourse);
     }
 
-    // Quand une course est fini on la supprime des courses en cours et on l'ajoute aux courses fini
-    public void courseFini(Course pCourse) {
-        for (Course uneCourse : listeDesCoursesEnCours) {
-            if (uneCourse.equals(pCourse)) {
-                listeDesCoursesEnCours.remove(uneCourse);
-                if (listeDesCoursesFini == null) {
-                    listeDesCoursesFini = new ArrayList<>();
-                }
-                listeDesCoursesFini.add(uneCourse);
-                break;
-            }
-        }
-    }
 
     /**
      * Recuperation des informations JSON
@@ -89,6 +76,7 @@ public class GestionnaireCourses {
         course.setTempsLancement(courseJsonObject.getInt("tempsLancement"));
         course.setEstTerminee(false);
         ajouterUneCourse(course);
+        setUneCourseEstEnCours(true);
         ecranController.ajouterCourseListView();
     }
 
@@ -99,7 +87,7 @@ public class GestionnaireCourses {
         course.setTempsLancement(courseJsonObject.getInt("tempsLancement"));
 
         if (courseJsonObject.getBoolean("courseEtat")) {
-            courseFini(course);
+            setUneCourseEstEnCours(false);
         }
 
     }
@@ -134,16 +122,16 @@ public class GestionnaireCourses {
         }
     }
 
-    public void afficherCourseFini() {
-        if (listeDesCoursesFini == null) {
-            listeDesCoursesFini = new ArrayList<>();
-        }
-        for (Course cs : listeDesCoursesFini) {
-            System.out.println("Course fini " + cs.getNomCourse());
-        }
-    }
 
     public List<Course> getListeDesCoursesEnCours() {
         return listeDesCoursesEnCours;
+    }
+
+    public boolean getUneCourseEstEnCours() {
+        return uneCourseEstEnCours;
+    }
+    public void setUneCourseEstEnCours (boolean b )
+    {
+        uneCourseEstEnCours = b;
     }
 }
