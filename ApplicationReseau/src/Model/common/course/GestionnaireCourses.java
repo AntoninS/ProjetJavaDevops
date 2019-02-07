@@ -53,7 +53,7 @@ public class GestionnaireCourses {
 
     private void modificationAvancementChevaux (JSONObject courseJsonObject, List<Cheval> listCheval) throws JSONException {
 
-        for (int i = 0; i < UtilCourse.nombreChevauxCourse; i++) {
+        for (int i = 0; i < UtilCourse.NOMBRE_CHEVAUX_COURSE; i++) {
             Double nouveauAvancement = courseJsonObject.getDouble(Integer.toString(i + 1));
             listCheval.get(i).setAvancementCourse(nouveauAvancement);
         }

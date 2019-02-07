@@ -1,7 +1,7 @@
 package Controller.service;
 
 import Model.common.Cheval;
-import Model.common.User;
+import Model.common.course.UtilCourse;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -16,8 +16,6 @@ public class HorseService {
     DataBaseService dbs = DataBaseService.getInstance();
 
     private static HorseService horseServiceInstance = null;
-
-    private static final int NUMBER_HORSES_COURSE = 6;
 
     public HorseService() {
 
@@ -60,9 +58,9 @@ public class HorseService {
 
     public List<Cheval> getListHorsesLimitAndRandom() {
         List<Cheval> list = getListHorsesFull();
-        if (null != list && !list.isEmpty() && list.size() >= NUMBER_HORSES_COURSE) {
+        if (null != list && !list.isEmpty() && list.size() >= UtilCourse.NOMBRE_CHEVAUX_COURSE) {
             Collections.shuffle(list);
-            return new ArrayList<>(list.subList(0, NUMBER_HORSES_COURSE));
+            return new ArrayList<>(list.subList(0, UtilCourse.NOMBRE_CHEVAUX_COURSE));
         }
         return list;
     }

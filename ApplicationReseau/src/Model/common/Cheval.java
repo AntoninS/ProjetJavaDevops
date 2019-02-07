@@ -10,7 +10,6 @@ public class Cheval {
     private int numero;
     private Double avancementCourse;
     private Double vitesse;
-    private int position;
     private ImageView imageCheval;
 
     public Cheval(String pNom, int pForme, int pNumero, Double pAvancementCourse, Double pVitesse) {
@@ -32,13 +31,8 @@ public class Cheval {
         this.nom = pNom;
     }
 
-    /**
-     * Cette méthode permet de redéfinir la forme du cheval pour la course suivante en fonction de son classement
-     */
-    public void definirForme(int bonus, int malus) {
 
-    }
-
+    /** permet de modifier l'avancement d'un cheval */
     public void modifierAvancement()
     {
         if(getAvancementCourse() < UtilCourse.DISTANCE_POURCENTAGE){
@@ -54,9 +48,6 @@ public class Cheval {
         return this.nom;
     }
 
-    public int getForme() {
-        return this.forme;
-    }
 
     public int getNumero() {
         return this.numero;
@@ -72,11 +63,8 @@ public class Cheval {
         return imageCheval;
     }
 
-    public void setForme(int pForme) { this.forme = pForme; }
-
     public void setAvancementCourse(Double pAvancementForme) { this.avancementCourse = pAvancementForme; }
 
-    public int getPosition (){return position;}
     public void setImageCheva (ImageView pImageView)
         {
             imageCheval = pImageView;

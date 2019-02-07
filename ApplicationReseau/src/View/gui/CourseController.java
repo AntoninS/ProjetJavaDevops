@@ -2,7 +2,6 @@ package View.gui;
 
 import Model.Client.ThreadCourseGraphique;
 import Model.common.Cheval;
-import Model.common.course.Course;
 import Model.common.course.UtilCourse;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -10,16 +9,13 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
-import javax.annotation.PostConstruct;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,22 +60,11 @@ public class CourseController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         cc = this;
-        lancementThread1();
+        lancementThread();
 
     }
-
+    /** permet de lancer la course de chevaux de mannière graphique après l'initialize */
     private void lancementThread() {
-        affichageActif = true;
-        cc = this;
-        courseGraphique = new ThreadCourseGraphique(ecranController,this);
-        Thread courseThread = new Thread(courseGraphique);
-        courseThread.start();
-    }
-
-
-
-
-    private void lancementThread1() {
 
         Task<Void> task = new Task<Void>() {
             @Override
@@ -100,7 +85,7 @@ public class CourseController implements Initializable {
         };
         new Thread(task).start();
     }
-
+    /* créer une liste de chevaux*/
     public List<ImageView> getListImageViewChevaux() {
         listImagesChevaux = new ArrayList<>();
         listImagesChevaux.add(chevalLigne1);
@@ -112,13 +97,13 @@ public class CourseController implements Initializable {
         return listImagesChevaux;
     }
 
-
+    /* attribution de la liste de chevaux à son image */
     public void attribuerChevalImage(List<Cheval> listeDeCheval, List<ImageView> listeImageCheval) {
-        for (int pos = 0; pos < UtilCourse.nombreChevauxCourse; pos++) {
+        for (int pos = 0; pos < UtilCourse.NOMBRE_CHEVAUX_COURSE; pos++) {
             listeDeCheval.get(pos).setImageCheva(listeImageCheval.get(pos));
         }
     }
-
+    /* méthode pour lancer la translation des chevaux quand la course commence ou pendant la course */
     public void lancerTranslation(Cheval cheval) {
         if (cheval != null) {
             img = cheval.getImageCheval();
