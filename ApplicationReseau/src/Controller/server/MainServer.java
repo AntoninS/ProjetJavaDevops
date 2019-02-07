@@ -34,7 +34,7 @@ public class MainServer {
 				Scanner sc = new Scanner(System.in);
 				while(true)
 				{
-					System.out.print("TAPER 'start' pour lancer une course >> ");
+					System.out.print("TAPEZ 'start' pour lancer une course >> ");
 					String m = sc.nextLine();
 					if (m.equals(START_COURSE_MSG)) {
 						CourseManager cm = new CourseManager();

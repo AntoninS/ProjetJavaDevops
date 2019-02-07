@@ -1,19 +1,28 @@
 package Model.common;
 
+import Controller.service.HorseService;
+import Controller.service.UserService;
+
 public class User {
 
     private int id;
     private String pseudo;
     private String password;
+    private float money;
 
     public User() {
 
     }
 
-    public User(int id, String pseudo, String password) {
+    public User(int id, String pseudo, String password, float money) {
         this.id = id;
         this.pseudo = pseudo;
         this.password = password;
+        this.money = money;
+    }
+
+    public void updateMoney() {
+        UserService.getInstance().updateMoney(this.id, this.money);
     }
 
     public int getId() {
@@ -38,6 +47,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public float getMoney() {
+        return money;
+    }
+
+    public void setMoney(float money) {
+        this.money = money;
     }
 
     @Override

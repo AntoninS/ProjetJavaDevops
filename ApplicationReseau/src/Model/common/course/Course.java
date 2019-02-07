@@ -1,7 +1,7 @@
 package Model.common.course;
 
+import Controller.service.HorseService;
 import Model.common.Cheval;
-import Model.common.ListCheval;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public abstract class Course {
 
 
     public Course() {
-        listChevalCourse = ListCheval.getChevaux();
+        listChevalCourse = HorseService.getInstance().getListHorsesLimitAndRandom();
     }
 
 
