@@ -41,8 +41,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class EcranPrincipalController implements Initializable {
-	
-	private static ThreadCourse course;
+
 	private Client client;
 	
 	private JSONObject messageJSON;
@@ -66,6 +65,9 @@ public class EcranPrincipalController implements Initializable {
 	
 	@FXML
 	private Label lblUtilisateur;
+
+	@FXML
+	private Label lblCagnotte;
 	
 	@FXML
 	private TextArea tchatField;
@@ -118,10 +120,16 @@ public class EcranPrincipalController implements Initializable {
 		this.lblUtilisateur.setText("Bonjour, " + nomUtilisateur);
 	}
 
+	public void setLblCagnotte(float montantCagnotte)
+	{
+        this.lblCagnotte.setText(String.format("Cagnotte : %.2f €", montantCagnotte));
+	}
+
 	private GestionnaireMessages gestionnaireMessages;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		fxListeCheval.setVisible(!fxListeCheval.getItems().isEmpty());
+		this.btnConsulterCourseDisable(true);
 	}
 
 	@FXML
@@ -251,19 +259,22 @@ public class EcranPrincipalController implements Initializable {
 	{
 		ObservableList<String> listeChevaux = FXCollections.<String>observableArrayList();
 
+		if(fxListeCheval.getItems().isEmpty())
+		{
+			fxListeCheval.getItems().removeAll(fxListeCheval.getItems());
+		}
 
 		for (Cheval cheval  : gestionnaireMessages.getGc().getListeDesCoursesEnCours().get(0).getListChevalCourse())
 		{
-			String stringListView = cheval.getNom();
+			String stringListView = cheval.getNom() + " " + cheval.getVitesse() + " " + cheval.getNumero();
 			listeChevaux.add(stringListView);
-		//	fxListeCheval.getItems().add(stringListView);
 		}
-		//fxListeCheval.getItems().add("Test");
 		ObservableList<String> seasonList = FXCollections.observableArrayList("Spring", "Summer", "Fall", "Winter");
-		fxListeCheval.setItems(seasonList);
-		fxListeCheval.setMinHeight(100.0);
-		ObservableList<String> vdsvsd = FXCollections.observableArrayList("Spring", "Summer", "Fall", "Winter");
 
+		fxListeCheval.setItems(listeChevaux);
+		fxListeCheval.setMinHeight(100.0);
+
+		fxListeCheval.setVisible(!fxListeCheval.getItems().isEmpty());
 	}
 
 	public void setGestionnaireMessage(GestionnaireMessages gm)
@@ -271,6 +282,11 @@ public class EcranPrincipalController implements Initializable {
 		gestionnaireMessages = gm;
 		gestionnaireMessages.getGc().setEcranController(this);
 		gestionnaireMessages.setController(this);
+	}
+
+	public void btnConsulterCourseDisable(boolean b)
+	{
+		btnConsulterCourse.setDisable(b);
 	}
 
 	public GestionnaireMessages getGestionnaireMessaire()

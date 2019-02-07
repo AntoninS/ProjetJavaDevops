@@ -32,7 +32,7 @@ public class UserService {
             Statement cs = null;
             ResultSet rs = null;
 
-            String request = String.format("SELECT ID, PSEUDO, PASSWORD FROM PJ_USER WHERE PSEUDO = '%s'", pseudo);
+            String request = String.format("SELECT ID, PSEUDO, PASSWORD, MONEY FROM PJ_USER WHERE PSEUDO = '%s'", pseudo);
             cs = con.createStatement();
             rs = cs.executeQuery(request);
 
@@ -40,6 +40,7 @@ public class UserService {
                 user.setId(rs.getInt("ID"));
                 user.setPseudo(rs.getString("PSEUDO"));
                 user.setPassword(rs.getString("PASSWORD"));
+                user.setMoney(rs.getFloat("MONEY"));
             }
             con.close();
         } catch (SQLException e) {
@@ -57,6 +58,24 @@ public class UserService {
             isPasswordCorrect = MD5Util.getMD5(password.trim()).equals(userFromDb.getPassword().trim());
         }
         return isPasswordCorrect;
+    }
+
+    public void updateMoney(int idUser, float money) {
+        if (idUser > 0 && null != null && money > 0.0)
+        try {
+            Connection con = dbs.getDataBaseConnexion();
+            Statement cs = null;
+
+            String request = String.format("UPDATE PJ_USER SET MONEY=%.8f WHERE ID = '%s'", money, idUser);
+            cs = con.createStatement();
+            cs.executeQuery(request);
+
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 
