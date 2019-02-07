@@ -1,32 +1,29 @@
 package Model.Client;
 
 import Model.common.Cheval;
-import Model.common.course.Course;
 import Model.common.course.UtilCourse;
 import View.gui.CourseController;
 import View.gui.EcranPrincipalController;
-import javafx.application.Platform;
 
 import java.util.List;
 
 public class ThreadCourseGraphique  implements Runnable {
 
-    private static boolean affichageActif = false;
+    /** Liste des chevaux de la course */
+    private List<Cheval> listeChevauxCourse;
 
-    private List<Cheval> listeChevalCourse;
-
+    /** index de cheval permettant de faire qu'une itération dans l'affichage graphique */
     private int chevalIndex;
 
-    private Course course;
-
+    /** Ecran controller pour récuperer les informations de l'affichage */
     private EcranPrincipalController ecranController;
 
+    /** Permet de lancer la translation des cheavaux de manière graphique */
     private CourseController courseController;
 
-
+    /** Thread permetant d'afficher les chevaux sans bloquer toute l'application */
     public ThreadCourseGraphique  (EcranPrincipalController pEcranController, CourseController pCourseController)
     {
-        course = pEcranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0);
         ecranController = pEcranController;
         courseController = pCourseController;
     }
@@ -34,9 +31,9 @@ public class ThreadCourseGraphique  implements Runnable {
     @Override
     public void run()
     {
-        listeChevalCourse = ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).getListChevalCourse();
+        listeChevauxCourse = ecranController.getCourse().getListChevalCourse();
 
-        courseController.attribuerChevalImage(listeChevalCourse, courseController.getListImageViewChevaux());
+        courseController.attribuerChevalImage(listeChevauxCourse, courseController.getListImageViewChevaux());
 
         while(ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).getTempsLancement() != 0){
             try {
@@ -48,16 +45,21 @@ public class ThreadCourseGraphique  implements Runnable {
 
         while(ecranController.getGestionnaireMessaire().getGc().getUneCourseEstEnCours())
         {
-                    listeChevalCourse = ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).getListChevalCourse();
+                    listeChevauxCourse = ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).getListChevalCourse();
 
-                    for (Cheval ch : listeChevalCourse) {
+                    for (Cheval ch : listeChevauxCourse) {
                         System.out.println("Cheval numero " + ch.getNumero() + "Avancement " + ch.getAvancementCourse());
-                        if (chevalIndex < UtilCourse.nombreChevauxCourse  && !ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).getEstTerminee() && ch.getAvancementCourse() <= UtilCourse.DISTANCE_POURCENTAGE && ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).getTempsLancement() == 0 )
+                        if (chevalIndex < UtilCourse.NOMBRE_CHEVAUX_COURSE &&
+                                !ecranController.getCourse().getEstTerminee() &&
+                                ch.getAvancementCourse() <= UtilCourse.DISTANCE_POURCENTAGE &&
+                                ecranController.getCourse().getTempsLancement() == 0 )
                         {
                             courseController.lancerTranslation(ch);
                             chevalIndex++;
                         }
-                        else if (ch.getAvancementCourse() > UtilCourse.DISTANCE_POURCENTAGE && chevalIndex < UtilCourse.nombreChevauxCourse && ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).getTempsLancement() == 0)
+                        else if (ch.getAvancementCourse() > UtilCourse.DISTANCE_POURCENTAGE
+                         && chevalIndex < UtilCourse.NOMBRE_CHEVAUX_COURSE
+                         && ecranController.getCourse().getTempsLancement() == 0)
                         {
                             ch.getImageCheval().setLayoutX(UtilCourse.LONGUEUR_DIFF_PLUS_PIXEL);
                         }

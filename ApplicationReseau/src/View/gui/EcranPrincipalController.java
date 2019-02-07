@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 import Model.common.Message;
+import Model.common.course.Course;
 import Model.common.course.ThreadCourse;
 import Model.common.Cheval;
 import Model.common.GestionnaireMessages;
@@ -35,6 +36,7 @@ import javafx.stage.WindowEvent;
 
 import java.net.Socket;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import org.json.JSONException;
@@ -94,7 +96,7 @@ public class EcranPrincipalController implements Initializable {
 				mess = (Message) in.readObject();
 				if(mess !=null)
 				{
-					System.out.println("\nMessage reçu : " + mess);
+					System.out.println("\nMessage reï¿½u : " + mess);
 					this.client.messageReceived(mess);
 				}
 				else
@@ -254,7 +256,7 @@ public class EcranPrincipalController implements Initializable {
 			}
 		}
 	}
-
+	/** permet de gÃ©rer l'affichage du listview des chevaux */
 	public void ajouterCourseListView()
 	{
 		ObservableList<String> listeChevaux = FXCollections.<String>observableArrayList();
@@ -264,7 +266,7 @@ public class EcranPrincipalController implements Initializable {
 			fxListeCheval.getItems().removeAll(fxListeCheval.getItems());
 		}
 
-		for (Cheval cheval  : gestionnaireMessages.getGc().getListeDesCoursesEnCours().get(0).getListChevalCourse())
+		for (Cheval cheval  : getCourse().getListChevalCourse())
 		{
 			String stringListView = cheval.getNom() + " " + cheval.getVitesse() + " " + cheval.getNumero();
 			listeChevaux.add(stringListView);
@@ -277,11 +279,17 @@ public class EcranPrincipalController implements Initializable {
 		fxListeCheval.setVisible(!fxListeCheval.getItems().isEmpty());
 	}
 
+	/** permet de lui attribuer un gestionnaire de message json */
 	public void setGestionnaireMessage(GestionnaireMessages gm)
 	{
 		gestionnaireMessages = gm;
 		gestionnaireMessages.getGc().setEcranController(this);
 		gestionnaireMessages.setController(this);
+	}
+
+	public Course getCourse()
+	{
+		return this.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0);
 	}
 
 	public void btnConsulterCourseDisable(boolean b)
