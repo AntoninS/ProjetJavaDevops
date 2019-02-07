@@ -77,6 +77,7 @@ public class GestionnaireCourses {
         course.setEstTerminee(false);
         ajouterUneCourse(course);
         setUneCourseEstEnCours(true);
+        ecranController.btnConsulterCourseDisable(false);
         ecranController.ajouterCourseListView();
     }
 
@@ -88,6 +89,7 @@ public class GestionnaireCourses {
 
         if (courseJsonObject.getBoolean("courseEtat")) {
             setUneCourseEstEnCours(false);
+            ecranController.btnConsulterCourseDisable(true);
         }
 
     }
