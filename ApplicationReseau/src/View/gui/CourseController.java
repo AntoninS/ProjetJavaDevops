@@ -1,6 +1,8 @@
 package View.gui;
 
+import Model.Client.ThreadCourseGraphique;
 import Model.common.Cheval;
+import Model.common.course.Course;
 import Model.common.course.UtilCourse;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -8,26 +10,37 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
+import javax.annotation.PostConstruct;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class CourseController {
+public class CourseController implements Initializable {
 
     private ImageView img;
 
-    private int chevalIndex;
 
-    private List<ImageView> listImage;
+    private List<ImageView> listImagesChevaux;
 
-    private List<Cheval> listeChevalCourse;
 
     private static boolean affichageActif = false;
 
     private EcranPrincipalController ecranController;
+
+    private ThreadCourseGraphique courseGraphique;
+
+    private CourseController cc;
+
 
     @FXML
     private ImageView chevalLigne1;
@@ -42,77 +55,65 @@ public class CourseController {
     @FXML
     private ImageView chevalLigne6;
 
-
     @FXML
-    public void initialize() {
-        affichageActif = true;
-        chevalIndex = 0;
+    private AnchorPane ap;
 
-        lancerThreadDeplacement();
+    Stage stage;
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        cc = this;
+        lancementThread1();
+
     }
 
-    private void lancerThreadDeplacement() {
+    private void lancementThread() {
+        affichageActif = true;
+        cc = this;
+        courseGraphique = new ThreadCourseGraphique(ecranController,this);
+        Thread courseThread = new Thread(courseGraphique);
+        courseThread.start();
+    }
+
+
+
+
+    private void lancementThread1() {
+
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                listeChevalCourse = ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).getListChevalCourse();
+                Platform.runLater(new Runnable() {
+                    public void run() {
 
-                attribuerChevalImage();
-                attribuerChevalImage(listeChevalCourse, listImage);
-
-                for (int i = 0; i < 100; i++) {
-
-                    Platform.runLater(new Runnable() {
-                        public void run() {
-
-                            listeChevalCourse = ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).getListChevalCourse();
-
-                            for (Cheval ch : listeChevalCourse) {
-                                System.out.println("Cheval numero " + ch.getNumero() + "Avancement " + ch.getAvancementCourse());
-                                if (chevalIndex < UtilCourse.nombreChevauxCourse  && !ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).getEstTerminee() && ch.getAvancementCourse() <= UtilCourse.DISTANCE_POURCENTAGE && ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).getTempsLancement() == 0 )
-                                {
-                                    lancerTranslation(ch);
-                                    chevalIndex++;
-                                }
-                                else if (ch.getAvancementCourse() > UtilCourse.DISTANCE_POURCENTAGE && chevalIndex < UtilCourse.nombreChevauxCourse && ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).getTempsLancement() == 0)
-                                {
-                                    ch.getImageCheval().setLayoutX(UtilCourse.LONGUEUR_DIFF_PLUS_PIXEL);
-                                }
-                                else
-                                {
-                                    System.out.println("AHAHAHA TU ATTENDS COMME LES AUTRES QUE LA COURSE SE LANCE");
-                                }
-                            }
-                        }
-                    });
-                    if (ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).getEstTerminee() || !affichageActif) {
-                        System.out.println("La course d'affichage est fini");
-                        break;
+                        affichageActif = true;
+                        courseGraphique = new ThreadCourseGraphique(ecranController,cc);
+                        Thread courseThread = new Thread(courseGraphique);
+                        courseThread.start();
                     }
 
-                    Thread.sleep(1000);
-                    System.out.println("AfficahgeInc");
-
-
-                }
+                });
                 return null;
             }
+
         };
         new Thread(task).start();
     }
 
-    private void attribuerChevalImage() {
-        listImage = new ArrayList<>();
-        listImage.add(chevalLigne1);
-        listImage.add(chevalLigne2);
-        listImage.add(chevalLigne3);
-        listImage.add(chevalLigne4);
-        listImage.add(chevalLigne5);
-        listImage.add(chevalLigne6);
+    public List<ImageView> getListImageViewChevaux() {
+        listImagesChevaux = new ArrayList<>();
+        listImagesChevaux.add(chevalLigne1);
+        listImagesChevaux.add(chevalLigne2);
+        listImagesChevaux.add(chevalLigne3);
+        listImagesChevaux.add(chevalLigne4);
+        listImagesChevaux.add(chevalLigne5);
+        listImagesChevaux.add(chevalLigne6);
+        return listImagesChevaux;
     }
 
 
-    private void attribuerChevalImage(List<Cheval> listeDeCheval, List<ImageView> listeImageCheval) {
+    public void attribuerChevalImage(List<Cheval> listeDeCheval, List<ImageView> listeImageCheval) {
         for (int pos = 0; pos < UtilCourse.nombreChevauxCourse; pos++) {
             listeDeCheval.get(pos).setImageCheva(listeImageCheval.get(pos));
         }
@@ -142,4 +143,6 @@ public class CourseController {
     {
        this.ecranController = ec;
     }
+
+
 }
