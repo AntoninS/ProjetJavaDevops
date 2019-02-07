@@ -1,6 +1,8 @@
 package Model.common;
 
 import Model.common.course.GestionnaireCourses;
+import View.gui.EcranPrincipalController;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -8,8 +10,9 @@ import org.json.JSONObject;
 public class GestionnaireMessages {
 
     GestionnaireCourses gc;
-    public void gestionMessage(Message msg) throws JSONException {
+    EcranPrincipalController controller;
 
+    public void gestionMessage(Message msg) throws JSONException {
 
         JSONObject jresponse = new JSONObject(msg.toString());
         String balise = jresponse.getString("balise");
@@ -18,6 +21,12 @@ public class GestionnaireMessages {
         {
             gc.gererCourse(jresponse);
         }
+        
+        if(balise.equals("message"))
+        {
+        	this.controller.getTchatField().appendText("\n"+jresponse.getString("messageEnvoye"));;
+        }
+        
     }
 
     public void setGc(GestionnaireCourses gc) {
@@ -26,5 +35,10 @@ public class GestionnaireMessages {
 
     public GestionnaireCourses getGc() {
         return gc;
+    }
+    
+    public void setController(EcranPrincipalController ecranController)
+    {
+    	this.controller = ecranController;
     }
 }

@@ -149,11 +149,9 @@ public class AuthenticationController {
 						controlleur.getClient(unClient);
 						controlleur.setLblUtilisateur(unClient.getNom());
 						
-
 						GestionnaireCourses gc = new GestionnaireCourses();
 						gm.setGc(gc);
 						controlleur.setGestionnaireMessage(gm);
-
 
 						Stage stage = new Stage();
 						stage.initStyle(StageStyle.UNDECORATED);
