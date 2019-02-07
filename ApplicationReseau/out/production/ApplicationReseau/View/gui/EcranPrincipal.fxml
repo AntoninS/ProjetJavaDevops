@@ -12,14 +12,23 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="panelEcranPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#setOnMouseDrag" onMousePressed="#moveOnDrag" prefHeight="622.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.gui.EcranPrincipalController">
+<AnchorPane fx:id="panelEcranPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#setOnMouseDrag" onMousePressed="#moveOnDrag" prefHeight="622.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.gui.EcranPrincipalController">
    <children>
       <Line endX="839.0000610351562" endY="1.52587890625E-5" layoutX="101.0" layoutY="16.0" startX="-101.0" startY="1.52587890625E-5" />
       <AnchorPane layoutY="17.0" prefHeight="606.0" prefWidth="202.0" style="-fx-background-color: #ba2e49;">
          <children>
-            <Pane layoutX="-1.0" prefHeight="56.0" prefWidth="202.0" style="-fx-background-color: #e34f43;">
+            <Pane layoutX="-1.0" prefHeight="78.0" prefWidth="200.0" style="-fx-background-color: #e34f43;">
                <children>
                   <Label fx:id="lblUtilisateur" layoutX="34.0" layoutY="20.0" text="Bonjour, ">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane layoutX="-1.0" layoutY="104.0" prefHeight="78.0" prefWidth="200.0" style="-fx-background-color: #e34f43;">
+               <children>
+                  <Label fx:id="lblCagnotte" layoutX="34.0" layoutY="20.0" text="Bonjour, ">
                      <font>
                         <Font size="15.0" />
                      </font>

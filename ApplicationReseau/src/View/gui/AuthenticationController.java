@@ -3,6 +3,7 @@ package View.gui;
 import Controller.service.UserService;
 import Model.Client.Client;
 import Model.common.GestionnaireMessages;
+import Model.common.User;
 import Model.common.course.GestionnaireCourses;
 import com.jfoenix.controls.*;
 import javafx.event.ActionEvent;
@@ -131,6 +132,9 @@ public class AuthenticationController {
 			}
 			else {
 				if (UserService.getInstance().isPasswordCorrect(loginForm, passwordForm)) {
+					//Récupération de l'utilisateur en BDD
+					User utilisateur = UserService.getInstance().getUser(loginForm);
+
 					Parent rootAffichageEcranPrincipalParent;
 					try {
 						System.out.println("ok");
@@ -148,7 +152,9 @@ public class AuthenticationController {
 						EcranPrincipalController controlleur = loader.getController();
 						controlleur.getClient(unClient);
 						controlleur.setLblUtilisateur(unClient.getNom());
-						
+
+						//Affichage du montant disponible dans la cagnotte
+						controlleur.setLblCagnotte(utilisateur.getMoney());
 
 						GestionnaireCourses gc = new GestionnaireCourses();
 						gm.setGc(gc);

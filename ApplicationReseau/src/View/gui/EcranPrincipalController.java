@@ -64,6 +64,9 @@ public class EcranPrincipalController implements Initializable {
 	
 	@FXML
 	private Label lblUtilisateur;
+
+	@FXML
+	private Label lblCagnotte;
 	
 //	public void initiate()
 //	{
@@ -111,6 +114,11 @@ public class EcranPrincipalController implements Initializable {
 	public void setLblUtilisateur(String nomUtilisateur)
 	{
 		this.lblUtilisateur.setText("Bonjour, " + nomUtilisateur);
+	}
+
+	public void setLblCagnotte(float montantCagnotte)
+	{
+        this.lblCagnotte.setText(String.format("Cagnotte : %.2f €", montantCagnotte));
 	}
 
 	private GestionnaireMessages gestionnaireMessages;
