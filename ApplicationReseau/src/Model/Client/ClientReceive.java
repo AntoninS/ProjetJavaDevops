@@ -6,10 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 
-import com.jfoenix.controls.JFXTextArea;
-
 import Model.Client.Client;
-import Model.common.Message;
 
 public class ClientReceive implements Runnable{
 	
@@ -45,6 +42,7 @@ public class ClientReceive implements Runnable{
 				{
 					client.getGm().gestionMessage(mess);
 					this.client.messageReceived(mess);
+					System.out.println("Message reçu : "+ mess);
 				}
 				else
 				{

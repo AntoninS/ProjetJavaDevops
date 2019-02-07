@@ -1,16 +1,12 @@
 package View.gui;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.net.Socket;
 
 import Model.common.Message;
 import Model.common.course.ThreadCourse;
-import Model.Server.Server;
 import Model.common.Cheval;
 import Model.common.GestionnaireMessages;
-import Model.common.course.GestionnaireCourses;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextArea;
@@ -26,6 +22,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -36,13 +33,18 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
-import java.io.IOException;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class EcranPrincipalController implements Initializable {
 
 	private Client client;
+	
+	private JSONObject messageJSON;
 	
 	@FXML
 	private AnchorPane panelEcranPrincipal;
@@ -67,43 +69,46 @@ public class EcranPrincipalController implements Initializable {
 	@FXML
 	private Label lblCagnotte;
 	
-//	public void initiate()
-//	{
-//		Message mess; 
-//		
-//		ObjectInputStream in = this.client.getInputStream();
-//		Socket socket = this.client.getSocket();
-//		
-//		try {
-//			in = new ObjectInputStream(socket.getInputStream());
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//		boolean isActive = true;
-//		while(isActive)
-//		{
-//			try
-//			{
-//				mess = (Message) in.readObject();
-//				if(mess !=null)
-//				{
-//					System.out.println("\nMessage reï¿½u : " + mess);
-//					this.client.messageReceived(mess);
-//				}
-//				else
-//				{
-//					isActive = false;
-//				}
-//			}
-//			catch(Exception e)
-//			{
-//				e.printStackTrace();
-//			}
-//		}
-//		client.disconnectedServer();
-//	}
+	@FXML
+	private TextArea tchatField;
+	
+	public void initiate()
+	{
+		Message mess; 
+		
+		ObjectInputStream in = this.client.getInputStream();
+		Socket socket = this.client.getSocket();
+		
+		try {
+			in = new ObjectInputStream(socket.getInputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		boolean isActive = true;
+		while(isActive)
+		{
+			try
+			{
+				mess = (Message) in.readObject();
+				if(mess !=null)
+				{
+					System.out.println("\nMessage reçu : " + mess);
+					this.client.messageReceived(mess);
+				}
+				else
+				{
+					isActive = false;
+				}
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+		client.disconnectedServer();
+	}
 	
 	public void getClient(Client client)
 	{
@@ -229,13 +234,19 @@ public class EcranPrincipalController implements Initializable {
 	}
 	
 	@FXML
-	private void envoyerMessage(MouseEvent event)
+	private void envoyerMessage(MouseEvent event) throws JSONException
 	{
 		if(event.getButton() == MouseButton.PRIMARY)
 		{
-			Message mess = new Message(this.client.getNom(), this.msgField.getText());
+			this.messageJSON = new JSONObject();
+			this.messageJSON.put("balise", "message");
+			this.messageJSON.put("nom", this.client.getNom());
+			this.messageJSON.put("messageEnvoye", this.msgField.getText());
+			this.tchatField.appendText("\n"+this.msgField.getText());
+			
+			Message mess = new Message(this.client.getNom(), this.messageJSON.toString());
 			try {
-				client.getOutPutStream().writeObject(mess);
+				this.client.getOutPutStream().writeObject(mess);
 				this.client.getOutPutStream().flush();
 				this.msgField.setText("");
 			} catch (IOException e) {
@@ -270,7 +281,7 @@ public class EcranPrincipalController implements Initializable {
 	{
 		gestionnaireMessages = gm;
 		gestionnaireMessages.getGc().setEcranController(this);
-
+		gestionnaireMessages.setController(this);
 	}
 
 	public void btnConsulterCourseDisable(boolean b)
@@ -281,5 +292,10 @@ public class EcranPrincipalController implements Initializable {
 	public GestionnaireMessages getGestionnaireMessaire()
 	{
 		return gestionnaireMessages;
+	}
+	
+	public TextArea getTchatField()
+	{
+		return this.tchatField;
 	}
 }

@@ -160,7 +160,6 @@ public class AuthenticationController {
 						gm.setGc(gc);
 						controlleur.setGestionnaireMessage(gm);
 
-
 						Stage stage = new Stage();
 						stage.initStyle(StageStyle.UNDECORATED);
 						stage.setScene(new Scene(rootAffichageEcranPrincipalParent, 940,622));
