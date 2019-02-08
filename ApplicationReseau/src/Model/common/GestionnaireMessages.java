@@ -24,7 +24,7 @@ public class GestionnaireMessages {
         
         if(balise.equals("message"))
         {
-        	this.controller.getTchatField().appendText("\n"+jresponse.getString("messageEnvoye"));;
+        	this.controller.getTchatField().appendText("\n"+jresponse.getString("nom")+" : "+jresponse.getString("messageEnvoye"));;
         }
         
     }
