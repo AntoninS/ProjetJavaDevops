@@ -1,11 +1,14 @@
 package Model.common.course;
 
 import Controller.service.HorseService;
+import Controller.service.RaceService;
 import Model.common.Cheval;
 
 import java.util.List;
 
 public abstract class Course {
+
+    private int id;
     private List<Cheval> listChevalCourse;
     private String nomCourse;
     private Boolean estTerminee = false;
@@ -13,7 +16,10 @@ public abstract class Course {
 
 
     public Course() {
+        id = RaceService.getInstance().getLastRaceId() + 1;
         listChevalCourse = HorseService.getInstance().getListHorsesLimitAndRandom();
+
+        RaceService.getInstance().insertRace(id);
     }
 
 
@@ -23,6 +29,14 @@ public abstract class Course {
         {
             ch.modifierAvancement();
         }
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public List<Cheval> getListChevalCourse() {
