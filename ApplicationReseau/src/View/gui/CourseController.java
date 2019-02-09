@@ -3,6 +3,7 @@ package View.gui;
 import Model.Client.ThreadCourseGraphique;
 import Model.common.Cheval;
 import Model.common.course.UtilCourse;
+import com.jfoenix.controls.JFXTextArea;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -35,7 +36,7 @@ public class CourseController implements Initializable {
     private List<ImageView> listImagesChevaux;
 
 
-    private static boolean affichageActif = false;
+    public static boolean affichageActif = false;
 
     private EcranPrincipalController ecranController;
 
@@ -65,7 +66,20 @@ public class CourseController implements Initializable {
     @FXML
     private JFXButton btnQuitter;
 
-    Stage stage;
+    @FXML
+    private JFXTextArea textChevalN1;
+    @FXML
+    private JFXTextArea textChevalN2;
+    @FXML
+    private JFXTextArea textChevalN3;
+
+    @FXML
+    private ImageView coupeOr;
+    @FXML
+    private ImageView coupeArgent;
+    @FXML
+    private ImageView coupeBronze;
+
 
 
     @Override
@@ -156,7 +170,7 @@ public class CourseController implements Initializable {
 			((Stage)((ImageView)event.getSource()).getScene().getWindow()).setIconified(true);
 	}
     
-  //Permet de faire bouger l'écran TODO
+  //Permet de faire bouger l'ï¿½cran TODO
 //  	@FXML
 //  	private void moveOnDrag(MouseEvent event)
 //  	{

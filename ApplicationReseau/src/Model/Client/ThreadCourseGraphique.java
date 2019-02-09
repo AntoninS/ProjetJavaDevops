@@ -4,8 +4,12 @@ import Model.common.Cheval;
 import Model.common.course.UtilCourse;
 import View.gui.CourseController;
 import View.gui.EcranPrincipalController;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ThreadCourseGraphique  implements Runnable {
 
@@ -37,13 +41,13 @@ public class ThreadCourseGraphique  implements Runnable {
 
         while(ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).getTempsLancement() != 0){
             try {
-                Thread.sleep(1000);
+                Thread.sleep(200);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
 
-        while(ecranController.getGestionnaireMessaire().getGc().getUneCourseEstEnCours())
+        while(ecranController.getGestionnaireMessaire().getGc().getUneCourseEstEnCours() && CourseController.affichageActif)
         {
                     listeChevauxCourse = ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).getListChevalCourse();
 
@@ -55,7 +59,6 @@ public class ThreadCourseGraphique  implements Runnable {
                                 ecranController.getCourse().getTempsLancement() == 0 )
                         {
                             courseController.lancerTranslation(ch);
-                            chevalIndex++;
                         }
                         else if (ch.getAvancementCourse() > UtilCourse.DISTANCE_POURCENTAGE
                          && chevalIndex < UtilCourse.NOMBRE_CHEVAUX_COURSE
@@ -63,6 +66,8 @@ public class ThreadCourseGraphique  implements Runnable {
                         {
                             ch.getImageCheval().setLayoutX(UtilCourse.LONGUEUR_DIFF_PLUS_PIXEL);
                         }
+                        chevalIndex++;
+
                     }
                     try {
                         Thread.sleep(1000);
@@ -73,6 +78,17 @@ public class ThreadCourseGraphique  implements Runnable {
         }
 
         System.out.println("La course d'affichage est fini");
+
+        Platform.runLater(
+                () -> {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to format your system?");
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.isPresent() && result.get() == ButtonType.OK) {
+
+                    }
+                }
+        );
+
         }
     }
 

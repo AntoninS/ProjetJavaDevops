@@ -16,6 +16,7 @@ import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextArea;
 
 import Model.Client.Client;
+import javafx.application.Platform;
 import Model.Server.ConnectedClient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -274,26 +275,30 @@ public class EcranPrincipalController implements Initializable {
 	/** permet de gérer l'affichage du listview des chevaux */
 	public void ajouterCourseListView()
 	{
-		ObservableList<String> listeChevaux = FXCollections.<String>observableArrayList();
+		Platform.runLater(
+				() -> {
+					ObservableList<String> listeChevaux = FXCollections.<String>observableArrayList();
 
-		if(fxListeCheval.getItems().isEmpty())
-		{
-			fxListeCheval.getItems().removeAll(fxListeCheval.getItems());
-		}
+					if(!fxListeCheval.getItems().isEmpty())
+					{
+						fxListeCheval.getItems().removeAll(fxListeCheval.getItems());
+					}
 
-		for (Cheval cheval  : getCourse().getListChevalCourse())
-		{
-			String stringListView = String.format("[%d] - %s", cheval.getNumero(), cheval.getNom());
-			listeChevaux.add(stringListView);
-		}
-		ObservableList<String> seasonList = FXCollections.observableArrayList("Spring", "Summer", "Fall", "Winter");
+					for (Cheval cheval  : getCourse().getListChevalCourse())
+					{
+						String stringListView = String.format("[%d] - %s", cheval.getNumero(), cheval.getNom());
+						listeChevaux.add(stringListView);
+					}
+					ObservableList<String> seasonList = FXCollections.observableArrayList("Spring", "Summer", "Fall", "Winter");
 
-		fxListeCheval.setItems(listeChevaux);
-		fxListeCheval.setMinHeight(100.0);
+					fxListeCheval.setItems(listeChevaux);
+					fxListeCheval.setMinHeight(100.0);
 
-		fxListeCheval.setVisible(!fxListeCheval.getItems().isEmpty());
-		fxMontantMise.setVisible(fxListeCheval.isVisible());
-		btnValiderMise.setVisible(fxListeCheval.isVisible());
+					fxListeCheval.setVisible(!fxListeCheval.getItems().isEmpty());
+					fxMontantMise.setVisible(fxListeCheval.isVisible());
+					btnValiderMise.setVisible(fxListeCheval.isVisible());
+				}
+		);
 
 	}
 
