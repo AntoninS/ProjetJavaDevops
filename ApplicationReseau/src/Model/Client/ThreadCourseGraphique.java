@@ -69,6 +69,22 @@ public class ThreadCourseGraphique  implements Runnable {
                         chevalIndex++;
 
                     }
+
+                    if( null !=  ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).chevalArriver.get(0)) {
+                        courseController.updateAffichageCoupe(ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).chevalArriver.get(0), 0);
+                    }
+
+                    if( null !=  ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).chevalArriver.get(1))
+                    {
+                        courseController.updateAffichageCoupe(ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).chevalArriver.get(1), 1);
+                    }
+                    if( null !=  ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).chevalArriver.get(2))
+                    {
+                        courseController.updateAffichageCoupe(ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).chevalArriver.get(2), 2);
+                    }
+
+
+
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
@@ -77,28 +93,6 @@ public class ThreadCourseGraphique  implements Runnable {
 
         }
 
-        System.out.println("La course d'affichage est fini");
-
-        while (null == ecranController.getClassementPodium()) {
-            Platform.runLater(
-                    () -> {
-                        if (ecranController.getClassementPodium().size() >= 3) {
-                            courseController.updateAffichageClassement(ecranController.getClassementPodium());
-                        }
-                    }
-            );
-
-        }
-
-        Platform.runLater(
-                () -> {
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to format your system?");
-                    Optional<ButtonType> result = alert.showAndWait();
-                    if (result.isPresent() && result.get() == ButtonType.OK) {
-
-                    }
-                }
-        );
 
         }
     }
