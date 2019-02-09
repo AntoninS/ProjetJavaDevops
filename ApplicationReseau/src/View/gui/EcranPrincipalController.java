@@ -3,7 +3,11 @@ package View.gui;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
+import Controller.service.RaceService;
+import Controller.service.UserService;
 import Model.common.Message;
+import Model.common.User;
+import Model.common.course.Course;
 import Model.common.course.ThreadCourse;
 import Model.common.Cheval;
 import Model.common.GestionnaireMessages;
@@ -35,6 +39,7 @@ import javafx.stage.WindowEvent;
 
 import java.net.Socket;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import org.json.JSONException;
@@ -71,6 +76,12 @@ public class EcranPrincipalController implements Initializable {
 	
 	@FXML
 	private TextArea tchatField;
+
+	@FXML
+	private TextArea fxMontantMise;
+
+	@FXML
+	private JFXButton btnValiderMise;
 	
 	public void initiate()
 	{
@@ -94,7 +105,7 @@ public class EcranPrincipalController implements Initializable {
 				mess = (Message) in.readObject();
 				if(mess !=null)
 				{
-					System.out.println("\nMessage re�u : " + mess);
+					System.out.println("\nMessage re�u : " + mess);
 					this.client.messageReceived(mess);
 				}
 				else
@@ -129,6 +140,8 @@ public class EcranPrincipalController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		fxListeCheval.setVisible(!fxListeCheval.getItems().isEmpty());
+		fxMontantMise.setVisible(fxListeCheval.isVisible());
+		btnValiderMise.setVisible(fxListeCheval.isVisible());
 		this.btnConsulterCourseDisable(true);
 	}
 
@@ -254,7 +267,7 @@ public class EcranPrincipalController implements Initializable {
 			}
 		}
 	}
-
+	/** permet de gérer l'affichage du listview des chevaux */
 	public void ajouterCourseListView()
 	{
 		ObservableList<String> listeChevaux = FXCollections.<String>observableArrayList();
@@ -264,9 +277,9 @@ public class EcranPrincipalController implements Initializable {
 			fxListeCheval.getItems().removeAll(fxListeCheval.getItems());
 		}
 
-		for (Cheval cheval  : gestionnaireMessages.getGc().getListeDesCoursesEnCours().get(0).getListChevalCourse())
+		for (Cheval cheval  : getCourse().getListChevalCourse())
 		{
-			String stringListView = cheval.getNom() + " " + cheval.getVitesse() + " " + cheval.getNumero();
+			String stringListView = String.format("[%d] - %s", cheval.getNumero(), cheval.getNom());
 			listeChevaux.add(stringListView);
 		}
 		ObservableList<String> seasonList = FXCollections.observableArrayList("Spring", "Summer", "Fall", "Winter");
@@ -275,13 +288,22 @@ public class EcranPrincipalController implements Initializable {
 		fxListeCheval.setMinHeight(100.0);
 
 		fxListeCheval.setVisible(!fxListeCheval.getItems().isEmpty());
+		fxMontantMise.setVisible(fxListeCheval.isVisible());
+		btnValiderMise.setVisible(fxListeCheval.isVisible());
+
 	}
 
+	/** permet de lui attribuer un gestionnaire de message json */
 	public void setGestionnaireMessage(GestionnaireMessages gm)
 	{
 		gestionnaireMessages = gm;
 		gestionnaireMessages.getGc().setEcranController(this);
 		gestionnaireMessages.setController(this);
+	}
+
+	public Course getCourse()
+	{
+		return this.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0);
 	}
 
 	public void btnConsulterCourseDisable(boolean b)
@@ -298,4 +320,43 @@ public class EcranPrincipalController implements Initializable {
 	{
 		return this.tchatField;
 	}
+
+
+	@FXML
+	private void validerMise(MouseEvent event)
+	{
+		if(event.getButton() == MouseButton.PRIMARY) {
+
+			float montantMise = 0;
+			String cheval = "";
+			int idCheval = 0;
+
+			// Récupération du montant misé
+			if (!fxMontantMise.getText().trim().isEmpty()) {
+				montantMise = Float.valueOf(fxMontantMise.getText());
+			} else {
+
+			}
+
+			// Récupération du cheval sélectionné dans la liste
+			cheval = fxListeCheval.getSelectionModel().getSelectedItem();
+
+			if (null != cheval && !cheval.trim().isEmpty()) {
+				idCheval = Integer.valueOf(cheval.substring(cheval.indexOf("[") + 1, cheval.indexOf("]")));
+			} else {
+
+			}
+
+			// TODO : gerer montant > cagnotte
+			if (montantMise > 0 && idCheval > 0) {
+				fxMontantMise.setDisable(true);
+				btnValiderMise.setDisable(true);
+				User currentUser = UserService.getInstance().getUser(client.getNom());
+				RaceService.getInstance().insertBet(currentUser.getId(), idCheval, getCourse().getId(), montantMise);
+			}
+
+
+		}
+	}
+
 }

@@ -1,52 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Line?>
 
-<AnchorPane prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.gui.CourseController">
+<AnchorPane prefHeight="375.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.gui.CourseController">
    <children>
-      <Line endX="500.0" layoutX="50.0" layoutY="25.0" />
-      <Line endX="500.0" layoutX="50.0" layoutY="75.0" />
-      <Line endX="500.0" layoutX="50.0" layoutY="125.0" />
-      <Line endX="500.0" layoutX="50.0" layoutY="175.0" />
-      <Line endX="500.0" layoutX="50.0" layoutY="225.0" />
-      <Line endX="500.0" layoutX="50.0" layoutY="275.0" />
-      <Line endX="500.0" layoutX="50.0" layoutY="325.0" />
-      <Line endY="300.0" layoutX="216.0" layoutY="25.0" />
-      <Line endY="300.0" layoutX="390.0" layoutY="25.0" />
-      <ImageView fx:id="chevalLigne1" fitHeight="52.0" fitWidth="42.0" layoutX="11.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="350.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/terrainGazon.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="chevalLigne6" fitHeight="40.0" fitWidth="50.0" layoutY="289.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../images/cheval.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="chevalLigne6" fitHeight="42.0" fitWidth="50.0" layoutX="11.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="chevalLigne1" fitHeight="40.0" fitWidth="50.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../images/cheval.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="chevalLigne5" fitHeight="42.0" fitWidth="50.0" layoutX="11.0" layoutY="226.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="chevalLigne5" fitHeight="42.0" fitWidth="50.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../images/cheval.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="chevalLigne4" fitHeight="42.0" fitWidth="50.0" layoutX="11.0" layoutY="174.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="chevalLigne4" fitHeight="40.0" fitWidth="50.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../images/cheval.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="chevalLigne3" fitHeight="42.0" fitWidth="50.0" layoutX="11.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="chevalLigne3" fitHeight="40.0" fitWidth="50.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../images/cheval.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="chevalLigne2" fitHeight="42.0" fitWidth="50.0" layoutX="11.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="chevalLigne2" fitHeight="42.0" fitWidth="50.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../images/cheval.png" />
          </image>
       </ImageView>
-      <JFXButton layoutX="338.0" layoutY="381.0" prefHeight="42.0" prefWidth="104.0" style="-fx-background-color: #f05921;" text="Quitter" />
+      <JFXButton layoutX="500.0" layoutY="335.0" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #f05921;" text="Quitter" />
+      <ImageView fx:id="coupeOr" fitHeight="40.0" fitWidth="39.0" layoutY="335.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/or.JPG" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="coupeArgent" fitHeight="40.0" fitWidth="39.0" layoutX="162.0" layoutY="335.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/argent.JPG" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="coupeBronze" fitHeight="40.0" fitWidth="39.0" layoutX="330.0" layoutY="335.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/bronze.JPG" />
+         </image>
+      </ImageView>
+      <JFXTextField fx:id="textChevalN1" layoutX="39.0" layoutY="340.0" prefHeight="25.0" prefWidth="121.0" />
+      <JFXTextField fx:id="textChevalN2" layoutX="201.0" layoutY="340.0" prefHeight="25.0" prefWidth="121.0" />
+      <JFXTextField fx:id="textCheval2" layoutX="369.0" layoutY="340.0" prefHeight="25.0" prefWidth="121.0" />
    </children>
 </AnchorPane>

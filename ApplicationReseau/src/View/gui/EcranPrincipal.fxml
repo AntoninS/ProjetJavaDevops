@@ -28,7 +28,7 @@
             </Pane>
             <Pane layoutX="-1.0" layoutY="104.0" prefHeight="78.0" prefWidth="200.0" style="-fx-background-color: #e34f43;">
                <children>
-                  <Label fx:id="lblCagnotte" layoutX="34.0" layoutY="20.0" text="Bonjour, ">
+                  <Label fx:id="lblCagnotte" layoutX="34.0" layoutY="20.0" text="Cagnotte : ">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -57,7 +57,12 @@
          </children></AnchorPane>
       <AnchorPane layoutX="626.0" layoutY="17.0" prefHeight="606.0" prefWidth="314.0" style="-fx-background-color: #af0023;">
          <children>
-            <JFXListView fx:id="fxListeCheval" layoutX="72.0" layoutY="58.0" />
+            <JFXListView fx:id="fxListeCheval" layoutX="72.0" layoutY="58.0" prefHeight="300.0" prefWidth="200.0" />
+            <JFXTextArea fx:id="fxMontantMise" layoutX="72.0" layoutY="402.0" prefHeight="1.0" prefWidth="146.0" style="-fx-background-color: #ffffff;">
+               <font>
+                  <Font size="15.0" />
+               </font></JFXTextArea>
+            <JFXButton fx:id="btnValiderMise" layoutX="226.0" layoutY="408.0" mnemonicParsing="false" onMouseClicked="#validerMise" style="-fx-background-color: #ffffff;" text="Valider" />
          </children></AnchorPane>
       <ImageView fitHeight="16.0" fitWidth="22.0" onMouseClicked="#closeOnClick" pickOnBounds="true" preserveRatio="true">
          <image>

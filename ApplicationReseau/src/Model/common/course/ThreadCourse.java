@@ -3,11 +3,11 @@ package Model.common.course;
 import Model.Server.Server;
 import Model.common.Cheval;
 import Model.common.Message;
-import java.util.ArrayList;
-import java.util.Collections;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class ThreadCourse implements Runnable {
 
@@ -89,6 +89,7 @@ public class ThreadCourse implements Runnable {
         int etapeAjoutJson = 0;
 
         jsonConcatenationCourse = new JSONObject();
+
         jsonConcatenationCourse.put("balise", "course");
         jsonConcatenationCourse.put("nomCourse", "uneCourse");
         jsonConcatenationCourse.put("tempsLancement", tempsAvantLancement);

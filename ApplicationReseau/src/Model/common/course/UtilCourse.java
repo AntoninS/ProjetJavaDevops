@@ -11,7 +11,7 @@ public class UtilCourse
 
     public final static Double LONGUEUR_DIFF_PLUS_PIXEL = 550.0;
 
-    public final static Integer nombreChevauxCourse = 6;
+    public final static Integer NOMBRE_CHEVAUX_COURSE = 6;
 
 
     public static double calculVitesseCheval(Double avancementCourseCheval, Double vitesse) {

@@ -9,7 +9,10 @@ import org.json.JSONObject;
 
 public class GestionnaireMessages {
 
+    /** gestionnaire de course pour traiter le jsonObject d'une course */
     GestionnaireCourses gc;
+
+    /** reference de l'ecran principale pour y faire passer nos valeurs */
     EcranPrincipalController controller;
 
     public void gestionMessage(Message msg) throws JSONException {

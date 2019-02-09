@@ -1,35 +1,27 @@
 package Model.common.course;
 
 import Controller.service.HorseService;
+import Controller.service.RaceService;
 import Model.common.Cheval;
 
 import java.util.List;
 
 public abstract class Course {
+
+    private int id;
     private List<Cheval> listChevalCourse;
-    private int numeroCourse;
     private String nomCourse;
     private Boolean estTerminee = false;
     private Integer tempsLancement;
 
-    private String typeCourse;
-    private Double niveauAvancementCourse;
-
 
     public Course() {
+        id = RaceService.getInstance().getLastRaceId() + 1;
         listChevalCourse = HorseService.getInstance().getListHorsesLimitAndRandom();
+
+        RaceService.getInstance().insertRace(id);
     }
 
-
-    public Double getChevalLent() {
-        Double vitesse = 100000.0;
-        for (Cheval cheval : listChevalCourse) {
-            if (vitesse > cheval.getVitesse()) {
-                vitesse = cheval.getVitesse();
-            }
-        }
-        return vitesse;
-    }
 
     public void modifierAvancementTousLesChevaux ()
     {
@@ -39,9 +31,12 @@ public abstract class Course {
         }
     }
 
-    public void modifierAvancementCheval(int indexCheval, Double niveauAvancementCourse)
-    {
-        listChevalCourse.get(indexCheval).setAvancementCourse(niveauAvancementCourse);
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public List<Cheval> getListChevalCourse() {
@@ -50,10 +45,6 @@ public abstract class Course {
 
     public String getNomCourse() {
         return this.nomCourse;
-    }
-
-    public int getNumeroCourse() {
-        return numeroCourse;
     }
 
     public void setNomCourse(String pNomCourse) {
