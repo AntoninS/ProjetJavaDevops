@@ -90,6 +90,7 @@ public class GestionnaireCourses {
         if (courseJsonObject.getBoolean("courseEtat")) {
             setUneCourseEstEnCours(false);
             ecranController.btnConsulterCourseDisable(true);
+            listeDesCoursesEnCours.clear();
         }
 
     }
