@@ -171,26 +171,26 @@ public class CourseController implements Initializable {
 	}
     
   //Permet de faire bouger l'�cran TODO
-//  	@FXML
-//  	private void moveOnDrag(MouseEvent event)
-//  	{
+  	@FXML
+  	private void moveOnDrag(MouseEvent event)
+  	{
 //  		if(event.getButton() == MouseButton.PRIMARY)
 //  		{
 //  			this.posX = event.getSceneX();
 //  			this.posY = event.getSceneY();
 //  			System.out.println(this.posX + " x - y" + this.posY);
 //  		}
-//  	}
-//  	
-//  	@FXML
-//  	private void setOnMouseDrag(MouseEvent event)
-//  	{
+  	}
+  	
+  	@FXML
+  	private void setOnMouseDrag(MouseEvent event)
+  	{
 //  		if(event.getButton() == MouseButton.PRIMARY)
 //  		{
 //  			this.ap.getScene().getWindow().setX(event.getScreenX() - this.posX);
 //  			this.ap.getScene().getWindow().setY(event.getScreenY() - this.posY);
 //  		}
-//  	}
+  	}
 
 
 }
