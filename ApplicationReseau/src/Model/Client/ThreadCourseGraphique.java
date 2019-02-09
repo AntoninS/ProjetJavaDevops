@@ -79,6 +79,17 @@ public class ThreadCourseGraphique  implements Runnable {
 
         System.out.println("La course d'affichage est fini");
 
+        while (null == ecranController.getClassementPodium()) {
+            Platform.runLater(
+                    () -> {
+                        if (ecranController.getClassementPodium().size() >= 3) {
+                            courseController.updateAffichageClassement(ecranController.getClassementPodium());
+                        }
+                    }
+            );
+
+        }
+
         Platform.runLater(
                 () -> {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to format your system?");

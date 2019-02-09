@@ -48,6 +48,9 @@ public class EcranPrincipalController implements Initializable {
 	private Client client;
 	
 	private JSONObject messageJSON;
+
+	//TODO : trouver un autre moyen de get cette liste
+	private List<Cheval> classementPodium;
 	
 	@FXML
 	private AnchorPane panelEcranPrincipal;
@@ -132,6 +135,14 @@ public class EcranPrincipalController implements Initializable {
 	public void setLblCagnotte(float montantCagnotte)
 	{
         this.lblCagnotte.setText(String.format("Cagnotte : %.2f €", montantCagnotte));
+	}
+
+	public List<Cheval> getClassementPodium() {
+		return classementPodium;
+	}
+
+	public void setClassementPodium(List<Cheval> classementPodium) {
+		this.classementPodium = classementPodium;
 	}
 
 	private GestionnaireMessages gestionnaireMessages;
@@ -362,8 +373,10 @@ public class EcranPrincipalController implements Initializable {
 	}
 
 	public void handleEndOfCourse(List<Cheval> classementPodium) {
+		this.classementPodium = classementPodium;
 		User currentUser = UserService.getInstance().getUser(client.getNom());
 		Pari pari = RaceService.getInstance().getBet(currentUser.getId(), getCourse().getId());
+
 
 		float cagnotte = RaceService.getInstance().calculateGains(pari, classementPodium);
 		Platform.runLater(

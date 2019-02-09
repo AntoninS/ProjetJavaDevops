@@ -129,6 +129,18 @@ public class CourseController implements Initializable {
         }
     }
 
+    public void updateAffichageClassement(List<Cheval> classementPodium) {
+        if (classementPodium.size() >= 3) {
+            Platform.runLater(
+                () -> {
+                    this.textChevalN1.setText(classementPodium.get(0).getNom());
+                    this.textChevalN2.setText(classementPodium.get(1).getNom());
+                    this.textChevalN3.setText(classementPodium.get(2).getNom());
+                }
+            );
+        }
+    }
+
     public static void setAffichageActif(boolean pAffichageActif) {
         affichageActif = pAffichageActif;
     }

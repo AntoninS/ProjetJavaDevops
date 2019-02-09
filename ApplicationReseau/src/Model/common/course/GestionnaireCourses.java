@@ -91,13 +91,14 @@ public class GestionnaireCourses {
         if (courseJsonObject.getBoolean("courseEtat")) {
             setUneCourseEstEnCours(false);
             ecranController.btnConsulterCourseDisable(true);
-            listeDesCoursesEnCours.clear();
 
             List<Cheval> classementPodium = new ArrayList<>();
             classementPodium.add(HorseService.getInstance().getHorse(getIdChevalAtClassement(courseJsonObject, 1)));
             classementPodium.add(HorseService.getInstance().getHorse(getIdChevalAtClassement(courseJsonObject, 2)));
             classementPodium.add(HorseService.getInstance().getHorse(getIdChevalAtClassement(courseJsonObject, 3)));
             ecranController.handleEndOfCourse(classementPodium);
+
+            listeDesCoursesEnCours.clear();
         }
 
 
