@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+
+<AnchorPane prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.gui.CourseController">
+   <children>
+      <Line endX="500.0" layoutX="50.0" layoutY="25.0" />
+      <Line endX="500.0" layoutX="50.0" layoutY="75.0" />
+      <Line endX="500.0" layoutX="50.0" layoutY="125.0" />
+      <Line endX="500.0" layoutX="50.0" layoutY="175.0" />
+      <Line endX="500.0" layoutX="50.0" layoutY="225.0" />
+      <Line endX="500.0" layoutX="50.0" layoutY="275.0" />
+      <Line endX="500.0" layoutX="50.0" layoutY="325.0" />
+      <Line endY="300.0" layoutX="216.0" layoutY="25.0" />
+      <Line endY="300.0" layoutX="390.0" layoutY="25.0" />
+      <ImageView fx:id="chevalLigne1" fitHeight="52.0" fitWidth="42.0" layoutX="11.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/cheval.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="chevalLigne6" fitHeight="42.0" fitWidth="50.0" layoutX="11.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/cheval.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="chevalLigne5" fitHeight="42.0" fitWidth="50.0" layoutX="11.0" layoutY="226.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/cheval.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="chevalLigne4" fitHeight="42.0" fitWidth="50.0" layoutX="11.0" layoutY="174.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/cheval.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="chevalLigne3" fitHeight="42.0" fitWidth="50.0" layoutX="11.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/cheval.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="chevalLigne2" fitHeight="42.0" fitWidth="50.0" layoutX="11.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/cheval.png" />
+         </image>
+      </ImageView>
+      <JFXButton layoutX="338.0" layoutY="381.0" prefHeight="42.0" prefWidth="104.0" style="-fx-background-color: #f05921;" text="Quitter" />
+   </children>
+</AnchorPane>

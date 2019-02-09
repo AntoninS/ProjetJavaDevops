@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="C:/Program Files/Java/jre1.8.0_191/lib/jfxswt.jar"/>
 	<classpathentry kind="lib" path="D:/Projet/ProjetJavaDevops/ApplicationReseau/lib/jfoenix-8.0.8.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Ogun/Downloads/ojdbc7.jar"/>
+	<classpathentry kind="lib" path="lib/java-json.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

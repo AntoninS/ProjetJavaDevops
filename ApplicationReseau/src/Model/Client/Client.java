@@ -25,38 +25,6 @@ public class Client {
 	private Message messageReceived;
 	private String nom;
 	
-	public Client(int port, String address, String nom)
-	{
-		this.port = port;
-		this.address = address;
-		this.nom = nom;
-		
-		try {
-			this.socket = new Socket(address, port);
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			this.out = new ObjectOutputStream(this.socket.getOutputStream());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		System.out.println("Bonjour " + this.nom);
-		
-//		Thread sendMessages = new Thread(new ClientSend(this.socket, this.out));
-//		sendMessages.start();
-		
-		Thread getMessages = new Thread(new ClientReceive(this, socket));
-		getMessages.start();
-	}
-	
 	public Client(int port, String address, String nom, GestionnaireMessages gestionnaireMessages)
 	{
 		this.port = port;
@@ -82,9 +50,6 @@ public class Client {
 		}
 		
 		System.out.println("Bonjour " + this.nom);
-		
-//		Thread sendMessages = new Thread(new ClientSend(this.socket, this.out));
-//		sendMessages.start();
 		
 		Thread getMessages = new Thread(new ClientReceive(this, socket));
 		getMessages.start();

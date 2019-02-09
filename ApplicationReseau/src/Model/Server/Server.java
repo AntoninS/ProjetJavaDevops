@@ -3,7 +3,9 @@ package Model.Server;
 import java.util.ArrayList;
 import java.util.List;
 
-import Model.Client.ClientSend;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import Model.common.Message;
 
 public class Server {
@@ -21,11 +23,15 @@ public class Server {
 	}
 	
 	//annonce l'arriv� d'un nouveau Controller.client et l'ajoute � la liste des clients
-	public void addClient(ConnectedClient newClient)
+	public void addClient(ConnectedClient newClient) throws JSONException
 	{
 		for(ConnectedClient client : this.clients)
 		{
-			Message m = new Message("Server","Le Controller.client "+ newClient.getId() + " viens de se connecter!");
+			JSONObject messageConnexion = new JSONObject();
+			messageConnexion.put("balise", "message");
+			messageConnexion.put("nom", "Serveur");
+			messageConnexion.put("messageEnvoye", "Une nouvelle personne viens de nous rejoindre, dite bonjour !");
+			Message m = new Message("Server",messageConnexion.toString());
 			client.sendMessage(m);
 		}
 		this.clients.add(newClient);
@@ -43,13 +49,18 @@ public class Server {
 		}
 	}
 
-	public void disconnectedClient(ConnectedClient discClient)
+	public void disconnectedClient(ConnectedClient discClient) throws JSONException
 	{
 		ConnectedClient.decreaseId();
 		this.clients.remove(discClient);
 		for(ConnectedClient client : clients)
 		{
-			client.sendMessage(new Message("Controller/server","Le Controller.client " + discClient.getId() + " nous a quitt�!"));
+			JSONObject messageDeco = new JSONObject();
+			messageDeco.put("balise", "message");
+			messageDeco.put("nom", "Serveur");
+			messageDeco.put("messageEnvoye", "Une personne viens de nous quitter !");
+			Message m = new Message("Serveur",messageDeco.toString());
+			client.sendMessage(m);
 		}
 	}
 

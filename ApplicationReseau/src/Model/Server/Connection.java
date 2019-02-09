@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import org.json.JSONException;
+
 public class Connection implements Runnable{
 	
 	private Server server;
@@ -37,14 +39,11 @@ public class Connection implements Runnable{
 				//Et nous lan�ons un thread � partir de l'objet ConnectedClient cr��
 				Thread threadNewClient = new Thread(newClient);
 				threadNewClient.start();
-			} catch (IOException e) {
+			} catch (IOException | JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 		}
-		
 	}
-	
 
 }

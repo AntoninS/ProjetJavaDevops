@@ -5,6 +5,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import org.json.JSONException;
+
 import Model.Server.Server;
 import Model.common.Message;
 
@@ -62,7 +64,12 @@ public class ConnectedClient implements Runnable{
 		catch(Exception e)
 		{
 			isActive = false;
-			this.server.disconnectedClient(this);
+			try {
+				this.server.disconnectedClient(this);
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			e.getStackTrace();
 		}
 	}
