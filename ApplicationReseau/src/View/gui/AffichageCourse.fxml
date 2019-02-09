@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -59,8 +59,8 @@
             <Image url="@../../images/bronze.JPG" />
          </image>
       </ImageView>
-      <JFXTextField fx:id="textChevalN1" layoutX="39.0" layoutY="340.0" prefHeight="25.0" prefWidth="121.0" />
-      <JFXTextField fx:id="textChevalN2" layoutX="201.0" layoutY="340.0" prefHeight="25.0" prefWidth="121.0" />
-      <JFXTextField fx:id="textCheval2" layoutX="369.0" layoutY="340.0" prefHeight="25.0" prefWidth="121.0" />
+      <JFXTextArea fx:id="textChevalN1" layoutX="39.0" layoutY="335.0" prefColumnCount="12" prefHeight="25.0" prefWidth="121.0" />
+      <JFXTextArea fx:id="textChevalN2" layoutX="201.0" layoutY="335.0" prefHeight="25.0" prefWidth="121.0" />
+      <JFXTextArea fx:id="textChevalN3" layoutX="369.0" layoutY="335.0" prefHeight="25.0" prefWidth="121.0" />
    </children>
 </AnchorPane>

@@ -43,7 +43,7 @@ public class ThreadCourseGraphique  implements Runnable {
             }
         }
 
-        while(ecranController.getGestionnaireMessaire().getGc().getUneCourseEstEnCours())
+        while(ecranController.getGestionnaireMessaire().getGc().getUneCourseEstEnCours() && CourseController.affichageActif)
         {
                     listeChevauxCourse = ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).getListChevalCourse();
 

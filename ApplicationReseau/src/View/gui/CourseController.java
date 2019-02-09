@@ -3,6 +3,7 @@ package View.gui;
 import Model.Client.ThreadCourseGraphique;
 import Model.common.Cheval;
 import Model.common.course.UtilCourse;
+import com.jfoenix.controls.JFXTextArea;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -12,8 +13,6 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -29,7 +28,7 @@ public class CourseController implements Initializable {
     private List<ImageView> listImagesChevaux;
 
 
-    private static boolean affichageActif = false;
+    public static boolean affichageActif = false;
 
     private EcranPrincipalController ecranController;
 
@@ -52,9 +51,19 @@ public class CourseController implements Initializable {
     private ImageView chevalLigne6;
 
     @FXML
-    private AnchorPane ap;
+    private JFXTextArea textChevalN1;
+    @FXML
+    private JFXTextArea textChevalN2;
+    @FXML
+    private JFXTextArea textChevalN3;
 
-    Stage stage;
+    @FXML
+    private ImageView coupeOr;
+    @FXML
+    private ImageView coupeArgent;
+    @FXML
+    private ImageView coupeBronze;
+
 
 
     @Override
