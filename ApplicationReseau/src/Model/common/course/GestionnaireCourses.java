@@ -1,5 +1,6 @@
 package Model.common.course;
 
+import Controller.service.HorseService;
 import Model.common.Cheval;
 import View.gui.EcranPrincipalController;
 import org.json.JSONException;
@@ -91,7 +92,15 @@ public class GestionnaireCourses {
             setUneCourseEstEnCours(false);
             ecranController.btnConsulterCourseDisable(true);
             listeDesCoursesEnCours.clear();
+
+            List<Cheval> classementPodium = new ArrayList<>();
+            classementPodium.add(HorseService.getInstance().getHorse(getIdChevalAtClassement(courseJsonObject, 1)));
+            classementPodium.add(HorseService.getInstance().getHorse(getIdChevalAtClassement(courseJsonObject, 2)));
+            classementPodium.add(HorseService.getInstance().getHorse(getIdChevalAtClassement(courseJsonObject, 3)));
+            ecranController.handleEndOfCourse(classementPodium);
         }
+
+
 
     }
 
@@ -136,5 +145,15 @@ public class GestionnaireCourses {
     public void setUneCourseEstEnCours (boolean b )
     {
         uneCourseEstEnCours = b;
+    }
+
+
+    /**
+     *
+     * @param courseJsonObject le flux Json
+     * @param position La position de classem
+     */
+    public int getIdChevalAtClassement(JSONObject courseJsonObject, int position) throws JSONException {
+        return courseJsonObject.getInt("idChevalAtClassement".concat(String.valueOf(position)));
     }
 }

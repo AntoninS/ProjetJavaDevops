@@ -5,12 +5,9 @@ import java.io.ObjectInputStream;
 
 import Controller.service.RaceService;
 import Controller.service.UserService;
-import Model.common.Message;
-import Model.common.User;
+import Model.common.*;
 import Model.common.course.Course;
 import Model.common.course.ThreadCourse;
-import Model.common.Cheval;
-import Model.common.GestionnaireMessages;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextArea;
@@ -362,6 +359,28 @@ public class EcranPrincipalController implements Initializable {
 
 
 		}
+	}
+
+	public void handleEndOfCourse(List<Cheval> classementPodium) {
+		User currentUser = UserService.getInstance().getUser(client.getNom());
+		Pari pari = RaceService.getInstance().getBet(currentUser.getId(), getCourse().getId());
+
+		float cagnotte = RaceService.getInstance().calculateGains(pari, classementPodium);
+		Platform.runLater(
+			() -> {
+				setLblCagnotte(cagnotte);
+			}
+		);
+
+		if (RaceService.getInstance().hasWonBet(pari, classementPodium)) {
+			//popup
+			System.out.println("GAGNEEEEEEEEEEEEEEEEEE");
+		} else {
+			//popup
+			System.out.println("PERDUUUUUUUUUUUUUUUUUU");
+		}
+
+
 	}
 
 }
