@@ -1,52 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.gui.CourseController">
+<AnchorPane onMouseDragged="#setOnMouseDrag" onMousePressed="#moveOnDrag" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.gui.CourseController">
    <children>
-      <Line endX="500.0" layoutX="50.0" layoutY="25.0" />
-      <Line endX="500.0" layoutX="50.0" layoutY="75.0" />
-      <Line endX="500.0" layoutX="50.0" layoutY="125.0" />
-      <Line endX="500.0" layoutX="50.0" layoutY="175.0" />
-      <Line endX="500.0" layoutX="50.0" layoutY="225.0" />
-      <Line endX="500.0" layoutX="50.0" layoutY="275.0" />
-      <Line endX="500.0" layoutX="50.0" layoutY="325.0" />
-      <Line endY="300.0" layoutX="216.0" layoutY="25.0" />
-      <Line endY="300.0" layoutX="390.0" layoutY="25.0" />
-      <ImageView fx:id="chevalLigne1" fitHeight="52.0" fitWidth="42.0" layoutX="11.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="350.0" fitWidth="600.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/terrainGazon.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="chevalLigne6" fitHeight="40.0" fitWidth="50.0" layoutY="364.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../images/cheval.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="chevalLigne6" fitHeight="42.0" fitWidth="50.0" layoutX="11.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="chevalLigne1" fitHeight="40.0" fitWidth="50.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../images/cheval.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="chevalLigne5" fitHeight="42.0" fitWidth="50.0" layoutX="11.0" layoutY="226.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="chevalLigne5" fitHeight="42.0" fitWidth="50.0" layoutY="305.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../images/cheval.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="chevalLigne4" fitHeight="42.0" fitWidth="50.0" layoutX="11.0" layoutY="174.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="chevalLigne4" fitHeight="40.0" fitWidth="50.0" layoutY="250.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../images/cheval.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="chevalLigne3" fitHeight="42.0" fitWidth="50.0" layoutX="11.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="chevalLigne3" fitHeight="40.0" fitWidth="50.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../images/cheval.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="chevalLigne2" fitHeight="42.0" fitWidth="50.0" layoutX="11.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="chevalLigne2" fitHeight="42.0" fitWidth="50.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../images/cheval.png" />
          </image>
       </ImageView>
-      <JFXButton layoutX="338.0" layoutY="381.0" prefHeight="42.0" prefWidth="104.0" style="-fx-background-color: #f05921;" text="Quitter" />
+      <JFXButton layoutX="500.0" layoutY="410.0" onMouseClicked="#quitterLaCourse" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #f05921;" text="Quitter" />
+      <ImageView fx:id="coupeOr" fitHeight="40.0" fitWidth="39.0" layoutY="410.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/or.JPG" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="coupeArgent" fitHeight="40.0" fitWidth="39.0" layoutX="162.0" layoutY="410.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/argent.JPG" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="coupeBronze" fitHeight="40.0" fitWidth="39.0" layoutX="330.0" layoutY="410.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/bronze.JPG" />
+         </image>
+      </ImageView>
+      <JFXTextField fx:id="textChevalN1" layoutX="39.0" layoutY="415.0" prefHeight="25.0" prefWidth="121.0" />
+      <JFXTextField fx:id="textChevalN2" layoutX="201.0" layoutY="415.0" prefHeight="25.0" prefWidth="121.0" />
+      <JFXTextField fx:id="textCheval2" layoutX="369.0" layoutY="415.0" prefHeight="25.0" prefWidth="121.0" />
+      <Line endX="500.0" layoutX="100.0" layoutY="24.0" startX="-100.0" />
+      <Label layoutX="284.0" layoutY="4.0" text="Live !">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="imgQuitter" fitHeight="16.0" fitWidth="22.0" layoutX="6.0" layoutY="6.0" onMouseClicked="#quitterLaCourse" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/fermer.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgReduireEcran" fitHeight="16.0" fitWidth="16.0" layoutX="22.0" layoutY="6.0" onMouseClicked="#reduireEcran" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/reduire.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="197.0" layoutY="37.0" text="Que le meilleur parieur gagne !">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

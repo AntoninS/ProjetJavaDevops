@@ -2,6 +2,7 @@ package View.gui;
 
 import Controller.service.UserService;
 import Model.Client.Client;
+import Model.Server.ConnectedClient;
 import Model.common.GestionnaireMessages;
 import Model.common.User;
 import Model.common.course.GestionnaireCourses;
@@ -164,6 +165,7 @@ public class AuthenticationController {
 						stage.initStyle(StageStyle.UNDECORATED);
 						stage.setScene(new Scene(rootAffichageEcranPrincipalParent, 940,622));
 						stage.show();
+						
 						((Node)mouseEvent.getSource()).getScene().getWindow().hide();
 						
 					} catch(IOException e) {

@@ -31,8 +31,15 @@ public class Server {
 			messageConnexion.put("balise", "message");
 			messageConnexion.put("nom", "Serveur");
 			messageConnexion.put("messageEnvoye", "Une nouvelle personne viens de nous rejoindre, dite bonjour !");
-			Message m = new Message("Server",messageConnexion.toString());
+			Message m = new Message("Serveur",messageConnexion.toString());
 			client.sendMessage(m);
+			
+//			JSONObject nbPersonneCo = new JSONObject();
+//			nbPersonneCo.put("balise", "nbPersonneCo");
+//			nbPersonneCo.put("nbDePersonne", Integer.toString(ConnectedClient.getIdCounter()-1));
+//			Message mPersoCo = new Message("Serveur", (String)nbPersonneCo.toString());
+//			client.sendMessage(mPersoCo);
+			
 		}
 		this.clients.add(newClient);
 	}
@@ -61,6 +68,12 @@ public class Server {
 			messageDeco.put("messageEnvoye", "Une personne viens de nous quitter !");
 			Message m = new Message("Serveur",messageDeco.toString());
 			client.sendMessage(m);
+			
+//			JSONObject nbPersonneCo = new JSONObject();
+//			nbPersonneCo.put("balise", "nbPersonneCo");
+//			nbPersonneCo.put("nbDePersonne", Integer.toString(ConnectedClient.getIdCounter()-1));
+//			Message mPersoCo = new Message("Serveur", nbPersonneCo.toString());
+//			client.sendMessage(mPersoCo);
 		}
 	}
 

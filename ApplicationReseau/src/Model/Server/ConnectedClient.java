@@ -107,4 +107,9 @@ public class ConnectedClient implements Runnable{
 		idCounter --;
 	}
 	
+	public static int getIdCounter()
+	{
+		return idCounter;
+	}
+	
 }

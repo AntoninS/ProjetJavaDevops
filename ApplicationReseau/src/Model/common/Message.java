@@ -25,5 +25,13 @@ public class Message implements Serializable{
 	{
 		this.id = id;
 	}
+	
+	public boolean isIdCounter()
+	{
+		if(this.content.contains("nbPersonneCo"))
+			return true;
+		
+		return false;
+	}
 
 }

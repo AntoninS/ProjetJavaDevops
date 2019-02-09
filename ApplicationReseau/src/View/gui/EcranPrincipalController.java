@@ -16,6 +16,7 @@ import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextArea;
 
 import Model.Client.Client;
+import Model.Server.ConnectedClient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -82,6 +83,9 @@ public class EcranPrincipalController implements Initializable {
 
 	@FXML
 	private JFXButton btnValiderMise;
+	
+	@FXML
+	private Label lblNbPersonne;
 	
 	public void initiate()
 	{
@@ -165,7 +169,7 @@ public class EcranPrincipalController implements Initializable {
 				controllerCourse.setEcranController(this);
 
 				stage.initStyle(StageStyle.UNDECORATED);
-				stage.setScene(new Scene(rootAffichageCourse, 800,450));
+				stage.setScene(new Scene(rootAffichageCourse, 600,450));
 				stage.show();
 
 				stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -185,7 +189,7 @@ public class EcranPrincipalController implements Initializable {
 	{	
 		ScrollBar scrollBarText = (ScrollBar) this.msgField.lookup(".scroll-bar:vertical");
 		
-		if(scrollBarText.isVisible()==true)
+		if(scrollBarText.isVisible()==true && this.msgField.getLayoutY()>490)
 		{
 			this.msgField.setLayoutY(this.msgField.getLayoutY()-10);
 			this.msgField.setPrefHeight(this.msgField.getPrefHeight()+10);
@@ -357,6 +361,11 @@ public class EcranPrincipalController implements Initializable {
 
 
 		}
+	}
+	
+	public void setLblNbPersonne(String nbPersonne)
+	{
+		this.lblNbPersonne.setText(nbPersonne);
 	}
 
 }
