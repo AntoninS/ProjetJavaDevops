@@ -5,12 +5,9 @@ import java.io.ObjectInputStream;
 
 import Controller.service.RaceService;
 import Controller.service.UserService;
-import Model.common.Message;
-import Model.common.User;
+import Model.common.*;
 import Model.common.course.Course;
 import Model.common.course.ThreadCourse;
-import Model.common.Cheval;
-import Model.common.GestionnaireMessages;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextArea;
@@ -51,6 +48,9 @@ public class EcranPrincipalController implements Initializable {
 	private Client client;
 	
 	private JSONObject messageJSON;
+
+	//TODO : trouver un autre moyen de get cette liste
+	private List<Cheval> classementPodium;
 	
 	@FXML
 	private AnchorPane panelEcranPrincipal;
@@ -135,6 +135,14 @@ public class EcranPrincipalController implements Initializable {
 	public void setLblCagnotte(float montantCagnotte)
 	{
         this.lblCagnotte.setText(String.format("Cagnotte : %.2f €", montantCagnotte));
+	}
+
+	public List<Cheval> getClassementPodium() {
+		return classementPodium;
+	}
+
+	public void setClassementPodium(List<Cheval> classementPodium) {
+		this.classementPodium = classementPodium;
 	}
 
 	private GestionnaireMessages gestionnaireMessages;
@@ -362,6 +370,30 @@ public class EcranPrincipalController implements Initializable {
 
 
 		}
+	}
+
+	public void handleEndOfCourse(List<Cheval> classementPodium) {
+		this.classementPodium = classementPodium;
+		User currentUser = UserService.getInstance().getUser(client.getNom());
+		Pari pari = RaceService.getInstance().getBet(currentUser.getId(), getCourse().getId());
+
+
+		float cagnotte = RaceService.getInstance().calculateGains(pari, classementPodium);
+		Platform.runLater(
+			() -> {
+				setLblCagnotte(cagnotte);
+			}
+		);
+
+		if (RaceService.getInstance().hasWonBet(pari, classementPodium)) {
+			//popup
+			System.out.println("GAGNEEEEEEEEEEEEEEEEEE");
+		} else {
+			//popup
+			System.out.println("PERDUUUUUUUUUUUUUUUUUU");
+		}
+
+
 	}
 
 }

@@ -4,6 +4,7 @@ import Controller.service.HorseService;
 import Controller.service.RaceService;
 import Model.common.Cheval;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Course {
@@ -13,6 +14,8 @@ public abstract class Course {
     private String nomCourse;
     private Boolean estTerminee = false;
     private Integer tempsLancement;
+    public ArrayList<Integer> chevalArriver;
+
 
 
     public Course() {

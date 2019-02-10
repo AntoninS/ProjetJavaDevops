@@ -3,6 +3,9 @@ package Model.common.course;
 import Model.Server.Server;
 import Model.common.Cheval;
 import Model.common.Message;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -16,6 +19,7 @@ public class ThreadCourse implements Runnable {
     private Double avancementDernierCheval = 0.0;
     JSONObject jsonConcatenationCourse;
     private Server server;
+    private List<Cheval> classement = new ArrayList<>();
 
     @Override
     public void run() {
@@ -47,6 +51,11 @@ public class ThreadCourse implements Runnable {
 
         }
         while (!uneCourseGeneral.getEstTerminee());
+
+        System.out.println("CHEVAL 1 : " + classement.get(0).getNumero() + " - " + classement.get(0).getNom());
+        System.out.println("CHEVAL 2 : " + classement.get(1).getNumero() + " - " + classement.get(1).getNom());
+        System.out.println("CHEVAL 3 : " + classement.get(2).getNumero() + " - " + classement.get(2).getNom());
+
 
     }
 
@@ -87,6 +96,9 @@ public class ThreadCourse implements Runnable {
 
 
         int etapeAjoutJson = 0;
+        int idPremierCheval = -1;
+        int idSecondCheval = -1;
+        int idTroisiemeCheval = -1;
 
         jsonConcatenationCourse = new JSONObject();
 
@@ -103,6 +115,23 @@ public class ThreadCourse implements Runnable {
             jsonConcatenationCourse.put(Integer.toString(etapeAjoutJson + 20), cheval.getVitesse());
             jsonConcatenationCourse.put(Integer.toString(etapeAjoutJson + 30), cheval.getNom());
 
+
+            if (cheval.hasEndedRace() && !classement.contains(cheval)) {
+                classement.add(cheval);
+                cheval.setPositionInRace(classement.indexOf(cheval)+1);
+            }
+
+            if (cheval.getPositionInRace() == 1) {
+                idPremierCheval = cheval.getNumero();
+            } else if (cheval.getPositionInRace() == 2) {
+                idSecondCheval = cheval.getNumero();
+            } else if (cheval.getPositionInRace() == 3) {
+                idTroisiemeCheval = cheval.getNumero();
+            }
+
+            jsonConcatenationCourse.put("idChevalAtClassement1", idPremierCheval);
+            jsonConcatenationCourse.put("idChevalAtClassement2", idSecondCheval);
+            jsonConcatenationCourse.put("idChevalAtClassement3", idTroisiemeCheval);
         }
     }
 }
