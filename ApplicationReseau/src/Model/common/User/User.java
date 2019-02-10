@@ -1,4 +1,4 @@
-package Model.common;
+package Model.common.User;
 
 import Controller.service.HorseService;
 import Controller.service.UserService;

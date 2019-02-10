@@ -1,10 +1,6 @@
 package Controller.service;
 
-import Model.Client.Client;
-import Model.common.User;
-
-import java.io.IOException;
-import java.net.UnknownHostException;
+import Model.common.User.User;
 
 
 // CLASSE DE TEST - UTILE UNIQUEMENT POUR DEV

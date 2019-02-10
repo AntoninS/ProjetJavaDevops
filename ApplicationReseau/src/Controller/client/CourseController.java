@@ -1,7 +1,6 @@
-package View.gui;
+package Controller.client;
 
-import Model.Client.ThreadCourseGraphique;
-import Model.common.Cheval;
+import Model.common.Cheval.Cheval;
 import Model.common.course.UtilCourse;
 import com.jfoenix.controls.JFXTextArea;
 import javafx.animation.Interpolator;
@@ -13,7 +12,6 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;

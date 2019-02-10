@@ -1,10 +1,6 @@
-package Model.common;
+package Controller.client;
 
-import Model.common.course.GestionnaireCourses;
-import View.gui.EcranPrincipalController;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-
+import Model.common.Message.Message;
 import org.json.JSONException;
 import org.json.JSONObject;
 

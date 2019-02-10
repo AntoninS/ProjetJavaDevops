@@ -1,16 +1,15 @@
-package View.gui;
+package Controller.client;
 
-import java.awt.ScrollPane;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
 import Controller.service.RaceService;
 import Controller.service.UserService;
-import Model.common.*;
+import Model.common.Pari.Pari;
+import Model.common.Message.Message;
+import Model.common.User.User;
 import Model.common.course.Course;
-import Model.common.Cheval;
-import Model.common.GestionnaireMessages;
-import Model.common.course.ThreadCourse;
+import Model.common.Cheval.Cheval;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextArea;
@@ -34,15 +33,13 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 import java.net.Socket;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import org.json.JSONException;
@@ -94,7 +91,7 @@ public class EcranPrincipalController implements Initializable {
 	
 	public void initiate()
 	{	
-		Message mess; 
+		Message mess;
 		
 		ObjectInputStream in = this.client.getInputStream();
 		Socket socket = this.client.getSocket();
@@ -175,7 +172,7 @@ public class EcranPrincipalController implements Initializable {
 				Stage stage = new Stage();
 
 				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(getClass().getResource("AffichageCourse.fxml"));
+				loader.setLocation(getClass().getResource("../../View/gui/AffichageCourse.fxml"));
 				rootAffichageCourse = loader.load();
 
 				CourseController controllerCourse = loader.getController();

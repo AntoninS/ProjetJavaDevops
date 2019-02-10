@@ -4,7 +4,6 @@
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,7 +11,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="panelEcranPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#setOnMouseDrag" onMousePressed="#moveOnDrag" prefHeight="622.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.gui.EcranPrincipalController">
+<AnchorPane fx:id="panelEcranPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#setOnMouseDrag" onMousePressed="#moveOnDrag" prefHeight="622.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.client.EcranPrincipalController">
    <children>
       <Line endX="839.0000610351562" endY="1.52587890625E-5" layoutX="101.0" layoutY="16.0" startX="-101.0" startY="1.52587890625E-5" />
       <AnchorPane layoutY="17.0" prefHeight="606.0" prefWidth="202.0" style="-fx-background-color: #ba2e49;">
@@ -24,6 +23,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
+                  <Label fx:id="lblNbPersonne" layoutX="64.0" layoutY="47.0" prefHeight="17.0" prefWidth="28.0" />
                </children>
             </Pane>
             <Pane layoutX="-1.0" layoutY="104.0" prefHeight="78.0" prefWidth="200.0" style="-fx-background-color: #e34f43;">
@@ -46,14 +46,7 @@
                </image>
             </ImageView>
             <JFXTextArea fx:id="msgField" focusColor="#0e90b7" layoutX="14.0" layoutY="557.0" onKeyPressed="#msgFieldPlein" onKeyReleased="#msgFieldVide" prefColumnCount="0" prefHeight="35.0" prefWidth="380.0" promptText="Entrez un message ..." wrapText="true" />
-            <Pane fx:id="paneMsgRecu" layoutX="14.0" layoutY="411.0" prefHeight="78.0" prefWidth="200.0">
-               <children>
-                  <Label layoutX="7.0" text="Utilisateur" />
-                  <Pane layoutX="-2.0" layoutY="14.0" prefHeight="31.0" prefWidth="202.0" style="-fx-background-color: #e8e3e3; -fx-background-radius: 3em;" />
-               </children>
-            </Pane>
-            <Pane layoutX="204.0" layoutY="380.0" prefHeight="31.0" prefWidth="200.0" style="-fx-background-color: #0e90b7; -fx-background-radius: 3em;" />
-            <TextArea fx:id="tchatField" prefHeight="367.0" prefWidth="424.0" />
+            <JFXTextArea fx:id="tchatField" editable="false" prefHeight="524.0" prefWidth="424.0" />
          </children></AnchorPane>
       <AnchorPane layoutX="626.0" layoutY="17.0" prefHeight="606.0" prefWidth="314.0" style="-fx-background-color: #af0023;">
          <children>
@@ -79,5 +72,6 @@
             <Font size="15.0" />
          </font>
       </JFXButton>
+      <Label layoutX="387.0" text="Discuter, parier, devenez riche !" />
    </children>
 </AnchorPane>

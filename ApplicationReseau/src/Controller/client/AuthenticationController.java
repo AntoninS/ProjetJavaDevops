@@ -1,11 +1,8 @@
-package View.gui;
+package Controller.client;
 
 import Controller.service.UserService;
 import Model.Client.Client;
-import Model.Server.ConnectedClient;
-import Model.common.GestionnaireMessages;
-import Model.common.User;
-import Model.common.course.GestionnaireCourses;
+import Model.common.User.User;
 import com.jfoenix.controls.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -84,7 +81,7 @@ public class AuthenticationController {
 	{
 		this.boutonConnexion.setUnderline(false);
 		this.boutonCreerCompte.setUnderline(true);
-		this.boutonSeConnecter.setText("Créer un compte");
+		this.boutonSeConnecter.setText("Crï¿½er un compte");
 		this.lienMdpOublie.setVisible(false);
 		this.connexion = false;
 	}
@@ -152,7 +149,7 @@ public class AuthenticationController {
 							Client unClient = new Client(port, address, this.loginText.getText(), gm);
 							
 							FXMLLoader loader = new FXMLLoader();
-							loader.setLocation(getClass().getResource("EcranPrincipal.fxml"));
+							loader.setLocation(getClass().getResource("../../View/gui/EcranPrincipal.fxml"));
 							rootAffichageEcranPrincipalParent = loader.load();
 							
 							EcranPrincipalController controlleur = loader.getController();

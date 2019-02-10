@@ -1,15 +1,11 @@
-package Model.Client;
+package Controller.client;
 
-import Model.common.Cheval;
+import Model.common.Cheval.Cheval;
 import Model.common.course.UtilCourse;
-import View.gui.CourseController;
-import View.gui.EcranPrincipalController;
-import javafx.application.Platform;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import Controller.client.CourseController;
+import Controller.client.EcranPrincipalController;
 
 import java.util.List;
-import java.util.Optional;
 
 public class ThreadCourseGraphique  implements Runnable {
 

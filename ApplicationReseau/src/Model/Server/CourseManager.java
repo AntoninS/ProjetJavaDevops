@@ -1,6 +1,6 @@
 package Model.Server;
 
-import Model.common.course.ThreadCourse;
+import Controller.server.ThreadCourse;
 
 public class CourseManager {
 

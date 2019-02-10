@@ -1,7 +1,7 @@
 package Model.Client;
 
-import Model.common.GestionnaireMessages;
-import Model.common.Message;
+import Controller.client.GestionnaireMessages;
+import Model.common.Message.Message;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

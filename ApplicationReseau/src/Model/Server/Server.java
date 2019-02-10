@@ -6,7 +6,7 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import Model.common.Message;
+import Model.common.Message.Message;
 
 public class Server {
 

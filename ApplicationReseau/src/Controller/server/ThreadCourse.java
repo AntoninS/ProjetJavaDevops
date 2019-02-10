@@ -1,16 +1,16 @@
-package Model.common.course;
+package Controller.server;
 
 import Model.Server.Server;
-import Model.common.Cheval;
-import Model.common.Message;
+import Model.common.Cheval.Cheval;
+import Model.common.Message.Message;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import Model.common.course.CourseGeneral;
+import Model.common.course.UtilCourse;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.Collections;
 
 public class ThreadCourse implements Runnable {
 

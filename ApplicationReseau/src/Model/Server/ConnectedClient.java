@@ -7,8 +7,7 @@ import java.net.Socket;
 
 import org.json.JSONException;
 
-import Model.Server.Server;
-import Model.common.Message;
+import Model.common.Message.Message;
 
 public class ConnectedClient implements Runnable{
 	
@@ -37,7 +36,7 @@ public class ConnectedClient implements Runnable{
 		
 	}
 
-	//réceptionne les messages du Controller.client
+	//rï¿½ceptionne les messages du Controller.client
 	@Override
 	public void run() 
 	{

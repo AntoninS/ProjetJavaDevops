@@ -2,7 +2,7 @@ package Model.common.course;
 
 import Controller.service.HorseService;
 import Controller.service.RaceService;
-import Model.common.Cheval;
+import Model.common.Cheval.Cheval;
 
 import java.util.ArrayList;
 import java.util.List;

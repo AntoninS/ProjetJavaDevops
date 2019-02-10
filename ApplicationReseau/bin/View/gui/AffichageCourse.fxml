@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane onMouseDragged="#setOnMouseDrag" onMousePressed="#moveOnDrag" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.gui.CourseController">
+<AnchorPane onMouseDragged="#setOnMouseDrag" onMousePressed="#moveOnDrag" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.client.CourseController">
    <children>
       <ImageView fitHeight="350.0" fitWidth="600.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
          <image>
