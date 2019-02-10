@@ -1,5 +1,6 @@
 package View.gui;
 
+import java.awt.ScrollPane;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
@@ -8,7 +9,6 @@ import Controller.service.UserService;
 import Model.common.Message;
 import Model.common.User;
 import Model.common.course.Course;
-import Model.common.course.ThreadCourse;
 import Model.common.Cheval;
 import Model.common.GestionnaireMessages;
 import com.jfoenix.controls.JFXButton;
@@ -17,7 +17,6 @@ import com.jfoenix.controls.JFXTextArea;
 
 import Model.Client.Client;
 import javafx.application.Platform;
-import Model.Server.ConnectedClient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -35,13 +34,15 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 import java.net.Socket;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import org.json.JSONException;
@@ -77,7 +78,7 @@ public class EcranPrincipalController implements Initializable {
 	private Label lblCagnotte;
 	
 	@FXML
-	private TextArea tchatField;
+	private JFXTextArea tchatField;
 
 	@FXML
 	private TextArea fxMontantMise;
@@ -89,7 +90,7 @@ public class EcranPrincipalController implements Initializable {
 	private Label lblNbPersonne;
 	
 	public void initiate()
-	{
+	{	
 		Message mess; 
 		
 		ObjectInputStream in = this.client.getInputStream();
@@ -260,7 +261,7 @@ public class EcranPrincipalController implements Initializable {
 			this.messageJSON.put("balise", "message");
 			this.messageJSON.put("nom", this.client.getNom());
 			this.messageJSON.put("messageEnvoye", this.msgField.getText());
-			this.tchatField.appendText("\n"+this.msgField.getText());
+			this.tchatField.appendText("\nVous : " + this.msgField.getText());
 			
 			Message mess = new Message(this.client.getNom(), this.messageJSON.toString());
 			try {
@@ -325,7 +326,7 @@ public class EcranPrincipalController implements Initializable {
 		return gestionnaireMessages;
 	}
 	
-	public TextArea getTchatField()
+	public JFXTextArea getTchatField()
 	{
 		return this.tchatField;
 	}

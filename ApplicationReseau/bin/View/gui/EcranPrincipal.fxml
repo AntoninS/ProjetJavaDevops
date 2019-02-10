@@ -4,7 +4,6 @@
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -25,11 +24,6 @@
                      </font>
                   </Label>
                   <Label fx:id="lblNbPersonne" layoutX="64.0" layoutY="47.0" prefHeight="17.0" prefWidth="28.0" />
-                  <ImageView fitHeight="25.0" fitWidth="28.0" layoutX="34.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../bin/images/personnes.png" />
-                     </image>
-                  </ImageView>
                </children>
             </Pane>
             <Pane layoutX="-1.0" layoutY="104.0" prefHeight="78.0" prefWidth="200.0" style="-fx-background-color: #e34f43;">
@@ -52,14 +46,7 @@
                </image>
             </ImageView>
             <JFXTextArea fx:id="msgField" focusColor="#0e90b7" layoutX="14.0" layoutY="557.0" onKeyPressed="#msgFieldPlein" onKeyReleased="#msgFieldVide" prefColumnCount="0" prefHeight="35.0" prefWidth="380.0" promptText="Entrez un message ..." wrapText="true" />
-            <Pane fx:id="paneMsgRecu" layoutX="14.0" layoutY="411.0" prefHeight="78.0" prefWidth="200.0">
-               <children>
-                  <Label layoutX="7.0" text="Utilisateur" />
-                  <Pane layoutX="-2.0" layoutY="14.0" prefHeight="31.0" prefWidth="202.0" style="-fx-background-color: #e8e3e3; -fx-background-radius: 3em;" />
-               </children>
-            </Pane>
-            <Pane layoutX="204.0" layoutY="380.0" prefHeight="31.0" prefWidth="200.0" style="-fx-background-color: #0e90b7; -fx-background-radius: 3em;" />
-            <TextArea fx:id="tchatField" prefHeight="367.0" prefWidth="424.0" />
+            <JFXTextArea fx:id="tchatField" editable="false" prefHeight="524.0" prefWidth="424.0" />
          </children></AnchorPane>
       <AnchorPane layoutX="626.0" layoutY="17.0" prefHeight="606.0" prefWidth="314.0" style="-fx-background-color: #af0023;">
          <children>
@@ -85,5 +72,6 @@
             <Font size="15.0" />
          </font>
       </JFXButton>
+      <Label layoutX="387.0" text="Discuter, parier, devenez riche !" />
    </children>
 </AnchorPane>

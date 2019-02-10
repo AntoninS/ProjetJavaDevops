@@ -2,11 +2,11 @@ package Model.common;
 
 import Model.common.course.GestionnaireCourses;
 import View.gui.EcranPrincipalController;
-import javafx.application.Platform;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 
 public class GestionnaireMessages {
 
@@ -28,7 +28,7 @@ public class GestionnaireMessages {
         
         if(balise.equals("message"))
         {
-        	this.controller.getTchatField().appendText("\n"+jresponse.getString("nom")+" : "+jresponse.getString("messageEnvoye"));;
+        	this.controller.getTchatField().appendText("\n"+jresponse.getString("nom") + " : " + jresponse.getString("messageEnvoye"));
         }
         
 //        if(balise.equals("nbPersonneCo"))
