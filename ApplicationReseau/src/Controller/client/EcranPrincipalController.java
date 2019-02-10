@@ -139,7 +139,7 @@ public class EcranPrincipalController implements Initializable {
 
 	public void setLblCagnotte(float montantCagnotte)
 	{
-        this.lblCagnotte.setText(String.format("Cagnotte : %.2f €", montantCagnotte));
+		this.lblCagnotte.setText(String.format("Cagnotte : %.2f \u20ac", montantCagnotte));
 	}
 
 	public List<Cheval> getClassementPodium() {
