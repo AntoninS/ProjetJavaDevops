@@ -1,6 +1,5 @@
 package Model.common;
 
-import Model.common.course.GestionnaireCourses;
 import Model.common.course.UtilCourse;
 import javafx.scene.image.ImageView;
 
@@ -11,6 +10,7 @@ public class Cheval {
     private Double avancementCourse;
     private Double vitesse;
     private ImageView imageCheval;
+    private int positionInRace = -1;
 
     public Cheval(String pNom, int pForme, int pNumero, Double pAvancementCourse, Double pVitesse) {
         this.nom = pNom;
@@ -66,8 +66,44 @@ public class Cheval {
     public void setAvancementCourse(Double pAvancementForme) { this.avancementCourse = pAvancementForme; }
 
     public void setImageCheva (ImageView pImageView)
-        {
-            imageCheval = pImageView;
-        }
+    {
+        imageCheval = pImageView;
+    }
+
+    public int getPositionInRace() {
+        return positionInRace;
+    }
+
+    public void setPositionInRace(int positionInRace) {
+        this.positionInRace = positionInRace;
+    }
+
+    public boolean hasEndedRace() {
+        return this.avancementCourse > UtilCourse.DISTANCE_POURCENTAGE;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public int getForme() {
+        return forme;
+    }
+
+    public void setForme(int forme) {
+        this.forme = forme;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public void setVitesse(Double vitesse) {
+        this.vitesse = vitesse;
+    }
+
+    public void setImageCheval(ImageView imageCheval) {
+        this.imageCheval = imageCheval;
+    }
 }
 

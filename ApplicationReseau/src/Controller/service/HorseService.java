@@ -56,6 +56,32 @@ public class HorseService {
         return list;
     }
 
+    public Cheval getHorse(int id) {
+        Cheval cheval = new Cheval();
+        try {
+            Connection con = dbs.getDataBaseConnexion();
+            Statement cs = null;
+            ResultSet rs = null;
+
+            String request = String.format("SELECT ID, NAME, SPEED, SHAPE FROM PJ_HORSE WHERE ID = %d", id);
+            cs = con.createStatement();
+            rs = cs.executeQuery(request);
+
+            if (rs.next()) {
+                cheval.setNumero(rs.getInt("ID"));
+                cheval.setNom(rs.getString("NAME"));
+                cheval.setVitesse(rs.getDouble("SPEED"));
+                cheval.setForme(rs.getInt("SHAPE"));
+            }
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return cheval;
+    }
+
     public List<Cheval> getListHorsesLimitAndRandom() {
         List<Cheval> list = getListHorsesFull();
         if (null != list && !list.isEmpty() && list.size() >= UtilCourse.NOMBRE_CHEVAUX_COURSE) {

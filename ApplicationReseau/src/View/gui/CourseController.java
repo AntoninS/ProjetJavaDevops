@@ -45,6 +45,8 @@ public class CourseController implements Initializable {
     private CourseController cc;
 
 
+
+
     @FXML
     private ImageView chevalLigne1;
     @FXML
@@ -144,6 +146,36 @@ public class CourseController implements Initializable {
             }
         }
     }
+
+    public Cheval getChevalClassement (Integer id)
+    {
+        Cheval cheval = new Cheval();
+        for (Cheval ch: ecranController.getGestionnaireMessaire().getGc().getListeDesCourses().get(0).getListChevalCourse()) {
+            if(id == ch.getNumero())
+            {
+                cheval = ch;
+            }
+        }
+        return cheval;
+    }
+
+    public void updateAffichageCoupe (Integer id, Integer position)
+    {
+        switch (position)
+        {
+            case 0:
+                textChevalN1.setText(getChevalClassement(id).getNom());
+                break;
+            case 1:
+                textChevalN2.setText(getChevalClassement(id).getNom());
+                break;
+            case 2:
+                textChevalN3.setText(getChevalClassement(id).getNom());
+                break;
+        }
+    }
+
+
 
     public static void setAffichageActif(boolean pAffichageActif) {
         affichageActif = pAffichageActif;

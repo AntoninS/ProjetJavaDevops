@@ -2,12 +2,15 @@ package Controller.service;
 
 import Model.common.Cheval;
 import Model.common.Pari;
+import Model.common.User;
+
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -76,7 +79,6 @@ public class RaceService {
             ResultSet rs = null;
 
             String request = String.format(Locale.US,"INSERT INTO PJ_BET(ID, ID_USER, ID_HORSE, ID_RACE, BET_AMOUNT) VALUES (PJ_BET_SEQUENCE.nextval, %d, %d, %d, %.2f)", idUser, idHorse, idRace, amount);
-            System.out.println(request);
             cs = con.createStatement();
             cs.executeQuery(request);
 
@@ -117,6 +119,47 @@ public class RaceService {
         }
 
         return pari;
+    }
+
+    public boolean hasWonBet(Pari pari, List<Cheval> classementPodium) {
+        int idCheval = pari.getIdCheval();
+        return idCheval == classementPodium.get(0).getNumero()
+                || idCheval == classementPodium.get(1).getNumero()
+                || idCheval == classementPodium.get(2).getNumero();
+    }
+
+    /**
+     * Permet de calculer les gains suite à un pari, et de mettre à jour la cagnotte de l'utilisateur
+     * @param pari Le pari misé
+     * @param classementPodium Le classement des chevaux à la fin de la course
+     * @return le montant de la cagnotte de l'utilisateur après le résultat du pari
+     */
+    public float calculateGains(Pari pari, List<Cheval> classementPodium) {
+        float gains = 0;
+        int idChevalPari = pari.getIdCheval();
+        User user = UserService.getInstance().getUser(pari.getIdUser());
+        float cagnotte = user.getMoney();
+
+        if (hasWonBet(pari, classementPodium)) {
+            if (classementPodium.get(0).getNumero() == idChevalPari) {
+                gains = pari.getMontant() * 2;
+            } else if (classementPodium.get(1).getNumero() == idChevalPari) {
+                gains = pari.getMontant() * 1.5f;
+            } else if (classementPodium.get(0).getNumero() == idChevalPari) {
+                gains = pari.getMontant();
+            }
+            cagnotte += gains;
+
+        } else {
+            cagnotte -= pari.getMontant();
+            if (cagnotte < 0) {
+                cagnotte = 0;
+            }
+        }
+
+        UserService.getInstance().updateMoney(user.getId(), cagnotte);
+
+        return cagnotte;
     }
 
 }
