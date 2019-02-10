@@ -1,5 +1,6 @@
 package Model.Client;
 
+import Controller.client.ClientReceive;
 import Controller.client.GestionnaireMessages;
 import Model.common.Message.Message;
 

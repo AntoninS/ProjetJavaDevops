@@ -1,5 +1,6 @@
-package Model.Client;
+package Controller.client;
 
+import Model.Client.Client;
 import Model.common.Message.Message;
 
 import java.io.IOException;
