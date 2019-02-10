@@ -1,11 +1,8 @@
-package Model.common;
+package Controller.client;
 
-import Model.common.course.GestionnaireCourses;
-import View.gui.EcranPrincipalController;
-
+import Model.common.Message.Message;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 
 public class GestionnaireMessages {
 
@@ -27,8 +24,13 @@ public class GestionnaireMessages {
         
         if(balise.equals("message"))
         {
-        	this.controller.getTchatField().appendText("\n"+jresponse.getString("messageEnvoye"));;
+        	this.controller.getTchatField().appendText("\n"+jresponse.getString("nom") + " : " + jresponse.getString("messageEnvoye"));
         }
+        
+//        if(balise.equals("nbPersonneCo"))
+//        {
+//        	this.controller.setLblNbPersonne(jresponse.getString("nbDePersonne"));
+//        }
         
     }
 

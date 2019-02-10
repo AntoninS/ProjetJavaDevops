@@ -1,13 +1,15 @@
-package View.gui;
+package Controller.client;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
 import Controller.service.RaceService;
 import Controller.service.UserService;
-import Model.common.*;
+import Model.common.Pari.Pari;
+import Model.common.Message.Message;
+import Model.common.User.User;
 import Model.common.course.Course;
-import Model.common.course.ThreadCourse;
+import Model.common.Cheval.Cheval;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextArea;
@@ -76,7 +78,7 @@ public class EcranPrincipalController implements Initializable {
 	private Label lblCagnotte;
 	
 	@FXML
-	private TextArea tchatField;
+	private JFXTextArea tchatField;
 
 	@FXML
 	private TextArea fxMontantMise;
@@ -84,9 +86,12 @@ public class EcranPrincipalController implements Initializable {
 	@FXML
 	private JFXButton btnValiderMise;
 	
+	@FXML
+	private Label lblNbPersonne;
+	
 	public void initiate()
-	{
-		Message mess; 
+	{	
+		Message mess;
 		
 		ObjectInputStream in = this.client.getInputStream();
 		Socket socket = this.client.getSocket();
@@ -167,14 +172,14 @@ public class EcranPrincipalController implements Initializable {
 				Stage stage = new Stage();
 
 				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(getClass().getResource("AffichageCourse.fxml"));
+				loader.setLocation(getClass().getResource("../../View/gui/AffichageCourse.fxml"));
 				rootAffichageCourse = loader.load();
 
 				CourseController controllerCourse = loader.getController();
 				controllerCourse.setEcranController(this);
 
 				stage.initStyle(StageStyle.UNDECORATED);
-				stage.setScene(new Scene(rootAffichageCourse, 800,450));
+				stage.setScene(new Scene(rootAffichageCourse, 600,450));
 				stage.show();
 
 				stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -194,7 +199,7 @@ public class EcranPrincipalController implements Initializable {
 	{	
 		ScrollBar scrollBarText = (ScrollBar) this.msgField.lookup(".scroll-bar:vertical");
 		
-		if(scrollBarText.isVisible()==true)
+		if(scrollBarText.isVisible()==true && this.msgField.getLayoutY()>490)
 		{
 			this.msgField.setLayoutY(this.msgField.getLayoutY()-10);
 			this.msgField.setPrefHeight(this.msgField.getPrefHeight()+10);
@@ -264,7 +269,7 @@ public class EcranPrincipalController implements Initializable {
 			this.messageJSON.put("balise", "message");
 			this.messageJSON.put("nom", this.client.getNom());
 			this.messageJSON.put("messageEnvoye", this.msgField.getText());
-			this.tchatField.appendText("\n"+this.msgField.getText());
+			this.tchatField.appendText("\nVous : " + this.msgField.getText());
 			
 			Message mess = new Message(this.client.getNom(), this.messageJSON.toString());
 			try {
@@ -329,7 +334,7 @@ public class EcranPrincipalController implements Initializable {
 		return gestionnaireMessages;
 	}
 	
-	public TextArea getTchatField()
+	public JFXTextArea getTchatField()
 	{
 		return this.tchatField;
 	}
@@ -370,6 +375,11 @@ public class EcranPrincipalController implements Initializable {
 
 
 		}
+	}
+	
+	public void setLblNbPersonne(String nbPersonne)
+	{
+		this.lblNbPersonne.setText(nbPersonne);
 	}
 
 	public void handleEndOfCourse(List<Cheval> classementPodium) {

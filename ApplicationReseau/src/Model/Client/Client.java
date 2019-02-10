@@ -1,17 +1,13 @@
 package Model.Client;
 
-import Model.common.GestionnaireMessages;
-import Model.common.Message;
+import Controller.client.GestionnaireMessages;
+import Model.common.Message.Message;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-
-import com.jfoenix.controls.JFXTextArea;
-
-import Model.common.Message;
 
 public class Client {
 	
@@ -24,38 +20,6 @@ public class Client {
 	private GestionnaireMessages gm;
 	private Message messageReceived;
 	private String nom;
-	
-	public Client(int port, String address, String nom)
-	{
-		this.port = port;
-		this.address = address;
-		this.nom = nom;
-		
-		try {
-			this.socket = new Socket(address, port);
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			this.out = new ObjectOutputStream(this.socket.getOutputStream());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		System.out.println("Bonjour " + this.nom);
-		
-//		Thread sendMessages = new Thread(new ClientSend(this.socket, this.out));
-//		sendMessages.start();
-		
-		Thread getMessages = new Thread(new ClientReceive(this, socket));
-		getMessages.start();
-	}
 	
 	public Client(int port, String address, String nom, GestionnaireMessages gestionnaireMessages)
 	{
@@ -82,9 +46,6 @@ public class Client {
 		}
 		
 		System.out.println("Bonjour " + this.nom);
-		
-//		Thread sendMessages = new Thread(new ClientSend(this.socket, this.out));
-//		sendMessages.start();
 		
 		Thread getMessages = new Thread(new ClientReceive(this, socket));
 		getMessages.start();

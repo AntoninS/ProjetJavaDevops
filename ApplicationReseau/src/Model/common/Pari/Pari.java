@@ -1,4 +1,4 @@
-package Model.common;
+package Model.common.Pari;
 
 public class Pari {
 

@@ -1,6 +1,6 @@
 package Controller.service;
 
-import Model.common.Cheval;
+import Model.common.Cheval.Cheval;
 import Model.common.course.UtilCourse;
 
 import java.sql.Connection;

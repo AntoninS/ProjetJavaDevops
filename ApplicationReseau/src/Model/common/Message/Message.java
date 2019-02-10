@@ -1,4 +1,4 @@
-package Model.common;
+package Model.common.Message;
 
 import java.io.Serializable;
 
@@ -24,6 +24,14 @@ public class Message implements Serializable{
 	public void setId(int id)
 	{
 		this.id = id;
+	}
+	
+	public boolean isIdCounter()
+	{
+		if(this.content.contains("nbPersonneCo"))
+			return true;
+		
+		return false;
 	}
 
 }

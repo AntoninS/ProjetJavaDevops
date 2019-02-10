@@ -1,8 +1,10 @@
-package Model.common.course;
+package Controller.client;
 
 import Controller.service.HorseService;
-import Model.common.Cheval;
-import View.gui.EcranPrincipalController;
+import Model.common.Cheval.Cheval;
+import Model.common.course.Course;
+import Model.common.course.CourseGeneral;
+import Model.common.course.UtilCourse;
 import org.json.JSONException;
 import org.json.JSONObject;
 

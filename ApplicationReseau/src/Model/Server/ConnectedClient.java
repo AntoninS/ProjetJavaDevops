@@ -5,8 +5,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import Model.Server.Server;
-import Model.common.Message;
+import org.json.JSONException;
+
+import Model.common.Message.Message;
 
 public class ConnectedClient implements Runnable{
 	
@@ -35,7 +36,7 @@ public class ConnectedClient implements Runnable{
 		
 	}
 
-	//réceptionne les messages du Controller.client
+	//rï¿½ceptionne les messages du Controller.client
 	@Override
 	public void run() 
 	{
@@ -62,7 +63,12 @@ public class ConnectedClient implements Runnable{
 		catch(Exception e)
 		{
 			isActive = false;
-			this.server.disconnectedClient(this);
+			try {
+				this.server.disconnectedClient(this);
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			e.getStackTrace();
 		}
 	}
@@ -98,6 +104,11 @@ public class ConnectedClient implements Runnable{
 	public static void decreaseId()
 	{
 		idCounter --;
+	}
+	
+	public static int getIdCounter()
+	{
+		return idCounter;
 	}
 	
 }

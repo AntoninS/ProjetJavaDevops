@@ -1,6 +1,6 @@
 package Controller.service;
 
-import Model.common.User;
+import Model.common.User.User;
 import Util.MD5Util;
 
 import java.sql.Connection;

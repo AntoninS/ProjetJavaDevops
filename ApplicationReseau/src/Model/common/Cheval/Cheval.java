@@ -1,4 +1,4 @@
-package Model.common;
+package Model.common.Cheval;
 
 import Model.common.course.UtilCourse;
 import javafx.scene.image.ImageView;

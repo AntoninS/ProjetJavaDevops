@@ -1,12 +1,10 @@
 package Model.Client;
 
-import Model.common.Message;
+import Model.common.Message.Message;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
-
-import Model.Client.Client;
 
 public class ClientReceive implements Runnable{
 	
@@ -42,7 +40,7 @@ public class ClientReceive implements Runnable{
 				{
 					client.getGm().gestionMessage(mess);
 					this.client.messageReceived(mess);
-					System.out.println("Message reçu : "+ mess);
+					System.out.println("Message reï¿½u : "+ mess);
 				}
 				else
 				{
