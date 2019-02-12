@@ -120,10 +120,15 @@ public class RaceService {
     }
 
     public boolean hasWonBet(Pari pari, List<Cheval> classementPodium) {
-        int idCheval = pari.getIdCheval();
-        return idCheval == classementPodium.get(0).getNumero()
-                || idCheval == classementPodium.get(1).getNumero()
-                || idCheval == classementPodium.get(2).getNumero();
+        if (null != pari) {
+            int idCheval = pari.getIdCheval();
+            return idCheval == classementPodium.get(0).getNumero()
+                    || idCheval == classementPodium.get(1).getNumero()
+                    || idCheval == classementPodium.get(2).getNumero();
+        }
+
+        return false;
+
     }
 
     /**
@@ -134,29 +139,30 @@ public class RaceService {
      */
     public float calculateGains(Pari pari, List<Cheval> classementPodium) {
         float gains = 0;
-        int idChevalPari = pari.getIdCheval();
-        User user = UserService.getInstance().getUser(pari.getIdUser());
-        float cagnotte = user.getMoney();
+        float cagnotte = 0;
 
-        if (hasWonBet(pari, classementPodium)) {
-            if (classementPodium.get(0).getNumero() == idChevalPari) {
-                gains = pari.getMontant() * 2;
-            } else if (classementPodium.get(1).getNumero() == idChevalPari) {
-                gains = pari.getMontant() * 1.5f;
-            } else if (classementPodium.get(0).getNumero() == idChevalPari) {
-                gains = pari.getMontant();
-            }
-            cagnotte += gains;
+        if (null != pari) {
+            User user = UserService.getInstance().getUser(pari.getIdUser());
+            cagnotte = user.getMoney();
+            int idChevalPari = pari.getIdCheval();
+            if (hasWonBet(pari, classementPodium)) {
+                if (classementPodium.get(0).getNumero() == idChevalPari) {
+                    gains = pari.getMontant() * 2;
+                } else if (classementPodium.get(1).getNumero() == idChevalPari) {
+                    gains = pari.getMontant() * 1.5f;
+                } else if (classementPodium.get(0).getNumero() == idChevalPari) {
+                    gains = pari.getMontant();
+                }
+                cagnotte += gains;
 
-        } else {
-            cagnotte -= pari.getMontant();
-            if (cagnotte < 0) {
-                cagnotte = 0;
+            } else {
+                cagnotte -= pari.getMontant();
+                if (cagnotte < 0) {
+                    cagnotte = 0;
+                }
             }
+            UserService.getInstance().updateMoney(user.getId(), cagnotte);
         }
-
-        UserService.getInstance().updateMoney(user.getId(), cagnotte);
-
         return cagnotte;
     }
 
