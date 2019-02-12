@@ -147,17 +147,18 @@ public class AuthenticationController {
 							Integer port = new Integer(1420);
 							GestionnaireMessages gm = new GestionnaireMessages();
 							Client unClient = new Client(port, address, this.loginText.getText(), gm);
-							
+
 							FXMLLoader loader = new FXMLLoader();
 							loader.setLocation(getClass().getResource("../../View/gui/EcranPrincipal.fxml"));
 							rootAffichageEcranPrincipalParent = loader.load();
-							
+
 							EcranPrincipalController controlleur = loader.getController();
 							controlleur.getClient(unClient);
 							controlleur.setLblUtilisateur(unClient.getNom());
+							unClient.setEc(controlleur);
 
-							//Affichage du montant disponible dans la cagnotte
-							controlleur.setLblCagnotte(utilisateur.getMoney());
+									//Affichage du montant disponible dans la cagnotte
+											controlleur.setLblCagnotte(utilisateur.getMoney());
 
 							GestionnaireCourses gc = new GestionnaireCourses();
 							gm.setGc(gc);

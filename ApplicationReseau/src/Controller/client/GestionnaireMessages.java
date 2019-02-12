@@ -26,12 +26,7 @@ public class GestionnaireMessages {
         {
         	this.controller.getTchatField().appendText("\n"+jresponse.getString("nom") + " : " + jresponse.getString("messageEnvoye"));
         }
-        
-//        if(balise.equals("nbPersonneCo"))
-//        {
-//        	this.controller.setLblNbPersonne(jresponse.getString("nbDePersonne"));
-//        }
-        
+
     }
 
     public void setGc(GestionnaireCourses gc) {

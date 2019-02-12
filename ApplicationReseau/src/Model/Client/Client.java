@@ -1,6 +1,7 @@
 package Model.Client;
 
 import Controller.client.ClientReceive;
+import Controller.client.EcranPrincipalController;
 import Controller.client.GestionnaireMessages;
 import Model.common.Message.Message;
 
@@ -20,6 +21,7 @@ public class Client {
 	private Message message;
 	private GestionnaireMessages gm;
 	private Message messageReceived;
+	private EcranPrincipalController ec;
 	private String nom;
 	
 	public Client(int port, String address, String nom, GestionnaireMessages gestionnaireMessages)
@@ -97,5 +99,13 @@ public class Client {
 
 	public GestionnaireMessages getGm() {
 		return gm;
+	}
+
+	public EcranPrincipalController getEc() {
+		return ec;
+	}
+
+	public void setEc(EcranPrincipalController ec) {
+		this.ec = ec;
 	}
 }

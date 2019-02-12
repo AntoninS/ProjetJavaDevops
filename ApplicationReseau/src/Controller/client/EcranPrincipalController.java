@@ -10,20 +10,20 @@ import Model.common.Message.Message;
 import Model.common.User.User;
 import Model.common.course.Course;
 import Model.common.Cheval.Cheval;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.*;
 
 import Model.Client.Client;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TextArea;
@@ -33,6 +33,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -89,43 +90,7 @@ public class EcranPrincipalController implements Initializable {
 	@FXML
 	private Label lblNbPersonne;
 	
-	public void initiate()
-	{	
-		Message mess;
-		
-		ObjectInputStream in = this.client.getInputStream();
-		Socket socket = this.client.getSocket();
-		
-		try {
-			in = new ObjectInputStream(socket.getInputStream());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		boolean isActive = true;
-		while(isActive)
-		{
-			try
-			{
-				mess = (Message) in.readObject();
-				if(mess !=null)
-				{
-					System.out.println("\nMessage re�u : " + mess);
-					this.client.messageReceived(mess);
-				}
-				else
-				{
-					isActive = false;
-				}
-			}
-			catch(Exception e)
-			{
-				e.printStackTrace();
-			}
-		}
-		client.disconnectedServer();
-	}
+
 	
 	public void getClient(Client client)
 	{
@@ -157,6 +122,18 @@ public class EcranPrincipalController implements Initializable {
 		fxMontantMise.setVisible(fxListeCheval.isVisible());
 		btnValiderMise.setVisible(fxListeCheval.isVisible());
 		this.btnConsulterCourseDisable(true);
+	}
+
+	public void onestla(int dureeAvantArret)
+	{
+		Platform.runLater(
+				() -> {
+
+					Alert alt = new Alert(Alert.AlertType.ERROR);
+					alt.setContentText("Le serveur n'est plus disponible l'application va s'arréter dans " +dureeAvantArret );
+					alt.show();
+				}
+		);
 	}
 
 	@FXML
@@ -298,9 +275,7 @@ public class EcranPrincipalController implements Initializable {
 						String stringListView = String.format("[%d] - %s", cheval.getNumero(), cheval.getNom());
 						listeChevaux.add(stringListView);
 					}
-					ObservableList<String> seasonList = FXCollections.observableArrayList("Spring", "Summer", "Fall", "Winter");
-
-					fxListeCheval.setItems(listeChevaux);
+				fxListeCheval.setItems(listeChevaux);
 					fxListeCheval.setMinHeight(100.0);
 
 					fxListeCheval.setVisible(!fxListeCheval.getItems().isEmpty());
