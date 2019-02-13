@@ -26,31 +26,31 @@ import java.io.IOException;
 
 public class AuthenticationController {
 	
-	boolean connexion = true;
-	
+	private boolean connexion = true;
+
 	@FXML
 	private AnchorPane panelPrincipal;
 	private double posX;
 	private double posY;
-	
+
 	@FXML
 	private StackPane paneMsgBox;
-	
+
 	@FXML
 	private Label boutonConnexion;
-	
+
 	@FXML
 	private Label boutonCreerCompte;
-	
+
 	@FXML
 	private JFXTextField loginText;
-	
+
 	@FXML
 	private JFXPasswordField passwordText;
-	
+
 	@FXML
 	private JFXButton boutonSeConnecter;
-	
+
 	@FXML
 	private Hyperlink lienMdpOublie;
 
@@ -64,7 +64,7 @@ public class AuthenticationController {
 			this.posY = event.getSceneY();
 		}
 	}
-	
+
 	@FXML
 	private void setOnMouseDrag(MouseEvent event)
 	{
@@ -74,7 +74,7 @@ public class AuthenticationController {
 			this.panelPrincipal.getScene().getWindow().setY(event.getScreenY() - this.posY);
 		}
 	}
-	
+
 	//Si l'utilisateur clique sur Cr�er un compte
 	@FXML
 	private void clickCreerCompte(MouseEvent event)
@@ -85,7 +85,7 @@ public class AuthenticationController {
 		this.lienMdpOublie.setVisible(false);
 		this.connexion = false;
 	}
-	
+
 	//Si l'utilisateur clique sur le bouton Connexion
 	@FXML
 	private void clickConnexion(MouseEvent event)
@@ -99,7 +99,7 @@ public class AuthenticationController {
 		this.connexion = true;
 		System.out.println(this.connexion);
 	}
-	
+
 	@FXML
 	private void verificationConnexion(MouseEvent mouseEvent) throws IOException
 	{
@@ -113,25 +113,7 @@ public class AuthenticationController {
 
 				if(loginForm.isEmpty() || passwordForm.isEmpty())
 				{
-					this.paneMsgBox.setDisable(false);
-					JFXDialogLayout content = new JFXDialogLayout();
-					content.setHeading(new Text("Erreur de connexion"));
-					content.setBody(new Text("Veuillez renseigner un nom d'utilisateur et un mot de passe!"));
-					
-					JFXDialog msgBox = new JFXDialog(this.paneMsgBox, content, JFXDialog.DialogTransition.CENTER);
-					
-					JFXButton button = new JFXButton("D'accord");
-					button.setOnAction(new EventHandler<ActionEvent>() {
-						
-						@Override
-						public void handle(ActionEvent event) {
-							msgBox.close();
-							paneMsgBox.setDisable(true);
-						}
-					});
-					content.setActions(button);
-					
-					msgBox.show();
+					boxErreur("Le login et/ou le mot de passe ne sont pas saisi(s)");
 				}
 				else {
 					if (UserService.getInstance().isPasswordCorrect(loginForm, passwordForm)) {
@@ -141,7 +123,7 @@ public class AuthenticationController {
 						Parent rootAffichageEcranPrincipalParent;
 						try {
 							System.out.println("ok");
-							
+
 							//Connexion au serveur
 							String address = "127.0.0.1";
 							Integer port = new Integer(1420);
@@ -157,8 +139,8 @@ public class AuthenticationController {
 							controlleur.setLblUtilisateur(unClient.getNom());
 							unClient.setEc(controlleur);
 
-									//Affichage du montant disponible dans la cagnotte
-											controlleur.setLblCagnotte(utilisateur.getMoney());
+							//Affichage du montant disponible dans la cagnotte
+							controlleur.setLblCagnotte(utilisateur.getMoney());
 
 							GestionnaireCourses gc = new GestionnaireCourses();
 							gm.setGc(gc);
@@ -168,43 +150,24 @@ public class AuthenticationController {
 							stage.initStyle(StageStyle.UNDECORATED);
 							stage.setScene(new Scene(rootAffichageEcranPrincipalParent, 940,622));
 							stage.show();
-							
+
 							((Node)mouseEvent.getSource()).getScene().getWindow().hide();
-							
+
 						} catch(IOException e) {
 							e.printStackTrace();
 						}
 					} else {
-						this.paneMsgBox.setDisable(false);
-						JFXDialogLayout content = new JFXDialogLayout();
-						content.setHeading(new Text("Erreur de connexion"));
-						content.setBody(new Text("Pseudo ou Mot de passe incorrect"));
-
-						JFXDialog msgBox = new JFXDialog(this.paneMsgBox, content, JFXDialog.DialogTransition.CENTER);
-
-						JFXButton button = new JFXButton("D'accord");
-						button.setOnAction(new EventHandler<ActionEvent>() {
-
-							@Override
-							public void handle(ActionEvent event) {
-								msgBox.close();
-								paneMsgBox.setDisable(true);
-							}
-						});
-						content.setActions(button);
-
-						msgBox.show();
+						boxErreur("Pseudo ou Mot de passe incorrect");
 					}
 				}
 			}
 			else
 			{
 				System.out.println(this.connexion);
-				
-			}	
+			}
 		}
 	}
-	
+
 	//Ferme l'application sur un clique gauche
 	@FXML
 	private void closeOnClick(MouseEvent event)
@@ -212,7 +175,7 @@ public class AuthenticationController {
 		if(event.getButton() == MouseButton.PRIMARY)
 			System.exit(0);
 	}
-	
+
 	//Code pour r�udire l'�cran dans la barre des t�ches
 	@FXML
 	private void reduireEcran(MouseEvent event)
@@ -220,5 +183,26 @@ public class AuthenticationController {
 		if(event.getButton() == MouseButton.PRIMARY)
 			((Stage)((ImageView)event.getSource()).getScene().getWindow()).setIconified(true);
 	}
-	
+
+	private void boxErreur( String messageErreur)
+	{
+		this.paneMsgBox.setDisable(false);
+		JFXDialogLayout content = new JFXDialogLayout();
+		content.setHeading(new Text("Erreur de connexion"));
+		content.setBody(new Text(messageErreur));
+
+		JFXDialog msgBox = new JFXDialog(this.paneMsgBox, content, JFXDialog.DialogTransition.CENTER);
+
+		JFXButton button = new JFXButton("D'accord");
+		button.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				msgBox.close();
+				paneMsgBox.setDisable(true);
+			}
+		});
+		content.setActions(button);
+		msgBox.show();
+	}
 }
