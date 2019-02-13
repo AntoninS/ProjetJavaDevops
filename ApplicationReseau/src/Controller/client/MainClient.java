@@ -11,9 +11,7 @@ import java.net.UnknownHostException;
 public class MainClient extends Application {
 
     public static void main(String[] args) throws UnknownHostException, IOException {
-
         MainClient.launch(Authentication.class);
-
     }
 
     private static void printUsage() {
@@ -25,7 +23,5 @@ public class MainClient extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // TODO Auto-generated method stub
-
     }
-
 }

@@ -67,7 +67,6 @@ public class ThreadCourseGraphique implements Runnable {
                     ch.getImageCheval().setLayoutX(UtilCourse.LONGUEUR_DIFF_PLUS_PIXEL);
                 }
                 chevalIndex++;
-
             }
 
             if (null != ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).chevalArriver.get(0)) {
@@ -89,8 +88,6 @@ public class ThreadCourseGraphique implements Runnable {
             }
 
         }
-
-
     }
 }
 
