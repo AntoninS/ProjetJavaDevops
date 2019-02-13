@@ -292,6 +292,11 @@ public class EcranPrincipalController implements Initializable {
         this.lblNbPersonne.setText(nbPersonne);
     }
 
+    /**
+     * Permet de gerer les action à executer à la fin de la course
+     *
+     * @param classementPodium
+     */
     public void handleEndOfCourse(List<Cheval> classementPodium) {
         this.classementPodium = classementPodium;
         User currentUser = UserService.getInstance().getUser(client.getNom());

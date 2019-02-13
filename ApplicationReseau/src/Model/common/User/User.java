@@ -22,7 +22,7 @@ public class User {
      * @param id
      * @param pseudo
      * @param password
-     * @param money
+     * @param money la somme disponible dans sa cagnotte
      */
     public User(int id, String pseudo, String password, float money) {
         this.id = id;
