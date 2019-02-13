@@ -57,7 +57,7 @@ public class ClientReceive implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            client.getEc().onestla(4 - i);
+            client.getEc().arretServeur(4 - i);
         }
         client.disconnectedServer();
     }
