@@ -285,6 +285,10 @@ public class EcranPrincipalController implements Initializable {
 					fxListeCheval.setVisible(!fxListeCheval.getItems().isEmpty());
 					fxMontantMise.setVisible(fxListeCheval.isVisible());
 					btnValiderMise.setVisible(fxListeCheval.isVisible());
+
+					fxMontantMise.setDisable(!fxListeCheval.isVisible());
+					fxMontantMise.setText("");
+					btnValiderMise.setDisable(!fxListeCheval.isVisible());
 				}
 		);
 
@@ -329,7 +333,7 @@ public class EcranPrincipalController implements Initializable {
 			int idCheval = 0;
 
 			// Récupération du montant misé
-			if (!fxMontantMise.getText().trim().isEmpty()) {
+			if (!fxMontantMise.getText().trim().isEmpty() && fxMontantMise.getText().trim().matches(".*\\d+.*")) {
 				montantMise = Float.valueOf(fxMontantMise.getText());
 			} else {
 
