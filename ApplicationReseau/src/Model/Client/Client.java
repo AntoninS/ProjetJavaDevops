@@ -13,17 +13,33 @@ import java.net.UnknownHostException;
 
 public class Client {
 
+    //Son port de connexion
     private int port;
+    //L'adresse de connexion
     private String address;
+    //Son socket de connexion
     private Socket socket;
+    // Le flux sortant de la connexion pour envoyer des messages
     private ObjectOutputStream out;
+    // FLux rentrant pour les informations d'une connexion
     private ObjectInputStream in;
-    private Message message;
+    //Gestionnaire de message d'un client
     private GestionnaireMessages gm;
+    //Message reçu
     private Message messageReceived;
+    //L'écran controller du client
     private EcranPrincipalController ec;
+    //Le nom d'un client
     private String nom;
 
+    /**
+     * Constructeur d'un client
+     *
+     * @param port
+     * @param address
+     * @param nom
+     * @param gestionnaireMessages
+     */
     public Client(int port, String address, String nom, GestionnaireMessages gestionnaireMessages) {
         this.port = port;
         this.address = address;

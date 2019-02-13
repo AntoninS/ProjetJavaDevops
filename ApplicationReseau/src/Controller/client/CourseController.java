@@ -2,6 +2,7 @@ package Controller.client;
 
 import Model.common.Cheval.Cheval;
 import Model.common.course.UtilCourse;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -24,25 +25,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.jfoenix.controls.JFXButton;
-
 public class CourseController implements Initializable {
 
-    private ImageView img;
-
-
-    private List<ImageView> listImagesChevaux;
-
-
     public static boolean affichageActif = false;
-
+    private ImageView img;
+    private List<ImageView> listImagesChevaux;
     private EcranPrincipalController ecranController;
 
     private ThreadCourseGraphique courseGraphique;
 
     private CourseController cc;
-
-
 
 
     @FXML
@@ -61,11 +53,12 @@ public class CourseController implements Initializable {
     @FXML
     private AnchorPane ap;
     private double posX;
-	private double posY;
-    
+    private double posY;
+
     @FXML
     private JFXButton btnQuitter;
 
+    //Text des chevaux
     @FXML
     private JFXTextArea textChevalN1;
     @FXML
@@ -80,7 +73,9 @@ public class CourseController implements Initializable {
     @FXML
     private ImageView coupeBronze;
 
-
+    public static void setAffichageActif(boolean pAffichageActif) {
+        affichageActif = pAffichageActif;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -88,7 +83,10 @@ public class CourseController implements Initializable {
         lancementThread();
 
     }
-    /** permet de lancer la course de chevaux de mannière graphique après l'initialize */
+
+    /**
+     * permet de lancer la course de chevaux de mannière graphique après l'initialize
+     */
     private void lancementThread() {
 
         Task<Void> task = new Task<Void>() {
@@ -98,7 +96,7 @@ public class CourseController implements Initializable {
                     public void run() {
 
                         affichageActif = true;
-                        courseGraphique = new ThreadCourseGraphique(ecranController,cc);
+                        courseGraphique = new ThreadCourseGraphique(ecranController, cc);
                         Thread courseThread = new Thread(courseGraphique);
                         courseThread.start();
                     }
@@ -110,6 +108,7 @@ public class CourseController implements Initializable {
         };
         new Thread(task).start();
     }
+
     /* créer une liste de chevaux*/
     public List<ImageView> getListImageViewChevaux() {
         listImagesChevaux = new ArrayList<>();
@@ -128,6 +127,7 @@ public class CourseController implements Initializable {
             listeDeCheval.get(pos).setImageCheva(listeImageCheval.get(pos));
         }
     }
+
     /* méthode pour lancer la translation des chevaux quand la course commence ou pendant la course */
     public void lancerTranslation(Cheval cheval) {
         if (cheval != null) {
@@ -145,22 +145,18 @@ public class CourseController implements Initializable {
         }
     }
 
-    public Cheval getChevalClassement (Integer id)
-    {
+    public Cheval getChevalClassement(Integer id) {
         Cheval cheval = new Cheval();
-        for (Cheval ch: ecranController.getGestionnaireMessaire().getGc().getListeDesCourses().get(0).getListChevalCourse()) {
-            if(id == ch.getNumero())
-            {
+        for (Cheval ch : ecranController.getGestionnaireMessaire().getGc().getListeDesCourses().get(0).getListeChevauxCourse()) {
+            if (id == ch.getNumero()) {
                 cheval = ch;
             }
         }
         return cheval;
     }
 
-    public void updateAffichageCoupe (Integer id, Integer position)
-    {
-        switch (position)
-        {
+    public void updateAffichageCoupe(Integer id, Integer position) {
+        switch (position) {
             case 0:
                 textChevalN1.setText(getChevalClassement(id).getNom());
                 break;
@@ -173,54 +169,42 @@ public class CourseController implements Initializable {
         }
     }
 
-
-
-    public static void setAffichageActif(boolean pAffichageActif) {
-        affichageActif = pAffichageActif;
+    public void setEcranController(EcranPrincipalController ec) {
+        this.ecranController = ec;
     }
 
-    public void setEcranController (EcranPrincipalController ec)
-    {
-       this.ecranController = ec;
-    }
-    
     @FXML
-    private void quitterLaCourse(MouseEvent event)
-    {
-    	if(event.getButton() == MouseButton.PRIMARY)
-    	{
-    		((Node)event.getSource()).getScene().getWindow().hide();
-    	}
+    private void quitterLaCourse(MouseEvent event) {
+        if (event.getButton() == MouseButton.PRIMARY) {
+            ((Node) event.getSource()).getScene().getWindow().hide();
+        }
     }
-    
+
     @FXML
-	private void reduireEcran(MouseEvent event)
-	{
-		if(event.getButton() == MouseButton.PRIMARY)
-			((Stage)((ImageView)event.getSource()).getScene().getWindow()).setIconified(true);
-	}
-    
-  //Permet de faire bouger l'�cran TODO
-  	@FXML
-  	private void moveOnDrag(MouseEvent event)
-  	{
+    private void reduireEcran(MouseEvent event) {
+        if (event.getButton() == MouseButton.PRIMARY)
+            ((Stage) ((ImageView) event.getSource()).getScene().getWindow()).setIconified(true);
+    }
+
+    //Permet de faire bouger l'�cran TODO
+    @FXML
+    private void moveOnDrag(MouseEvent event) {
 //  		if(event.getButton() == MouseButton.PRIMARY)
 //  		{
 //  			this.posX = event.getSceneX();
 //  			this.posY = event.getSceneY();
 //  			System.out.println(this.posX + " x - y" + this.posY);
 //  		}
-  	}
-  	
-  	@FXML
-  	private void setOnMouseDrag(MouseEvent event)
-  	{
+    }
+
+    @FXML
+    private void setOnMouseDrag(MouseEvent event) {
 //  		if(event.getButton() == MouseButton.PRIMARY)
 //  		{
 //  			this.ap.getScene().getWindow().setX(event.getScreenX() - this.posX);
 //  			this.ap.getScene().getWindow().setY(event.getScreenY() - this.posY);
 //  		}
-  	}
+    }
 
 
 }

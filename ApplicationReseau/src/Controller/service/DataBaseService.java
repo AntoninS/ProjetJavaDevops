@@ -3,7 +3,9 @@ package Controller.service;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Properties;
 
 public class DataBaseService {
@@ -26,7 +28,7 @@ public class DataBaseService {
 
         Properties prop = new Properties();
         try (
-            FileInputStream input = new FileInputStream("config.properties")) {
+                FileInputStream input = new FileInputStream("config.properties")) {
             prop.load(input);
         } catch (FileNotFoundException e) {
             e.printStackTrace();

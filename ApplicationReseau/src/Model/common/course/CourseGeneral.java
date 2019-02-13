@@ -1,12 +1,10 @@
 package Model.common.course;
 
-public class CourseGeneral extends Course
-{
+public class CourseGeneral extends Course {
     //Exemple d'utilisation d'une classe abstraite
-    public final Integer  TEMPS_DES_PARIS = 5;
+    public final Integer TEMPS_DES_PARIS = 20;
 
-    public CourseGeneral()
-    {
+    public CourseGeneral() {
 
     }
 }

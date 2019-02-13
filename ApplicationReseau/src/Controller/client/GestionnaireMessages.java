@@ -6,10 +6,14 @@ import org.json.JSONObject;
 
 public class GestionnaireMessages {
 
-    /** gestionnaire de course pour traiter le jsonObject d'une course */
+    /**
+     * gestionnaire de course pour traiter le jsonObject d'une course
+     */
     GestionnaireCourses gc;
 
-    /** reference de l'ecran principale pour y faire passer nos valeurs */
+    /**
+     * reference de l'ecran principale pour y faire passer nos valeurs
+     */
     EcranPrincipalController controller;
 
     public void gestionMessage(Message msg) throws JSONException {
@@ -17,28 +21,25 @@ public class GestionnaireMessages {
         JSONObject jresponse = new JSONObject(msg.toString());
         String balise = jresponse.getString("balise");
 
-        if(balise.equals("course"))
-        {
+        if (balise.equals("course")) {
             gc.gererCourse(jresponse);
         }
-        
-        if(balise.equals("message"))
-        {
-        	this.controller.getTchatField().appendText("\n"+jresponse.getString("nom") + " : " + jresponse.getString("messageEnvoye"));
+
+        if (balise.equals("message")) {
+            this.controller.getTchatField().appendText("\n" + jresponse.getString("nom") + " : " + jresponse.getString("messageEnvoye"));
         }
 
+    }
+
+    public GestionnaireCourses getGc() {
+        return gc;
     }
 
     public void setGc(GestionnaireCourses gc) {
         this.gc = gc;
     }
 
-    public GestionnaireCourses getGc() {
-        return gc;
-    }
-    
-    public void setController(EcranPrincipalController ecranController)
-    {
-    	this.controller = ecranController;
+    public void setController(EcranPrincipalController ecranController) {
+        this.controller = ecranController;
     }
 }

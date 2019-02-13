@@ -42,6 +42,13 @@ public class Cheval {
     public Cheval() {
     }
 
+    /**
+     * Constructeur d'un cheval standard
+     * @param pAvancementCourse
+     * @param pNumero
+     * @param pVitesse
+     * @param pNom
+     */
     public Cheval(Double pAvancementCourse, int pNumero, Double pVitesse, String pNom) {
         this.numero = pNumero;
         this.avancementCourse = pAvancementCourse;

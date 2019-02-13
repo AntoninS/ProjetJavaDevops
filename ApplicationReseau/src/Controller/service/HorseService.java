@@ -13,9 +13,8 @@ import java.util.List;
 
 public class HorseService {
 
-    DataBaseService dbs = DataBaseService.getInstance();
-
     private static HorseService horseServiceInstance = null;
+    DataBaseService dbs = DataBaseService.getInstance();
 
     public HorseService() {
 
@@ -40,7 +39,7 @@ public class HorseService {
             cs = con.createStatement();
             rs = cs.executeQuery(request);
 
-            while(rs.next()) {
+            while (rs.next()) {
                 list.add(new Cheval(rs.getString("NAME"),
                         rs.getInt("SHAPE"),
                         rs.getInt("ID"),

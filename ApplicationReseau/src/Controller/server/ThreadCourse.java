@@ -3,23 +3,37 @@ package Controller.server;
 import Model.Server.Server;
 import Model.common.Cheval.Cheval;
 import Model.common.Message.Message;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import Model.common.course.CourseGeneral;
 import Model.common.course.UtilCourse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class ThreadCourse implements Runnable {
 
+    //Implementation d'une course general, si on avait évolué le projet nous auriont du évoluer cette partie pour choisir le service threader pour la course
     private CourseGeneral uneCourseGeneral;
+    //Temps avant le lancement d'une course
     private int tempsAvantLancement;
+    //avancement d'une dernier cheval
     private Double avancementDernierCheval = 0.0;
-    JSONObject jsonConcatenationCourse;
+    //Le json concaténer
+    private JSONObject jsonConcatenationCourse;
+    //Le server
     private Server server;
+    //Classement des chevaux
     private List<Cheval> classement = new ArrayList<>();
+
+    //Thread d'une course graphique
+    public ThreadCourse(String pNomCourse, Server pServer) {
+        this.server = pServer;
+        uneCourseGeneral = new CourseGeneral();
+        uneCourseGeneral.setNomCourse(pNomCourse);
+        uneCourseGeneral.setEstTerminee(false);
+    }
 
     @Override
     public void run() {
@@ -58,23 +72,15 @@ public class ThreadCourse implements Runnable {
 
 
     }
-
-    public ThreadCourse(String pNomCourse, Server pServer) {
-        this.server = pServer;
-        uneCourseGeneral = new CourseGeneral();
-        uneCourseGeneral.setNomCourse(pNomCourse);
-        uneCourseGeneral.setEstTerminee(false);
-    }
-
     public CourseGeneral getCourse() {
         return uneCourseGeneral;
     }
 
-
+    //Récuperer l'avancement du dernier cheval
     private void getAvancementDernierCheval() {
         ArrayList<Double> plusPetit = new ArrayList<>();
 
-        for (Cheval chevalParcourue : uneCourseGeneral.getListChevalCourse()) {
+        for (Cheval chevalParcourue : uneCourseGeneral.getListeChevauxCourse()) {
 
             plusPetit.add(chevalParcourue.getAvancementCourse());
         }
@@ -82,6 +88,7 @@ public class ThreadCourse implements Runnable {
         avancementDernierCheval = plusPetit.get(0);
     }
 
+    //La course est terminé
     public boolean courseFini() {
         uneCourseGeneral.setEstTerminee(false);
         if (avancementDernierCheval >= UtilCourse.DISTANCE_POURCENTAGE) {
@@ -91,7 +98,7 @@ public class ThreadCourse implements Runnable {
         return uneCourseGeneral.getEstTerminee();
     }
 
-
+    //Permet de concaténer une course en Json pour l'envoyer sur le serveuer
     private void concatenationJsonObject() throws JSONException {
 
 
@@ -108,7 +115,7 @@ public class ThreadCourse implements Runnable {
         jsonConcatenationCourse.put("courseEtat", courseFini());
 
 
-        for (Cheval cheval : uneCourseGeneral.getListChevalCourse()) {
+        for (Cheval cheval : uneCourseGeneral.getListeChevauxCourse()) {
             etapeAjoutJson++;
             jsonConcatenationCourse.put(Integer.toString(etapeAjoutJson), cheval.getAvancementCourse());
             jsonConcatenationCourse.put(Integer.toString(etapeAjoutJson + 10), cheval.getNumero());

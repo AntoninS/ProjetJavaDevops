@@ -13,24 +13,17 @@ import java.util.List;
 
 public class GestionnaireCourses {
 
-    private List<Course> listeDesCoursesEnCours = null;
-
-    private boolean uneCourseEstEnCours = false;
-
+    //List classmement cheval podium
     public List<Cheval> classementPodiumDuFinal;
-
+    //Liste des courses en cour
+    private List<Course> listeDesCoursesEnCours = null;
+    //Une course est en cours
+    private boolean uneCourseEstEnCours = false;
+    //lien avec un ecran controller
     private EcranPrincipalController ecranController = null;
-
-    public void setEcranController(EcranPrincipalController ecranController) {
-        this.ecranController = ecranController;
-    }
 
     public GestionnaireCourses() {
 
-    }
-
-    public List<Course> getListeDesCourses() {
-        return listeDesCoursesEnCours;
     }
 
     //On ajoute a la liste des courses en cours
@@ -56,7 +49,7 @@ public class GestionnaireCourses {
         return listeCh;
     }
 
-    private void modificationAvancementChevaux (JSONObject courseJsonObject, List<Cheval> listCheval) throws JSONException {
+    private void modificationAvancementChevaux(JSONObject courseJsonObject, List<Cheval> listCheval) throws JSONException {
 
         for (int i = 0; i < UtilCourse.NOMBRE_CHEVAUX_COURSE; i++) {
             Double nouveauAvancement = courseJsonObject.getDouble(Integer.toString(i + 1));
@@ -64,19 +57,17 @@ public class GestionnaireCourses {
         }
     }
 
-    private String recuperationNomCourse(JSONObject courseJsonObject) throws JSONException
-    {
+    private String recuperationNomCourse(JSONObject courseJsonObject) throws JSONException {
         String nomDeLaCourse = courseJsonObject.getString("nomCourse");
-        return  nomDeLaCourse;
+        return nomDeLaCourse;
     }
 
-
-    private void ajouterCourse(JSONObject courseJsonObject )throws JSONException
-    {
+    //Ajouter une course
+    private void ajouterCourse(JSONObject courseJsonObject) throws JSONException {
 
         Course course = new CourseGeneral();
 
-        course.setListChevalCourse(recuperationListCheval(courseJsonObject));
+        course.setListeChevauxCourse(recuperationListCheval(courseJsonObject));
         course.setNomCourse(recuperationNomCourse(courseJsonObject));
         course.setTempsLancement(courseJsonObject.getInt("tempsLancement"));
         course.setEstTerminee(false);
@@ -86,41 +77,32 @@ public class GestionnaireCourses {
         ecranController.ajouterCourseListView();
     }
 
-    private void majCourse(Course course, JSONObject courseJsonObject) throws JSONException
-    {
+    //Modifier une course
+    private void majCourse(Course course, JSONObject courseJsonObject) throws JSONException {
 
-       modificationAvancementChevaux(courseJsonObject, course.getListChevalCourse());
-       course.setTempsLancement(courseJsonObject.getInt("tempsLancement"));
+        modificationAvancementChevaux(courseJsonObject, course.getListeChevauxCourse());
+        course.setTempsLancement(courseJsonObject.getInt("tempsLancement"));
 
-       ArrayList<Integer> listArriver = new ArrayList<>();
+        ArrayList<Integer> listArriver = new ArrayList<>();
 
-       if(courseJsonObject.getInt("idChevalAtClassement1") != -1)
-       {
-           listArriver.add(courseJsonObject.getInt("idChevalAtClassement1"));
-       }
-       else
-       {
-           listArriver.add(-1);
-       }
-
-       if (courseJsonObject.getInt("idChevalAtClassement2") != -1)
-       {
-           listArriver.add(courseJsonObject.getInt("idChevalAtClassement2"));
-       }
-       else
-        {
+        if (courseJsonObject.getInt("idChevalAtClassement1") != -1) {
+            listArriver.add(courseJsonObject.getInt("idChevalAtClassement1"));
+        } else {
             listArriver.add(-1);
         }
 
-       if (courseJsonObject.getInt("idChevalAtClassement3") != -1)
-       {
-           listArriver.add(courseJsonObject.getInt("idChevalAtClassement3"));
-       }
-       else
-        {
+        if (courseJsonObject.getInt("idChevalAtClassement2") != -1) {
+            listArriver.add(courseJsonObject.getInt("idChevalAtClassement2"));
+        } else {
             listArriver.add(-1);
         }
-        course.chevalArriver = listArriver;
+
+        if (courseJsonObject.getInt("idChevalAtClassement3") != -1) {
+            listArriver.add(courseJsonObject.getInt("idChevalAtClassement3"));
+        } else {
+            listArriver.add(-1);
+        }
+        course.chevauxArrive = listArriver;
 
 
         if (courseJsonObject.getBoolean("courseEtat")) {
@@ -137,14 +119,13 @@ public class GestionnaireCourses {
         }
 
 
-
     }
 
-    private Course recuperationCourse(Integer numCourse)
-    {
+    private Course recuperationCourse(Integer numCourse) {
         return listeDesCoursesEnCours.get(0);
     }
 
+    //Test de course existente
     private Boolean courseExitente(String nomDeLaCourse) {
         for (Course cs : listeDesCoursesEnCours) {
             if (cs != null && cs.getNomCourse().equals(nomDeLaCourse)) {
@@ -162,11 +143,10 @@ public class GestionnaireCourses {
         if (listeDesCoursesEnCours == null) {
             listeDesCoursesEnCours = new ArrayList<>();
         }
-        if (!(courseExitente(recuperationNomCourse(courseJsonObject))))
-        {
+        if (!(courseExitente(recuperationNomCourse(courseJsonObject)))) {
             ajouterCourse(courseJsonObject);
         } else if (courseExitente(recuperationNomCourse(courseJsonObject))) {
-            majCourse(recuperationCourse(0),courseJsonObject );
+            majCourse(recuperationCourse(0), courseJsonObject);
         }
     }
 
@@ -178,16 +158,23 @@ public class GestionnaireCourses {
     public boolean getUneCourseEstEnCours() {
         return uneCourseEstEnCours;
     }
-    public void setUneCourseEstEnCours (boolean b )
-    {
+
+    public void setUneCourseEstEnCours(boolean b) {
         uneCourseEstEnCours = b;
+    }
+
+    public void setEcranController(EcranPrincipalController ecranController) {
+        this.ecranController = ecranController;
+    }
+
+    public List<Course> getListeDesCourses() {
+        return listeDesCoursesEnCours;
     }
 
 
     /**
-     *
      * @param courseJsonObject le flux Json
-     * @param position La position de classem
+     * @param position         La position de classem
      */
     public int getIdChevalAtClassement(JSONObject courseJsonObject, int position) throws JSONException {
         return courseJsonObject.getInt("idChevalAtClassement".concat(String.valueOf(position)));

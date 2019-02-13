@@ -8,25 +8,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Course {
-
+    //Liste des chevaux arrivés dans la course dans l'ordre du premier au troisieme
+    public ArrayList<Integer> chevauxArrive;
+    // id de la course
     private int id;
-    private List<Cheval> listChevalCourse;
+    //Liste de chevaux d'une course
+    private List<Cheval> listeChevauxCourse;
+    //Nom d'une course de chevaux
     private String nomCourse;
+    //Permet de savoir si la course est terminée
     private Boolean estTerminee = false;
+    //Temps avant lancement d'une course
     private Integer tempsLancement;
-    public ArrayList<Integer> chevalArriver;
 
-
+    /**
+     * Constructeur d'une course et permet de créer une liste de chevaux à partir des informations en BDD
+     */
     public Course() {
         id = RaceService.getInstance().getLastRaceId() + 1;
-        listChevalCourse = HorseService.getInstance().getListHorsesLimitAndRandom();
+        listeChevauxCourse = HorseService.getInstance().getListHorsesLimitAndRandom();
 
         RaceService.getInstance().insertRace(id);
     }
 
-
+    //Permet de modifier l'avancement de tous les chevaux
     public void modifierAvancementTousLesChevaux() {
-        for (Cheval ch : listChevalCourse) {
+        for (Cheval ch : listeChevauxCourse) {
             ch.modifierAvancement();
         }
     }
@@ -39,8 +46,12 @@ public abstract class Course {
         this.id = id;
     }
 
-    public List<Cheval> getListChevalCourse() {
-        return this.listChevalCourse;
+    public List<Cheval> getListeChevauxCourse() {
+        return this.listeChevauxCourse;
+    }
+
+    public void setListeChevauxCourse(List<Cheval> listeC) {
+        this.listeChevauxCourse = listeC;
     }
 
     public String getNomCourse() {
@@ -51,12 +62,12 @@ public abstract class Course {
         this.nomCourse = pNomCourse;
     }
 
-    public void setListChevalCourse(List<Cheval> listeC) {
-        this.listChevalCourse = listeC;
-    }
-
     public Boolean getEstTerminee() {
         return estTerminee;
+    }
+
+    public void setEstTerminee(Boolean pEnCours) {
+        this.estTerminee = pEnCours;
     }
 
     public Integer getTempsLancement() {
@@ -65,9 +76,5 @@ public abstract class Course {
 
     public void setTempsLancement(Integer tempsLancement) {
         this.tempsLancement = tempsLancement;
-    }
-
-    public void setEstTerminee(Boolean pEnCours) {
-        this.estTerminee = pEnCours;
     }
 }

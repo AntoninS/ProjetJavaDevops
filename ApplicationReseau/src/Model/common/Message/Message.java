@@ -6,7 +6,7 @@ public class Message implements Serializable {
 
     //Personne qui envoi le message
     private String sender;
-    //Le contenu du message 
+    //Le contenu du message
     private String content;
     private int id;
 
