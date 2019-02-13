@@ -11,12 +11,10 @@ public class CourseManager {
 
     }
 
-
     public void startCourse(Server server) {
         this.server = server;
         course = new ThreadCourse("FCKebab", server);
         Thread courseThread = new Thread(course);
         courseThread.start();
     }
-
 }

@@ -17,7 +17,6 @@ public abstract class Course {
     public ArrayList<Integer> chevalArriver;
 
 
-
     public Course() {
         id = RaceService.getInstance().getLastRaceId() + 1;
         listChevalCourse = HorseService.getInstance().getListHorsesLimitAndRandom();
@@ -26,10 +25,8 @@ public abstract class Course {
     }
 
 
-    public void modifierAvancementTousLesChevaux ()
-    {
-        for (Cheval ch: listChevalCourse)
-        {
+    public void modifierAvancementTousLesChevaux() {
+        for (Cheval ch : listChevalCourse) {
             ch.modifierAvancement();
         }
     }
