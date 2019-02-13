@@ -20,7 +20,7 @@ public class DataBaseService {
         }
         return dataBaseServiceInstance;
     }
-
+    //Connexion a la DB
     public Connection getDataBaseConnexion() throws SQLException, ClassNotFoundException {
         Class.forName("oracle.jdbc.driver.OracleDriver");
 

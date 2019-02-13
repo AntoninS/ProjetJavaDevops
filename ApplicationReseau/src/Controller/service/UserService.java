@@ -25,7 +25,7 @@ public class UserService {
         }
         return userServiceInstance;
     }
-
+    //Récupérer un utilisateur avec son pseudo
     public User getUser(String pseudo) {
         User user = new User();
         try {
@@ -51,7 +51,7 @@ public class UserService {
         }
         return user;
     }
-
+    //Récupérer un utilisateur avec son id
     public User getUser(int id) {
         User user = new User();
         try {
@@ -77,7 +77,7 @@ public class UserService {
         }
         return user;
     }
-
+    //Check si le mdp est ok
     public boolean isPasswordCorrect(String pseudo, String password) {
         boolean isPasswordCorrect = false;
         User userFromDb = getUser(pseudo);
@@ -86,7 +86,7 @@ public class UserService {
         }
         return isPasswordCorrect;
     }
-
+    //Modifie la thune
     public void updateMoney(int idUser, float money) {
         if (idUser > 0) {
             try {
@@ -105,8 +105,5 @@ public class UserService {
                 e.printStackTrace();
             }
         }
-
     }
-
-
 }

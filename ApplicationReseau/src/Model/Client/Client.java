@@ -13,17 +13,32 @@ import java.net.UnknownHostException;
 
 public class Client {
 
+    // le port d'un serveur
     private int port;
+    // Adress d'un serveur
     private String address;
+    //Le socket d'un serveur
     private Socket socket;
+    //Le flux sortant
     private ObjectOutputStream out;
+    // Le flux entrant
     private ObjectInputStream in;
-    private Message message;
+    // Un gestionnaire de message pour recevoir la course
     private GestionnaireMessages gm;
+    // Un message reçu
     private Message messageReceived;
+    //Un ecran principale
     private EcranPrincipalController ec;
+    //Un nom
     private String nom;
 
+    /***
+     * Constructeur d'un client
+     * @param port
+     * @param address
+     * @param nom
+     * @param gestionnaireMessages
+     */
     public Client(int port, String address, String nom, GestionnaireMessages gestionnaireMessages) {
         this.port = port;
         this.address = address;
@@ -33,17 +48,14 @@ public class Client {
         try {
             this.socket = new Socket(address, port);
         } catch (UnknownHostException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
         try {
             this.out = new ObjectOutputStream(this.socket.getOutputStream());
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -51,9 +63,9 @@ public class Client {
 
         Thread getMessages = new Thread(new ClientReceive(this, socket));
         getMessages.start();
-
     }
 
+    //serveur qui se déco
     public void disconnectedServer() {
 
         try {
@@ -67,7 +79,7 @@ public class Client {
             e.printStackTrace();
         }
     }
-
+    //Message reçu
     public Message messageReceived(Message mess) {
         this.messageReceived = mess;
 

@@ -8,15 +8,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Course {
-
+    //Un id de course
     private int id;
+    //Une liste de chevaux
     private List<Cheval> listChevalCourse;
+    //Nom de la course
     private String nomCourse;
+    // Dit si la course est terminée
     private Boolean estTerminee = false;
+    //Temps avant lancement de la course
     private Integer tempsLancement;
+    //Dit si le cheval est arrivé
     public ArrayList<Integer> chevalArriver;
 
-
+    /**
+     * Une création de course
+     */
     public Course() {
         id = RaceService.getInstance().getLastRaceId() + 1;
         listChevalCourse = HorseService.getInstance().getListHorsesLimitAndRandom();
@@ -24,7 +31,7 @@ public abstract class Course {
         RaceService.getInstance().insertRace(id);
     }
 
-
+    //Modifie le déplacement de tous les chevaux
     public void modifierAvancementTousLesChevaux() {
         for (Cheval ch : listChevalCourse) {
             ch.modifierAvancement();
