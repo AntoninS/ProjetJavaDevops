@@ -2,8 +2,6 @@ package Controller.client;
 
 import Model.common.Cheval.Cheval;
 import Model.common.course.UtilCourse;
-import Controller.client.CourseController;
-import Controller.client.EcranPrincipalController;
 
 import java.util.List;
 
@@ -68,7 +66,7 @@ public class ThreadCourseGraphique implements Runnable {
                 }
                 chevalIndex++;
             }
-
+            //Ceci aurait du être dans une méthode mais par contrainte de temps ne sera pas faite
             if (null != ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).chevalArriver.get(0)) {
                 courseController.updateAffichageCoupe(ecranController.getGestionnaireMessaire().getGc().getListeDesCoursesEnCours().get(0).chevalArriver.get(0), 0);
             }

@@ -28,7 +28,7 @@ public class HorseService {
         return horseServiceInstance;
     }
 
-
+    //Récuperer tous les chevaux
     public List<Cheval> getListHorsesFull() {
         List<Cheval> list = new ArrayList<>();
         try {
@@ -55,7 +55,7 @@ public class HorseService {
         }
         return list;
     }
-
+    // Récupére le cheval avec un id
     public Cheval getHorse(int id) {
         Cheval cheval = new Cheval();
         try {

@@ -1,7 +1,6 @@
 package Controller.client;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
 
 import Controller.service.RaceService;
 import Controller.service.UserService;
@@ -39,7 +38,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
-import java.net.Socket;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;

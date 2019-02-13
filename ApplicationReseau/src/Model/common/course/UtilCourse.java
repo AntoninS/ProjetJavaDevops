@@ -12,14 +12,14 @@ public class UtilCourse {
     //Nombre de chevaux
     public final static Integer NOMBRE_CHEVAUX_COURSE = 6;
 
-
+    //Calcul de vitesse d'un cheval pour la lissage de la vitesse du cheval
     public static double calculVitesseCheval(Double avancementCourseCheval, Double vitesse) {
         //final = 10000.
         double tempsDejaFait = (avancementCourseCheval / vitesse);// ce qu'il a déjà parcouru en temps.
         double tempsTotal = DISTANCE_POURCENTAGE / vitesse;
         return (tempsTotal - tempsDejaFait);
     }
-
+    //Calcul de la position du cheval pour afficher
     public static double calculAffichagePosition(Double avancementCourseCheval) {
         //Avancement sur 10000
         //Nombre de pixel de base 50

@@ -1,6 +1,5 @@
 package Controller.client;
 
-import Model.Client.Client;
 import View.Authentication;
 import javafx.application.Application;
 import javafx.stage.Stage;

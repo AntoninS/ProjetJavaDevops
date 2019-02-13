@@ -29,6 +29,7 @@ public class RaceService {
         return raceServiceInstance;
     }
 
+    // récupére l'id de la course
     public int getLastRaceId() {
         int lastRaceId = 0;
         try {
@@ -52,6 +53,7 @@ public class RaceService {
         return lastRaceId;
     }
 
+    //Ajout d'une course
     public void insertRace(int id) {
         try {
             Connection con = dbs.getDataBaseConnexion();
@@ -70,6 +72,7 @@ public class RaceService {
         }
     }
 
+    //Insertion de pari
     public void insertBet(int idUser, int idHorse, int idRace, float amount) {
         try {
             Connection con = dbs.getDataBaseConnexion();
@@ -88,6 +91,7 @@ public class RaceService {
         }
     }
 
+    //Récuperer le pari
     public Pari getBet(int idUser, int idRace) {
         Pari pari = null;
         try {
@@ -115,10 +119,10 @@ public class RaceService {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
         return pari;
     }
 
+    //Si il a gagner le pari
     public boolean hasWonBet(Pari pari, List<Cheval> classementPodium) {
         if (null != pari) {
             int idCheval = pari.getIdCheval();
@@ -126,9 +130,7 @@ public class RaceService {
                     || idCheval == classementPodium.get(1).getNumero()
                     || idCheval == classementPodium.get(2).getNumero();
         }
-
         return false;
-
     }
 
     /**
@@ -166,5 +168,4 @@ public class RaceService {
         }
         return cagnotte;
     }
-
 }
