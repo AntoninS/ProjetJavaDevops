@@ -81,7 +81,6 @@ public class CourseController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         cc = this;
         lancementThread();
-
     }
 
     /**
@@ -154,6 +153,7 @@ public class CourseController implements Initializable {
         }
         return cheval;
     }
+
     //Permet de modifier l'affichage de la coupe or argent et bronze
     public void updateAffichageCoupe(Integer id, Integer position) {
         switch (position) {

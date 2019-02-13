@@ -25,184 +25,170 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class AuthenticationController {
-	
-	private boolean connexion = true;
 
-	@FXML
-	private AnchorPane panelPrincipal;
-	private double posX;
-	private double posY;
+    /** si la connexion est éffectué */
+    private boolean connexion = true;
 
-	@FXML
-	private StackPane paneMsgBox;
+    @FXML
+    private AnchorPane panelPrincipal;
+    private double posX;
+    private double posY;
 
-	@FXML
-	private Label boutonConnexion;
+    @FXML
+    private StackPane paneMsgBox;
 
-	@FXML
-	private Label boutonCreerCompte;
+    @FXML
+    private Label boutonConnexion;
 
-	@FXML
-	private JFXTextField loginText;
+    @FXML
+    private Label boutonCreerCompte;
 
-	@FXML
-	private JFXPasswordField passwordText;
+    @FXML
+    private JFXTextField loginText;
 
-	@FXML
-	private JFXButton boutonSeConnecter;
+    @FXML
+    private JFXPasswordField passwordText;
 
-	@FXML
-	private Hyperlink lienMdpOublie;
+    @FXML
+    private JFXButton boutonSeConnecter;
 
-	//M�thode li� � l'�cran
-	@FXML
-	private void moveOnDrag(MouseEvent event)
-	{
-		if(event.getButton() == MouseButton.PRIMARY)
-		{
-			this.posX = event.getSceneX();
-			this.posY = event.getSceneY();
-		}
-	}
+    @FXML
+    private Hyperlink lienMdpOublie;
 
-	@FXML
-	private void setOnMouseDrag(MouseEvent event)
-	{
-		if(event.getButton() == MouseButton.PRIMARY)
-		{
-			this.panelPrincipal.getScene().getWindow().setX(event.getScreenX() - this.posX);
-			this.panelPrincipal.getScene().getWindow().setY(event.getScreenY() - this.posY);
-		}
-	}
+    //M�thode li� � l'�cran
+    @FXML
+    private void moveOnDrag(MouseEvent event) {
+        if (event.getButton() == MouseButton.PRIMARY) {
+            this.posX = event.getSceneX();
+            this.posY = event.getSceneY();
+        }
+    }
 
-	//Si l'utilisateur clique sur Cr�er un compte
-	@FXML
-	private void clickCreerCompte(MouseEvent event)
-	{
-		this.boutonConnexion.setUnderline(false);
-		this.boutonCreerCompte.setUnderline(true);
-		this.boutonSeConnecter.setText("Cr�er un compte");
-		this.lienMdpOublie.setVisible(false);
-		this.connexion = false;
-	}
+    @FXML
+    private void setOnMouseDrag(MouseEvent event) {
+        if (event.getButton() == MouseButton.PRIMARY) {
+            this.panelPrincipal.getScene().getWindow().setX(event.getScreenX() - this.posX);
+            this.panelPrincipal.getScene().getWindow().setY(event.getScreenY() - this.posY);
+        }
+    }
 
-	//Si l'utilisateur clique sur le bouton Connexion
-	@FXML
-	private void clickConnexion(MouseEvent event)
-	{
-		this.boutonCreerCompte.setUnderline(false);
-		this.boutonConnexion.setUnderline(true);
-		this.loginText.setVisible(true);
-		this.passwordText.setVisible(true);
-		this.boutonSeConnecter.setText("Se connecter");
-		this.lienMdpOublie.setVisible(true);
-		this.connexion = true;
-		System.out.println(this.connexion);
-	}
+    //Si l'utilisateur clique sur Cr�er un compte
+    @FXML
+    private void clickCreerCompte(MouseEvent event) {
+        this.boutonConnexion.setUnderline(false);
+        this.boutonCreerCompte.setUnderline(true);
+        this.boutonSeConnecter.setText("Cr�er un compte");
+        this.lienMdpOublie.setVisible(false);
+        this.connexion = false;
+    }
 
-	@FXML
-	private void verificationConnexion(MouseEvent mouseEvent) throws IOException
-	{
-		//TODO G�rer connexion BDD
-		if(mouseEvent.getButton() == MouseButton.PRIMARY)
-		{
-			if(this.connexion)
-			{
-				String loginForm = this.loginText.getText().trim();
-				String passwordForm = this.passwordText.getText().trim();
+    //Si l'utilisateur clique sur le bouton Connexion
+    @FXML
+    private void clickConnexion(MouseEvent event) {
+        this.boutonCreerCompte.setUnderline(false);
+        this.boutonConnexion.setUnderline(true);
+        this.loginText.setVisible(true);
+        this.passwordText.setVisible(true);
+        this.boutonSeConnecter.setText("Se connecter");
+        this.lienMdpOublie.setVisible(true);
+        this.connexion = true;
+        System.out.println(this.connexion);
+    }
 
-				if(loginForm.isEmpty() || passwordForm.isEmpty())
-				{
-					boxErreur("Le login et/ou le mot de passe ne sont pas saisi(s)");
-				}
-				else {
-					if (UserService.getInstance().isPasswordCorrect(loginForm, passwordForm)) {
-						//Récupération de l'utilisateur en BDD
-						User utilisateur = UserService.getInstance().getUser(loginForm);
+    @FXML
+    private void verificationConnexion(MouseEvent mouseEvent) throws IOException {
+        //TODO G�rer connexion BDD
+        if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+            if (this.connexion) {
+                String loginForm = this.loginText.getText().trim();
+                String passwordForm = this.passwordText.getText().trim();
 
-						Parent rootAffichageEcranPrincipalParent;
-						try {
-							System.out.println("ok");
+                if (loginForm.isEmpty() || passwordForm.isEmpty()) {
+                    boxErreur("Le login et/ou le mot de passe ne sont pas saisi(s)");
+                } else {
+                    if (UserService.getInstance().isPasswordCorrect(loginForm, passwordForm)) {
+                        //Récupération de l'utilisateur en BDD
+                        User utilisateur = UserService.getInstance().getUser(loginForm);
 
-							//Connexion au serveur
-							String address = "127.0.0.1";
-							Integer port = new Integer(1420);
-							GestionnaireMessages gm = new GestionnaireMessages();
-							Client unClient = new Client(port, address, this.loginText.getText(), gm);
+                        Parent rootAffichageEcranPrincipalParent;
+                        try {
+                            System.out.println("ok");
 
-							FXMLLoader loader = new FXMLLoader();
-							loader.setLocation(getClass().getResource("../../View/gui/EcranPrincipal.fxml"));
-							rootAffichageEcranPrincipalParent = loader.load();
+                            //Connexion au serveur
+                            String address = "127.0.0.1";
+                            Integer port = new Integer(1420);
+                            GestionnaireMessages gm = new GestionnaireMessages();
+                            Client unClient = new Client(port, address, this.loginText.getText(), gm);
 
-							EcranPrincipalController controlleur = loader.getController();
-							controlleur.getClient(unClient);
-							controlleur.setLblUtilisateur(unClient.getNom());
-							unClient.setEc(controlleur);
+                            FXMLLoader loader = new FXMLLoader();
+                            loader.setLocation(getClass().getResource("../../View/gui/EcranPrincipal.fxml"));
+                            rootAffichageEcranPrincipalParent = loader.load();
 
-							//Affichage du montant disponible dans la cagnotte
-							controlleur.setLblCagnotte(utilisateur.getMoney());
+                            EcranPrincipalController controlleur = loader.getController();
+                            controlleur.getClient(unClient);
+                            controlleur.setLblUtilisateur(unClient.getNom());
+                            unClient.setEc(controlleur);
 
-							GestionnaireCourses gc = new GestionnaireCourses();
-							gm.setGc(gc);
-							controlleur.setGestionnaireMessage(gm);
+                            //Affichage du montant disponible dans la cagnotte
+                            controlleur.setLblCagnotte(utilisateur.getMoney());
 
-							Stage stage = new Stage();
-							stage.initStyle(StageStyle.UNDECORATED);
-							stage.setScene(new Scene(rootAffichageEcranPrincipalParent, 940,622));
-							stage.show();
+                            GestionnaireCourses gc = new GestionnaireCourses();
+                            gm.setGc(gc);
+                            controlleur.setGestionnaireMessage(gm);
 
-							((Node)mouseEvent.getSource()).getScene().getWindow().hide();
+                            Stage stage = new Stage();
+                            stage.initStyle(StageStyle.UNDECORATED);
+                            stage.setScene(new Scene(rootAffichageEcranPrincipalParent, 940, 622));
+                            stage.show();
 
-						} catch(IOException e) {
-							e.printStackTrace();
-						}
-					} else {
-						boxErreur("Pseudo ou Mot de passe incorrect");
-					}
-				}
-			}
-			else
-			{
-				System.out.println(this.connexion);
-			}
-		}
-	}
+                            ((Node) mouseEvent.getSource()).getScene().getWindow().hide();
 
-	//Ferme l'application sur un clique gauche
-	@FXML
-	private void closeOnClick(MouseEvent event)
-	{
-		if(event.getButton() == MouseButton.PRIMARY)
-			System.exit(0);
-	}
+                        } catch (IOException e) {
+                            boxErreur("Erreur du serveur distant");
+                        }
+                    } else {
+                        boxErreur("Pseudo ou Mot de passe incorrect");
+                    }
+                }
+            } else {
+                System.out.println(this.connexion);
+            }
+        }
+    }
 
-	//Code pour r�udire l'�cran dans la barre des t�ches
-	@FXML
-	private void reduireEcran(MouseEvent event)
-	{
-		if(event.getButton() == MouseButton.PRIMARY)
-			((Stage)((ImageView)event.getSource()).getScene().getWindow()).setIconified(true);
-	}
+    //Ferme l'application sur un clique gauche
+    @FXML
+    private void closeOnClick(MouseEvent event) {
+        if (event.getButton() == MouseButton.PRIMARY)
+            System.exit(0);
+    }
 
-	private void boxErreur( String messageErreur)
-	{
-		this.paneMsgBox.setDisable(false);
-		JFXDialogLayout content = new JFXDialogLayout();
-		content.setHeading(new Text("Erreur de connexion"));
-		content.setBody(new Text(messageErreur));
+    //Code pour r�udire l'�cran dans la barre des t�ches
+    @FXML
+    private void reduireEcran(MouseEvent event) {
+        if (event.getButton() == MouseButton.PRIMARY)
+            ((Stage) ((ImageView) event.getSource()).getScene().getWindow()).setIconified(true);
+    }
 
-		JFXDialog msgBox = new JFXDialog(this.paneMsgBox, content, JFXDialog.DialogTransition.CENTER);
+    /** message box générique pour les erreurs de connexion */
+    private void boxErreur(String messageErreur) {
+        this.paneMsgBox.setDisable(false);
+        JFXDialogLayout content = new JFXDialogLayout();
+        content.setHeading(new Text("Erreur de connexion"));
+        content.setBody(new Text(messageErreur));
 
-		JFXButton button = new JFXButton("D'accord");
-		button.setOnAction(new EventHandler<ActionEvent>() {
+        JFXDialog msgBox = new JFXDialog(this.paneMsgBox, content, JFXDialog.DialogTransition.CENTER);
 
-			@Override
-			public void handle(ActionEvent event) {
-				msgBox.close();
-				paneMsgBox.setDisable(true);
-			}
-		});
-		content.setActions(button);
-		msgBox.show();
-	}
+        JFXButton button = new JFXButton("D'accord");
+        button.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                msgBox.close();
+                paneMsgBox.setDisable(true);
+            }
+        });
+        content.setActions(button);
+        msgBox.show();
+    }
 }
