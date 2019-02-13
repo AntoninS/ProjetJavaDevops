@@ -26,7 +26,7 @@ public class DataBaseService {
 
         Properties prop = new Properties();
         try (
-            FileInputStream input = new FileInputStream("config.properties")) {
+                FileInputStream input = new FileInputStream("config.properties")) {
             prop.load(input);
         } catch (FileNotFoundException e) {
             e.printStackTrace();

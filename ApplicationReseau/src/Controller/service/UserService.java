@@ -37,7 +37,7 @@ public class UserService {
             cs = con.createStatement();
             rs = cs.executeQuery(request);
 
-            if(rs.next()) {
+            if (rs.next()) {
                 user.setId(rs.getInt("ID"));
                 user.setPseudo(rs.getString("PSEUDO"));
                 user.setPassword(rs.getString("PASSWORD"));
@@ -63,7 +63,7 @@ public class UserService {
             cs = con.createStatement();
             rs = cs.executeQuery(request);
 
-            if(rs.next()) {
+            if (rs.next()) {
                 user.setId(rs.getInt("ID"));
                 user.setPseudo(rs.getString("PSEUDO"));
                 user.setPassword(rs.getString("PASSWORD"));
@@ -93,7 +93,7 @@ public class UserService {
                 Connection con = dbs.getDataBaseConnexion();
                 Statement cs = null;
 
-                String request = String.format(Locale.US,"UPDATE PJ_USER SET MONEY=%.2f WHERE ID = '%d'", money, idUser);
+                String request = String.format(Locale.US, "UPDATE PJ_USER SET MONEY=%.2f WHERE ID = '%d'", money, idUser);
 
                 cs = con.createStatement();
                 cs.executeQuery(request);

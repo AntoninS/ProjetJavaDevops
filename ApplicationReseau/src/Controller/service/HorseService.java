@@ -40,7 +40,7 @@ public class HorseService {
             cs = con.createStatement();
             rs = cs.executeQuery(request);
 
-            while(rs.next()) {
+            while (rs.next()) {
                 list.add(new Cheval(rs.getString("NAME"),
                         rs.getInt("SHAPE"),
                         rs.getInt("ID"),

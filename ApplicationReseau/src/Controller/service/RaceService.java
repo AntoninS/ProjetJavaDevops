@@ -40,7 +40,7 @@ public class RaceService {
             cs = con.createStatement();
             rs = cs.executeQuery(request);
 
-            if(rs.next()) {
+            if (rs.next()) {
                 lastRaceId = rs.getInt("ID");
             }
             con.close();
@@ -76,7 +76,7 @@ public class RaceService {
             Statement cs = null;
             ResultSet rs = null;
 
-            String request = String.format(Locale.US,"INSERT INTO PJ_BET(ID, ID_USER, ID_HORSE, ID_RACE, BET_AMOUNT) VALUES (PJ_BET_SEQUENCE.nextval, %d, %d, %d, %.2f)", idUser, idHorse, idRace, amount);
+            String request = String.format(Locale.US, "INSERT INTO PJ_BET(ID, ID_USER, ID_HORSE, ID_RACE, BET_AMOUNT) VALUES (PJ_BET_SEQUENCE.nextval, %d, %d, %d, %.2f)", idUser, idHorse, idRace, amount);
             cs = con.createStatement();
             cs.executeQuery(request);
 
@@ -99,7 +99,7 @@ public class RaceService {
             cs = con.createStatement();
             rs = cs.executeQuery(request);
 
-            if(rs.next()) {
+            if (rs.next()) {
                 pari = new Pari(
                         rs.getInt("ID"),
                         rs.getInt("ID_USER"),
@@ -133,7 +133,8 @@ public class RaceService {
 
     /**
      * Permet de calculer les gains suite à un pari, et de mettre à jour la cagnotte de l'utilisateur
-     * @param pari Le pari misé
+     *
+     * @param pari             Le pari misé
      * @param classementPodium Le classement des chevaux à la fin de la course
      * @return le montant de la cagnotte de l'utilisateur après le résultat du pari
      */
