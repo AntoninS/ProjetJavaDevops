@@ -14,7 +14,10 @@ public class Server {
     // port du serveur
     private int port;
 
-    //Serveur
+    /**
+     * Constructeur d'un server
+     * @param port
+     */
     public Server(int port) {
         this.clients = new ArrayList<ConnectedClient>();
         this.port = port;
@@ -23,7 +26,11 @@ public class Server {
         threadConnection.start();
     }
 
-    //annonce l'arriv� d'un nouveau Controller.client et l'ajoute � la liste des clients
+    /**
+     * Annonce l'arrivé d'un nouveau Controller.client et l'ajoute � la liste des clients
+     * @param newClient
+     * @throws JSONException
+     */
     public void addClient(ConnectedClient newClient) throws JSONException {
         for (ConnectedClient client : this.clients) {
             JSONObject messageConnexion = new JSONObject();

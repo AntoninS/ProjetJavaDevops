@@ -11,11 +11,17 @@ import Model.common.Message.Message;
 
 public class ConnectedClient implements Runnable {
 
+    //Nombre de connecté
     private static int idCounter;
+    //Id de la connexion
     private int id;
+    //Le server en cours
     private Server server;
+    //Le socket de la connexion
     private Socket socket;
+    //Le Flux entrant
     private ObjectInputStream in;
+    //Le flux sortant
     private ObjectOutputStream out;
 
     public ConnectedClient(Server server, Socket socket) {
@@ -33,7 +39,7 @@ public class ConnectedClient implements Runnable {
         System.out.println("Nouvelle connexion, id = " + this.id);
     }
 
-    //r�ceptionne les messages du Controller.client
+    //réceptionne les messages du Controller.client
     @Override
     public void run() {
         boolean isActive = true;

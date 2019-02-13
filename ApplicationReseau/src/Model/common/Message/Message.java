@@ -4,10 +4,17 @@ import java.io.Serializable;
 
 public class Message implements Serializable {
 
+    //Personne qui envoi le message
     private String sender;
+    //Le contenu du message 
     private String content;
     private int id;
 
+    /**
+     * Constructeur d'un message
+     * @param sender
+     * @param content
+     */
     public Message(String sender, String content) {
         this.sender = sender;
         this.content = content;

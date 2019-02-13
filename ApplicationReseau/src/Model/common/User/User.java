@@ -4,16 +4,26 @@ import Controller.service.HorseService;
 import Controller.service.UserService;
 
 public class User {
-
+    //Id de la personne
     private int id;
+    //Son pseudo
     private String pseudo;
+    //Le mot de passe
     private String password;
+    //Son porte feuille
     private float money;
 
     public User() {
 
     }
 
+    /**
+     * Un nouvelle user pour gérer son compte
+     * @param id
+     * @param pseudo
+     * @param password
+     * @param money
+     */
     public User(int id, String pseudo, String password, float money) {
         this.id = id;
         this.pseudo = pseudo;

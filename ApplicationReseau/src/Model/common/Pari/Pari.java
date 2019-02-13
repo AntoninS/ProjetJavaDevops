@@ -2,16 +2,32 @@ package Model.common.Pari;
 
 public class Pari {
 
+    //Id du pari
     private int id;
+    //Id de l'utilisateur qui a parié
     private int idUser;
+    //Id du cheval sur lequel l'utilisateur a parié
     private int idCheval;
+    //Id de la course que l'utilisateur a parié
     private int idCourse;
+    //Le montant du pari
     private float montant;
 
+    /**
+     * Constructeur vide d'un pari
+     */
     public Pari() {
 
     }
 
+    /**
+     * Cronstructeur d'un pari
+     * @param id
+     * @param idUser
+     * @param idCheval
+     * @param idCourse
+     * @param montant
+     */
     public Pari(int id, int idUser, int idCheval, int idCourse, float montant) {
         this.id = id;
         this.idUser = idUser;
