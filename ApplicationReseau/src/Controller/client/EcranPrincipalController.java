@@ -33,6 +33,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -89,6 +90,9 @@ public class EcranPrincipalController implements Initializable {
 	
 	@FXML
 	private Label lblNbPersonne;
+
+	@FXML
+	private StackPane paneMsgBoxWinLoose;
 	
 
 	
@@ -281,6 +285,10 @@ public class EcranPrincipalController implements Initializable {
 					fxListeCheval.setVisible(!fxListeCheval.getItems().isEmpty());
 					fxMontantMise.setVisible(fxListeCheval.isVisible());
 					btnValiderMise.setVisible(fxListeCheval.isVisible());
+
+					fxMontantMise.setDisable(!fxListeCheval.isVisible());
+					fxMontantMise.setText("");
+					btnValiderMise.setDisable(!fxListeCheval.isVisible());
 				}
 		);
 
@@ -325,7 +333,7 @@ public class EcranPrincipalController implements Initializable {
 			int idCheval = 0;
 
 			// Récupération du montant misé
-			if (!fxMontantMise.getText().trim().isEmpty()) {
+			if (!fxMontantMise.getText().trim().isEmpty() && fxMontantMise.getText().trim().matches(".*\\d+.*")) {
 				montantMise = Float.valueOf(fxMontantMise.getText());
 			} else {
 
@@ -361,24 +369,45 @@ public class EcranPrincipalController implements Initializable {
 		this.classementPodium = classementPodium;
 		User currentUser = UserService.getInstance().getUser(client.getNom());
 		Pari pari = RaceService.getInstance().getBet(currentUser.getId(), getCourse().getId());
+		String msg;
+		if (null != pari) {
+			float cagnotte = RaceService.getInstance().calculateGains(pari, classementPodium);
+			Platform.runLater(
+					() -> {
+						setLblCagnotte(cagnotte);
+					}
+			);
 
-
-		float cagnotte = RaceService.getInstance().calculateGains(pari, classementPodium);
-		Platform.runLater(
-			() -> {
-				setLblCagnotte(cagnotte);
+			if (RaceService.getInstance().hasWonBet(pari, classementPodium)) {
+				msg = "Vous avez gagn\u00e9 votre pari !";
+			} else {
+				msg = "Dommage, vous avez perdu votre pari !";
 			}
-		);
 
-		if (RaceService.getInstance().hasWonBet(pari, classementPodium)) {
-			//popup
-			System.out.println("GAGNEEEEEEEEEEEEEEEEEE");
-		} else {
-			//popup
-			System.out.println("PERDUUUUUUUUUUUUUUUUUU");
+			Platform.runLater(
+					() -> {
+						this.paneMsgBoxWinLoose.setDisable(false);
+						JFXDialogLayout content = new JFXDialogLayout();
+						content.setHeading(new Text("R\u00e9sultat de la course :"));
+						content.setBody(new Text(msg));
+
+						JFXDialog msgBox = new JFXDialog(this.paneMsgBoxWinLoose, content, JFXDialog.DialogTransition.CENTER);
+
+						JFXButton button = new JFXButton("OK");
+						button.setOnAction(new EventHandler<ActionEvent>() {
+							@Override
+							public void handle(ActionEvent event) {
+								msgBox.close();
+								paneMsgBoxWinLoose.setDisable(true);
+							}
+						});
+						content.setActions(button);
+
+						msgBox.show();
+					}
+			);
+
 		}
-
-
 	}
 
 }
