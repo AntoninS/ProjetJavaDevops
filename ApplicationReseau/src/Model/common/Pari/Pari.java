@@ -24,9 +24,9 @@ public class Pari {
      * Cronstructeur d'un pari
      * @param id
      * @param idUser
-     * @param idCheval
+     * @param idCheval l'id du cheval sur lequel l'utilisateur a parié
      * @param idCourse
-     * @param montant
+     * @param montant le montant misé par l'utilisateur
      */
     public Pari(int id, int idUser, int idCheval, int idCourse, float montant) {
         this.id = id;

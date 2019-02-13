@@ -16,6 +16,7 @@ public class RaceService {
 
     DataBaseService dbs = DataBaseService.getInstance();
 
+    // Singleton pattern
     private static RaceService raceServiceInstance = null;
 
     public RaceService() {
@@ -29,7 +30,10 @@ public class RaceService {
         return raceServiceInstance;
     }
 
-    // récupére l'id de la course
+    /**
+     * Permet de récuperer en BDD l'ID de la dernière course inserée
+     * @return id, id d'une course
+     */
     public int getLastRaceId() {
         int lastRaceId = 0;
         try {
@@ -53,7 +57,10 @@ public class RaceService {
         return lastRaceId;
     }
 
-    //Ajout d'une course
+    /**
+     * PErmet d'inseret une course en BDD
+     * @param id l'id de la course
+     */
     public void insertRace(int id) {
         try {
             Connection con = dbs.getDataBaseConnexion();
@@ -72,7 +79,13 @@ public class RaceService {
         }
     }
 
-    //Insertion de pari
+    /**
+     * Permet d'inserer un pari en BDD
+     * @param idUser l'id de l'utilisateur
+     * @param idHorse l'id du cheval sur lequelle l'utilisateur a parié
+     * @param idRace l'id de la course
+     * @param amount le montant de la mise de l'utilisateur
+     */
     public void insertBet(int idUser, int idHorse, int idRace, float amount) {
         try {
             Connection con = dbs.getDataBaseConnexion();
@@ -91,7 +104,12 @@ public class RaceService {
         }
     }
 
-    //Récuperer le pari
+    /**
+     * Permet de récuperer le pari d'un utilisateur sur une course
+     * @param idUser l'id de l'utilisateur
+     * @param idRace l'id de la course
+     * @return l'objet Pari, null si l'utilisateur n'avait pas parié
+     */
     public Pari getBet(int idUser, int idRace) {
         Pari pari = null;
         try {
@@ -122,7 +140,12 @@ public class RaceService {
         return pari;
     }
 
-    //Si il a gagner le pari
+    /**
+     * Permet de déterminer si un utilisateur a gagné un pari
+     * @param pari
+     * @param classementPodium le classement des 3 premiers chevaux
+     * @return true si le cheval parié est dans le top 3 du classement
+     */
     public boolean hasWonBet(Pari pari, List<Cheval> classementPodium) {
         if (null != pari) {
             int idCheval = pari.getIdCheval();

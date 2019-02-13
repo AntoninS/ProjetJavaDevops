@@ -97,7 +97,6 @@ public class AuthenticationController {
 
     @FXML
     private void verificationConnexion(MouseEvent mouseEvent) throws IOException {
-        //TODO G�rer connexion BDD
         if (mouseEvent.getButton() == MouseButton.PRIMARY) {
             if (this.connexion) {
                 String loginForm = this.loginText.getText().trim();

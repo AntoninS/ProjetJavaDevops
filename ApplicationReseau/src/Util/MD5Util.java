@@ -9,6 +9,11 @@ public class MD5Util {
 
     }
 
+    /**
+     * Permet d'obtenir le hash MD5 d'une String
+     * @param stringToHash
+     * @return
+     */
     public static String getMD5(String stringToHash) {
         MessageDigest md = null;
         String stringHashed = null;
